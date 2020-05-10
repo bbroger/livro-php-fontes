@@ -1,6 +1,6 @@
 # Conteúdo resumido do Repositório do livro
 
-## Criando Aplicativos em PHP
+## Criando Aplicativos em PHP Juntos
 
 ## Idealmente faça o download do repositório
 E instale em seu desktop para testar os exemplos, pois usam PHP e MySQL
