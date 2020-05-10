@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="template" client="site" method="upgrade">
+  <name>tpl_alo</name>
+  <version>1.0</version>
+  <creationDate>Outubro de 2017</creationDate>
+  <author>Ribamar FS</author>
+  <authorEmail>ola@ribafs.org</authorEmail>
+  <copyright>Copyright (C) 2017 Ribamar FS</copyright>
+  <description>Template simples, do tipo alô mundo</description>
+  <files>
+    <filename>index.php</filename>
+  </files>
+</extension>
+

@@ -1,0 +1,31 @@
+https://phpro.org/tutorials/Filtering-Data-with-PHP.html
+http://www.cyberciti.biz/tips/php-security-best-practices-tutorial.html
+http://www.cyberciti.biz/faq/freebsd-install-configure-mod_security/
+https://lifeforms.nl/20140221/install-modsecurity-freebsd/
+http://www.ansoncheunghk.info/article/7-simple-steps-harden-apache-and-php-linux
+https://github.com/SpiderLabs/ModSecurity/wiki/Reference-Manual
+https://github.com/SpiderLabs/owasp-modsecurity-crs
+https://forums.freebsd.org/threads/mod_evasiv.48806/
+https://mbrownnyc.wordpress.com/technology-solutions/create-a-secure-linux-web-server/install-and-configure-mod_evasive-for-apache-2-4-x/
+https://www.cloudways.com/blog/php-security/
+https://www.owasp.org/index.php/OWASP_Cheat_Sheet_Series
+
+FreeBAD
+I came across some pretty interesting blog
+http://techrepublic.com
+
+and I wanted to point out article related to FreeBSD file flags (chflags(1)):
+http://blogs.techrepublic.com.com/security/?p=2868
+ 
+
+fix sysutils/logcheck to security/logcheck
+security/snort
+http://www.cromwell-intl.com/security/security-stack-hardening.html
+http://www.cromwell-intl.com/
+ 
+port knocking:
+http://www.linux.com/learn/tutorials/351079
+security/knock
+http://www.zeroflux.org/projects/knock
+http://taosecurity.blogspot.com/search?q=freebsd
+

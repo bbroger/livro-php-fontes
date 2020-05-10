@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="component" method="upgrade">
+     <name>Alo</name>
+     <author>Ribamar FS</author>
+	<creationDate>Outubro 2017</creationDate>
+     <version>1.0</version>
+     <description>
+		Pequeno componente alô mundo para o site.
+	 </description>
+
+     <files folder="site">
+          <filename component="alo">alo.php</filename>
+     </files>
+</extension>
+

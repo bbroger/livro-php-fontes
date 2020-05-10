@@ -1,0 +1,37 @@
+Remover registros duplicados
+
+Tabela tabela com campos id (PK) e nome (duplicados)
+DELETE a FROM tabela AS a, tabela AS b WHERE a.nome=b.nome AND a.id < b.id
+
+Prepared statments
+https://tableless.com.br/prepared-statements-no-mysql/?utm_source=tablelessRelatedLink
+
+Trocar senha
+mysqladmin --user=root --password=oldpassword password "newpassword"
+
+use mysql;
+UPDATE mysql.user SET Password=PASSWORD('root') WHERE User='root';
+
+Criar outro user super:
+
+use mysql;
+create user 'admin'@'localhost' identified by 'admin';
+GRANT ALL PRIVILEGES ON *.* TO admin@"%" IDENTIFIED BY 'admin' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+Executando comandos pelo terminal
+
+mysql -u root -p -e "create user acl_demo; create database acl_demo; grant all privileges on acl_demo.* to acl_demo;"
+
+Retornar os nomes de todas as tabelas de um banco de dados:
+
+SELECT table_name FROM information_schema.tables where table_schema='nomebanco';
+
+Consultando sem entrar na console:
+mysql -u root -p -vvv -e "SELECT user, host FROM user; SHOW databases" mysql
+
+mysql -u root -p -vvv -e "SELECT * FROM produtos;" estoque
+
+Comentários em scripts SQL
+
+/* ... */

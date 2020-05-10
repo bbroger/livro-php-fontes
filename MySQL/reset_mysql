@@ -1,0 +1,12 @@
+Numa nova instalação do Ubuntu 18.04 ou Mint 19.1
+
+sudo mysql -uroot
+USE mysql;
+UPDATE user SET plugin='mysql_native_password' WHERE User='root';
+UPDATE user SET authentication_string=PASSWORD("root") WHERE User='root';
+FLUSH PRIVILEGES;
+exit;
+
+sudo /etc/init.d/mysql restart
+
+mysql -uroot -proot

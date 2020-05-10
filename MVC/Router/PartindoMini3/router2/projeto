@@ -1,0 +1,28 @@
+Criar uma classe Router
+
+Ao meu ver, em geral o Router é a peça mais complexa de um aplicativo simples que usa MVC com PHP.
+Em minha busca demorada por uma peça de código de Router para usar standalone e usar no mini-framework a maioria não funcionava ou exigia um virtualhost exclusivo. Alguns eram muito complexos. Não encontrei um único simples e funcional. Encontrei alguns pedaços de código que trabalham com a url então decidi criar eu mesmo um e de preferência simples.
+
+Que receba a URL e retorne:
+
+controller
+action
+params
+
+Deve ter os métodos
+add()
+run()
+
+Para que se possa adicionar várias rotas e ao final executar com run após instanciar a classe num index.php
+
+Usar a Router do mini3 ou do mini-framework4br como inspiração
+
+usar composer com psr-4
+
+O padrão de nome de classes de controllers é:
+
+ClientesController
+
+Nome da tabela no plural e CamelCase e todos dentro da pasta src/Controller
+
+

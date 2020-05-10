@@ -1,0 +1,31 @@
+
+display_errors = On
+error_reporting = E_ALL
+output_buffering = On
+
+sudo nano /etc/php/7.3/apache2/php.ini
+
+sudo nano /etc/apache2/apache2.conf
+
+echo "Configurar .htaccess no Apache 2.4 trocando None por All
+
+ServerName localhost
+
+<Directory />
+        Options FollowSymLinks
+        AllowOverride All 
+        Require all denied
+</Directory>
+
+<Directory /usr/share>
+        AllowOverride All 
+        Require all granted
+</Directory>
+
+<Directory /var/www/>
+        Options Indexes FollowSymLinks
+        AllowOverride All 
+        Require all granted
+</Directory>
+
+/etc/init.d/apache2 restart

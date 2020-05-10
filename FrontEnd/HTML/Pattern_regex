@@ -1,0 +1,79 @@
+Country
+pattern="[A-Za-z]{3}"
+
+Password (UpperCase, LowerCase and Number)
+^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$
+
+Password (UpperCase, LowerCase, Number/SpecialChar and min 8 Chars)
+(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$
+
+Username 2-20
+^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$
+
+Phone Number (Format: +99(99)9999-9999)
+[\+]\d{2}[\(]\d{2}[\)]\d{4}[\-]\d{4}
+
+Número com ou sem decimal
+[-+]?[0-9]*[.,]?[0-9]+
+
+ISBN
+(?:(?=.{17}$)97[89][ -](?:[0-9]+[ -]){2}[0-9]+[ -][0-9]|97[89][0-9]{10}|(?=.{13}$)(?:[0-9]+[ -]){2}[0-9]+[ -][0-9Xx]|[0-9]{9}[0-9Xx])
+
+Md5 Hash
+[0-9a-fA-F]{32}
+
+Testar todos com um form assim
+<form action="somefile.php">
+    <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        pattern="[a-z]{1,15}"
+        id="username">
+</form>
+
+<script>
+var input = document.getElementById('username');
+input.oninvalid = function(event) {
+    event.target.setCustomValidity('Username should only contain lowercase letters. e.g. john');
+}
+</script>
+
+Cores hexadecimais
+<input pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" type="text">
+
+<label>Telefone:</label><br />
+    <input type="tel" required placeholder="(88) 88888-8888"
+    pattern="\([0-9]{2}\)[\s][0-9]{5}-[0-9]{4}" title="Numero não confere com o padrão."/><br />
+
+    <label>Data de Nascimento:</label><br/>
+<input type="date" required min="1938-01-01" max="2000-12-31"/><br /><br />
+
+<div class="meter-example">
+    <div>
+        <label for="fuel">Fuel level (high value is good)</label>
+        <meter id="fuel" name="fuel" min="0" max="100" low="33" high="66" optimum="80" value="50">
+            at 50/100
+        </meter>
+    </div>
+    <div>
+        <label for="pressure">Pressure (low value is good)</label>
+        <meter id="pressure" name="pressure" min="0" max="100" low="25" high="75" optimum="20" value="50">
+            is OK
+        </meter>
+    </div>
+</div>
+
+<p><button disabled>Disabled button</button></p>
+
+<p>
+  <button name="submit" type="submit" value="submit-true">
+    Form submit button
+  </button>
+</p>
+
+<p><button accesskey="a">Button with <u>A</u>ccesskey</button></p>
+
+<p><button class="styled">Fancy styled button</button></p>
+
+

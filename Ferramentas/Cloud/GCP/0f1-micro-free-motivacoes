@@ -1,0 +1,60 @@
+Detalhes sobre o f1-micro free do GCP
+
+Cada projeto GCP tem:
+    • um nome, escolhido por você; 
+    • um código do projeto, fornecido por você ou pelo GCP; 
+    • um número do projeto, fornecido pelo GCP. 
+
+Neste exemplo:
+    • Projeto de exemplo é o nome do projeto. 
+    • example-id é o código do projeto. 
+    • 123456789012 é o número do projeto. 
+
+Motivação
+A todo momento temos ideias malucas e naturalmente algumas acabam saindo do papel, gerando sistemas, sites e aplicativos. Na maioria das vezes, não pretendemos ter custos e as aplicações levam um certo tempo até começarem a ser rentáveis.
+Atualmente, você encontra serviços de hospedagem gratuitos na internet, na maioria das vezes de má qualidade e extremamente limitados tecnologicamente. Algumas empresas como Hostinger, Heroku e Openshift fornecem soluções prontas para tecnologias como PHP, Node, Golang, entre outras. São containers pré-configurados com certas limitações de configuração de domínio ou limitações de hardware e tráfego.
+
+Aplicações complexas
+Eu sou o tipo de programador que gosta de misturar diversas tecnologias em um mesmo projeto como Golang, Memcached, Nginx, Spring Boot, Docker, entre outros. Dificilmente encontraria um serviço de container gratuito que atenda todas as minhas necessidades. Nesses casos, é necessário possuir um Virtual Private Server (VPS), uma instância virtual totalmente dedicada onde o desenvolvedor é capaz de instalar qualquer ambiente ou biblioteca necessária.
+
+Em uma rápida busca pela internet, você verá que um servidor VPS com 1 processador e 1 GB de memória pode chegar a mais de 30 reais por mês. Muitas vezes inviável para quem gostaria de hospedar uma pequena ideia e testar um MVP.
+
+Google Cloud
+Em março de 2017, a Google oficializou a cota Always Free do Google Cloud, um plano gratuito que inclui diversos recursos, tais como:
+    • 28 horas diárias na App Engine (PaaS – Plataform as a Service) 
+    • 5 GB de armazenamento 
+    • 1 Instância f1-micro no Computer Engine (IaaS – Infrastructure as a Service) 
+    • Além de 300 dólares de cortesia para gastar com qualquer outro produto do GCloud. 
+Tanto o App Engine quanto o Computer Engine podem ser utilizados para publicar suas aplicações. Porém o foco de hoje será o Computer Engine, o VPS gratuito que estávamos almejando no início do post. Que por sua vez traz muito mais liberdade para personalização do que um container da App Engine.
+Criando meu primeiro servidor
+Primeiramente, é necessário que você se cadastre no Google Cloud através dessa página. É um formulário de cadastro simples, talvez seja necessário possuir um cartão de crédito para finalizar o processo.
+Após finalizar o cadastro, você pode acessar o painel de controle, também conhecido como Console Cloud. O painel é repleto de serviços e funcionalidades, mas o que almejamos é o Computer Engine, que pode ser encontrado no menu lateral.
+
+TIPO
+
+Ao selecionar o tipo micro (1 CPU), verá que uma estimativa de aproximadamente $4 dólares por mês aparecerá, mas você notará também que você possuí 744 horas gratuitas por mês, que é a quantidade de horas de um mês com 31 dias (31 x 24 = 744).
+Recomendo utilizar a distribuição Linux Ubuntu 16.04, que é a última versão LTS disponível. O Ubuntu proporciona uma certa facilidade para configurar e encontrar materiais de referência na internet.
+
+O Google Cloud é extremamente restrito com configurações de rede e autenticação. Diante disso é necessário habilitar o acesso HTTP e HTTPS, na qual irá liberar as portas 80 e 443 doseu servidor, outras portas podem ser liberadas através do menu Rede VPC. Também é possível habilitar chaves SSH para que você possa acessar seu servidor sem utilizar senha. Não é obrigatório, caso queira saber como configurar uma chave SSH na sua máquina, veja esse artigo (https://medium.com/rodrigojimmy-notes/ssh-seguro-e-sem-senha-41ca921fb8d7) do meu xará.
+
+O acesso da máquina é feito via SSH, mas não se preocupe, basta clicar em SSH (Ao lado do IP) que uma janela do navegador irá abrir com um terminal emulado. Caso tenha configurado a chave SSH do seu computador, basta acessar via terminal com o comando ssh <usuario>@<ip>, no meu caso ficaria:
+ssh rodrigo@35.227.37.149
+Ao acessar o terminal verá que é uma máquina Linux tradicional, onde você poderá instalar qualquer coisa com total liberdade. Abaixo irei mostrar um exemplo simples utilizando Nginx.
+
+Executando minha primeira aplicação
+Recomendo você instalar o Docker na sua máquina, ele irá facilitar a publicação e o controle de diversos serviços que serão publicados futuramente. Mas para simplificar nosso tutorial, não iremos utilizá-lo, Um guia para instalar o Docker no Ubuntu 16.04 pode ser encotrado aqui, mas não se preocupe, isso é assunto para outro post.
+Para simplificar, irei instalar o Nginx direto na máquina, sem necessidade do Docker. Para isso basta executar os respectivos comandos:
+sudo apt-get update
+sudo apt-get install -y nginx
+Pronto, basta digital o endereço IP de sua instância no navegador que verá a página de boas vindas do Nginx:
+IP
+
+Dicas adicionais
+Caso tenha um domínio pessoal (ex: www.rodrigobrito.net), você poderá utilizar serviços gratuitos como a Cloud Flare que permite fazer o mapeamento de DNS para o servidor configurado. No entanto não é obrigatório, você pode utilizar o seu servidor para inúmeras finalidades, como rodar algoritmos de machine learning, crawlers sem precisar de um endereço público. Solte sua criatividade e aproveite seu servidor totalmente gratuito.
+Você também pode configurar facilmente um certificado SSL através do Certbot, desta forma você também terá um site servido por HTTPS que é uma maneira segura de trafegar dados pela internet. Já que é de graça, vale o esforço pela segurança dos seus usuários
+Utilize cache em tudo que conseguir. Não se esqueça que a máquina é extremamente limitada. Atualmente sirvo 4 sites 2 duas APIs pequenas em uma instância micro, incluindo este site. Sem a ajuda do Memcached, Redis e Nginx isso não seria possível, então use e abuse de cache.
+Configure a memória SWAP da sua máquina, se os 600MB de memória forem excedidos, o sistema pode usar uma fatia do disco para impedir que seu serve pare de funcionar. Um guia de configuração pode ser encontrado nesse artigo.
+Dúvidas e sugestões? Deixe um comentário.
+https://rodrigobrito.net/gcloud-vps-gratuito/
+
+

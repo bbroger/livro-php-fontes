@@ -1,0 +1,219 @@
+# Conteúdo resumido do Repositório do livro
+
+## Criando Aplicativos em PHP
+
+## Idealmente faça o download do repositório
+E instale em seu desktop para testar os exemplos, pois usam PHP e MySQL
+
+```php
+AJAX
+    add-edit
+    CRUDs
+    datatables
+    datatable-simples
+    datatables_pdopg
+    editablegrid
+    paginacao_simples
+    pdo_crud_datatables2_bs
+    pdo_datatables
+    pdodatatables_bs
+    search_ajax
+    search-live
+Ambiente - 7 scripts
+CMS
+    custom-cms
+    Joomla
+    OpenCart
+    PHP-PDO-CMS
+    WordPress
+Sistemas:
+    Comentários
+    Guestbook
+Ferramentas:
+    Scripts de Bancos
+    Captchas
+        captcha_simples
+        simple-php-captcha
+    Chats
+        chatajax-mysql
+        chatajax-pdo
+        simple-chat
+    Cloud
+        Tutoriais sobre o Google Cloud
+    faker
+    generic-backup
+    mkdocs - criação de documentação
+    pdf_editado
+    php-console
+    phpgeo
+    Run-PHP-Code - Console do PHP
+    ubench
+    Upload
+    web_maker - Console para HTML, CSS e JS
+    browser-detect.html
+    captcha-js.html
+    Extenso.php
+    RedesSociaisOpen.md
+FileManager
+    filemanager-master
+    ListaArqs
+    ListaDir
+    ListaFiles
+    tinyfilemanager-master
+Frameworks
+    FuelPHP
+    Yii
+FrontEnd
+    BootStrap
+    CSS
+    FontesWeb
+    HTML
+    JS
+    SintaxHighLight
+    Templates
+Programação Mobile Híbrida
+    jQueryMobile
+    Phaser
+    PhoneGap
+    Unity3D
+MVC Exemplos
+    ComBD
+        crud-mvc
+        mini-framework
+            customização
+                fw
+                fw_mvc
+                mini-framework2
+                mini-framework3
+                mini-framework4br
+                mini-framework-custom
+                mini-framework-custom2
+                mini-framework-custom3
+                mini-fw-ribafs
+                mini_mvc
+                    mini_mvc
+                    mini_mvc2
+                    mini_mvc3
+                    mini_mvc3a
+                    mini_mvc4
+                    mini_mvc5
+                zMaisRecente
+            mini-framework
+        mvc3
+        mvc_simple
+    mini-framework-mvc-php
+    mvcsimples
+        mvc-simples
+        mvc-simples2
+        mvc-simples-ns-bd1
+        mvc-simples-ns-bd2
+    Router
+        mini-framework-mvc-php
+        mvc-router-inicial
+            mvc_router_inicial
+            mvc_router_inicial2
+            mvc_router_inicial3
+        PartindoMini3
+            router1
+            router2
+            router3
+            router_zero
+        php-mvc
+        php_router
+        rotas
+        Rotas2
+        router
+        router_simple
+        router_simple_oo
+        Routing
+        url_base
+    SemBD
+        fw-4steps
+        mvc
+        mvc1
+45 exemplos de MVC com e sem bd e rotas
+MySQL
+Paginação
+    bootpag
+    bootpag_simple
+    paginacao-bootpag
+    paginacao_exs
+    paginacao_php
+    paginacao_simples
+    paging_search_poo
+PDO
+    CodigosErro
+    Conversao
+    pdo_bs
+    pdo_bs_pag_busca
+    pdo_bs_sempag
+    pdo-crud
+    pdo_crud_ribafs
+    pdo_crud_ribafs3
+    pdo_puro
+PHP
+    agenda_ribafs2
+    app_php
+    crud-pdo
+    crud_php
+    crud-simple-mysqli
+    Email
+    exercicios
+    form
+    Grids
+    Matematica
+    multi-checkbox
+    PHPNovidades
+    sistemas-login
+        login-min-sec
+        login-multi
+        login_multi
+        login-multi-rfs
+        loginOKSemSession
+        loginOKsimples
+        loginOtimo
+        login-reg
+        login-sha512
+        secureloginOK
+    Validation
+    crop_image.php
+PHPOO
+    app_phpoo
+    Classes_funcoes
+    Conceitos
+    crud_oop_puro
+    crud_phpoo
+    crud_phpoo-msgs
+    datatables_bs_pdo
+    datatables-pag
+    DesignPatternsPHP
+    estrut-oo
+        1paginacao-bootpag
+        2crud-estruturado
+        3crud-oo
+        4estoque
+    Exemplos
+    Namespace
+    paging_search_poo
+    pdo-crud-bs2
+    phplib
+    phplib2
+Relatórios
+    fPDF
+    HTMLCSSePHP
+Scaffold
+    auto-app
+    auto-crud2
+    Chrysalis
+Servidores
+    DNS
+    Email
+    Linux
+    PostgreSQL
+    Seguranca
+    ShellScript
+    SSHeSCP
+    VPS
+    Zentyal
+SQLite
+```

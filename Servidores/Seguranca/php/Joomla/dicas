@@ -1,0 +1,7 @@
+Ocultar o meta generator
+
+Editar o index.php do template default e inserir no início
+
+<?php $this->setGenerator(null); ?>
+
+

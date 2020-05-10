@@ -1,0 +1,15 @@
+site_name: Meu Site
+nav:
+    - Home: index.md
+    - Código PHP: php.md
+    - About: about.md
+theme:
+  name: 'rtd-dropdown'
+markdown_extensions:
+    - codehilite:
+            guess_lang: False
+            use_pygments: True
+            noclasses: True
+            linenums: True
+            pygments_style: monokai
+

@@ -1,0 +1,67 @@
+Outros tipos de dados, para outras tabelas:
+
+    $nome = addslashes($faker->name);
+    $email = $faker->email;
+    $nascimento = $faker->date;
+    $cpf = $faker->numberBetween($min = 10000000000, $max = 99999999999);
+    $quantidade = $faker->randomNumber($nbDigits = NULL, $strict = false);
+    $preco_venda = $faker->numberBetween($min = 20, $max = 1200);
+
+randomNumber($nbDigits = NULL, $strict = false) // 79907610
+randomFloat($nbMaxDecimals = NULL, $min = 0, $max = NULL) // 48.8932
+numberBetween($min = 1000, $max = 9000) // 8567
+
+echo $faker->regexify('[sn]').'<br>'; // s ou n
+echo $faker->randomElement($array = array ('s','n'));
+echo $faker->randomLetter;
+echo $faker->regexify('[A-Z]+[a-z]{2,5}'); // 2 a 5 letras
+echo $faker->regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}').'<br>'; // sm0@y8k96a.ej
+echo $faker->randomElement($array = array ('a','b','c')).'<br>'; // 'b'
+print $faker->sentence($nbWords = 3, $variableNbWords = true);
+echo $faker->sentence($nbWords = 6, $variableNbWords = true).'<br>';
+echo $faker->address.'<br>'; // rua, número e cep
+echo $faker->text.'<br>'; // Para grandes quantidades de texto
+echo $faker->sentence($nbWords = 6, $variableNbWords = true).'<br>';
+echo $faker->text($maxNbChars = 200).'<br>';
+echo $faker->title($gender = null|'male'|'female').'<br>';     // 'Ms.'
+echo $faker->name($gender = null|'male'|'female').'<br>';      // 'Dr. Zane Stroman'
+echo $faker->cityPrefix.'<br>';
+echo $faker->state.'<br>';
+echo $faker->stateAbbr.'<br>';
+echo $faker->buildingNumber.'<br>';
+echo $faker->city.'<br>';
+echo $faker->streetName.'<br>';
+echo $faker->streetAddress.'<br>';
+echo $faker->postcode.'<br>';
+echo $faker->country.'<br>';
+echo $faker->PhoneNumber.'<br>';
+echo $faker->company.'<br>';
+echo $faker->date($format = 'Y-m-d', $max = 'now').'<br>';
+echo $faker->time($format = 'H:i:s', $max = 'now').'<br>';
+echo $faker->freeEmail.'<br>';
+echo $faker->password.'<br>';
+echo $faker->domainName.'<br>';
+echo $faker->url.'<br>';
+echo $faker->ipv4.'<br>';
+echo $faker->macAddress.'<br>';
+echo $faker->creditCardType.'<br>';
+echo $faker->creditCardNumber.'<br>';
+echo $faker->creditCardExpirationDateString.'<br>';
+echo $faker->hexcolor.'<br>';
+echo $faker->colorName.'<br>';
+echo $faker->fileExtension.'<br>';
+echo $faker->mimeType.'<br>';
+echo $faker->locale.'<br>';
+echo $faker->countryCode.'<br>';
+echo $faker->randomHtml(2,3).'<br>';
+
+
+function stringGen($length = 4) {
+    $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}

@@ -1,0 +1,31 @@
+Para que novos diretórios herdem o grupo do atual, no caso /backup/www, que tem como grupo o www-data
+
+sudo chmod g+rwxs -R /backup/www
+sudo chmod u+rwxs -R /backup/www
+sudo chmod o+t -R /backup/www
+sudo chmod -R u=rwx,g=rwx,a+s /backup/www/
+
+sudo find /backup/www -type d -exec chmod g+s '{}' \;
+
+sudo find /backup/www -type d -exec chmod 2775 {} \;
+sudo find /backup/www -type f -exec chmod 2664 {} \;
+
+Limpar
+sudo chmod -R a-s /backup/www/
+
+chmod -t
+
+Assim todos os novos arquivos e diretórios copiados para /backup/www já chegam com o grupo www-data
+
+Só funciona copiando e colando.
+Movendo não leva o grupo www-data
+
+sudo setfacl -Rdm g:www-data:rwx /backup/www/
+sudo setfacl -Rm g:www-data:rwx /backup/www/
+
+I typically use SAMBA's native functionality for permissions and groups management on shares. For example..
+
+force user=ribafs
+force group=www-data
+create mask=775
+

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <title>CSS Website Layout</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="layout.css">
+</head>
+<body>
+
+    <div class="header">
+      <h1>Cabeçalho</h1>
+    </div>
+
+    <nav class="menu">
+        <ul>
+            <li><a href="#">The Flight</a></li>
+            <li><a href="#">The City</a></li>
+            <li><a href="#">The Island</a></li>
+            <li><a href="#">The Food</a></li>
+        </ul>
+    </nav>
+
+    <div id="container">
+        <section id="left">
+            <h2>Esquerda</h2>
+        </section>
+
+        <section id="main_content">
+            <h2>Principal</h2>
+<p>Não ter um <b>layout</b> pode parecer aceitável se tudo o que você queira seja apenas uma coluna de conteúdo. Mesmo assim, se um usuário estiver utilizando o navegador expandido em uma tela muita larga, isso se torna ruim para ler: depois de cada linha seus olhos percorrem uma longa distancia até o início da próxima linha. Redimensione a janela do seu navegador para entender o que estou dizendo!</p>
+<p>Cada elemento possui um tipo padrão de <b>display</b>. No entanto, você sempre poderá substituí-los! Embora não faça sentido uma div no modo de linha, você pode fazer isso para personalizar a visualização de elementos com semânticas particulares. Um exemplo comum é aplicar display:inline no elemento li para menus horizontais. (https://pt-br.learnlayout.com/display.html)</p>
+<p>O <b>Float</b> serve pra quebrar o texto ao redor de imagens, como isso:
+<pre>
+img {
+  float: right;
+  margin: 0 0 1em 1em;
+}
+</pre>
+</p>
+<p>O Float é uma propriedade que faz o objeto flutuar à esquerda ou à direita do restante do conteúdo. Se quisermos o menu à esquerda e o conteúdo à direita, o que os desenvolvedores geralmente fazem é:<br>
+.menu { float: left; width: 30%; }<br>
+.conteudo { float: right; width: 60%; }</p>
+        </section>
+
+        <section id="right">
+            <h2>Direita</h2>
+        </section>
+
+        <footer>
+            <h2 align="center">Rodapé</h2>
+        </footer>
+    </div>
+
+</body>
+</html>
+

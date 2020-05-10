@@ -1,0 +1,246 @@
+
+
+== query($sql) - Executa uma consulta. Requer outros comandos para ser mais útil
+
+Exemplo1 (array):
+
+	$sql = 'SELECT id,nome FROM clientes';
+	$pdo = new Db;
+	$cols = $pdo->query($sql);
+	$cols->fetch();
+
+	foreach($cols as $chave=>$col){
+		print $col['id'] .' - '.$col['nome'].'<br>';
+	}
+
+Exemplo2 (objeto):
+
+	$sql = 'SELECT id,nome FROM clientes';
+	$pdo = new Db;
+	$cols = $pdo->query($sql);
+	$cols->fetch(PDO::FETCH_OBJ);
+
+	foreach($cols as $chave=>$col){
+		print $col->id .' - '.$col->nome.'<br>';
+	}
+
+
+== rowCount($sql) - Retorna a quantidade de registros de uma consulta
+
+Exemplo:
+
+	$sql = 'SELECT id,nome FROM clientes';
+	$pdo = new Db;
+	print $pdo->rowCount($sql);
+
+
+== escape($str) - Escapa uma string str
+
+Exemplo
+
+	$str = "Estrela d'alva";
+	$pdo = new Db;
+	print $pdo->escape($str);
+
+== select($sql) - Retorna os registros da consulta sql em forma de array
+
+Exemplo
+
+	$sql = 'SELECT id,nome FROM clientes';
+	$pdo = new Db;
+	$rows = $pdo->select($sql);
+
+	foreach($rows as $row){
+		print $row['id'].'-'.$row['nome'].'<br>';
+	}
+
+== update($strSql,$strUpd) - Atualiza registros pela consulta
+
+Exemplo
+
+	$id=1;
+	$nome='QuatroRibamar';
+	$email='qua@qua.com';
+	$cpf='44444444444';
+	$data_nasc='2001-04-06';
+
+	$sql = "UPDATE clientes SET nome=:nome,email=:email,cpf=:cpf,data_nasc=:data_nasc WHERE id=:id";
+	$upd = array(':id'=>$id,':nome'=>$nome,':email'=>$email,':cpf'=>$cpf,':data_nasc'=>$data_nasc);
+
+	$pdo = new Db;
+	$rows = $pdo->update($sql,$upd);
+
+== insert($strSql,$strIns) - Insere um registro
+
+Exemplo
+
+	$nome='RibaClass';
+	$email='qua@qua.com';
+	$cpf='44444444444';
+	$data_nasc='2001-04-06';
+
+	$sql = "INSERT INTO clientes SET nome=:nome,email=:email,cpf=:cpf,data_nasc=:data_nasc";
+	$ins = array(':nome'=>$nome,':email'=>$email,':cpf'=>$cpf,':data_nasc'=>$data_nasc);
+
+	$pdo = new Db;
+	$rows = $pdo->insert($sql,$ins);
+
+== delete($id,$sql,$del)
+
+Exemplo:
+
+	$id=102;
+	$sql="DELETE FROM clientes WHERE id=:id";
+	$del = array(':id'=>$id);
+	$pdo = new Db;
+	$rows = $pdo->delete($id,$sql,$del);
+
+== getCharset()
+
+Exemplo:
+
+	$pdo = new Db;
+	print $pdo->getCharset();
+
+== setCharset()
+
+Exemplo:
+
+	$pdo = new Db;
+	$pdo->setCharset();
+
+== oneReg($sql) - fetch_array - Retornar um único registro como array - ASSOC
+
+Exemplo:
+
+	$sql = 'SELECT nome, email FROM clientes WHERE id=6';
+	$pdo = new Db;
+	$ret = $pdo->oneReg($sql);
+	print $ret['nome'].'-'.$ret['email'];
+
+== allRegs($sql) - Retornar todos os registros em forma de array com fetchAll
+
+Exemplo:
+
+	$sql = 'SELECT * FROM clientes';
+	$pdo = new Db;
+	$rows = $pdo->allRegs($sql);
+	foreach($rows as $row){
+		print $row['nome'].'-'.$row['email'].'<br>';
+	}
+
+== fieldType($table, $fldName) - Retorna tipo de um campo
+
+Exemplo:
+
+	$table = 'clientes';
+	$field = 'id';
+	$pdo = new Db;
+	$type = $pdo->fieldType($table,$field);
+	print $type['Type'];
+
+== fieldName($sql,$nr)
+
+Exemplo:
+
+	$sql = 'SELECT * FROM clientes';
+	$nr=0; // Segundo campo
+	$pdo = new Db;
+	$name = $pdo->fieldName($sql,$nr);
+	print $name;
+
+== fieldLen($table,$fldName)
+
+Exemplo:
+
+	$fd = new Db;
+	$c = $fd->fieldLen('despesas','descricao');
+	print $c;
+
+== primaryKey($table)
+
+Exemplo:
+
+	$table = 'clientes';
+	$pdo = new Db;
+	$p = $pdo->pk($table);
+	print $p;
+
+== foreignKey($table)
+
+Exemplo:
+
+	$table = 'pedidos';
+	$pdo = new Db;
+	print $pdo->foreignKey($table);
+	//Retorna todas as chaves estrangeiras da $table
+
+== notNull($table)
+
+$r = new Db;
+$flds = $r->notNull('poupancas');
+
+foreach($flds as $key => $value){
+	print $key.'<br>';
+}
+
+== fieldsCount($sql)
+
+Exemplo:
+
+	$sql = 'SELECT * FROM clientes';
+	$pdo = new Db;
+	print $pdo->fieldsCount($sql);
+
+== tableNames()
+
+Exemplo:
+
+	$pdo = new Db;
+	$tables = $pdo->tableNames();
+
+	foreach($tables as $table){
+		print $table.'<br>';
+	}
+
+
+== combo($sql,$fldStore, $fldDisplay, $selected)
+
+Exemplo:
+
+	$c = new Db;
+
+	$selected = 15;
+	$store='id';
+	$display='nome';
+	$sql='select * from clientes';
+	print '<select name="clientes">';
+	print $c->combo($sql,$store, $display, $selected);// tabela, mostrado, armazenado, selecionado
+	print '</select>';
+
+
+
+Rotinas úteis para PDO
+
+//fetch_object
+$query = "SELECT nome, email FROM clientes";
+
+if ($result = $pdo->query($query)) {
+    while ($obj = $result->fetchObject()) {
+        printf ("%s (%s)<br>\n", $obj->nome, $obj->email);
+    }
+    $result->close();
+}
+
+
+// fetch_row - fetch (retorna um único registro)
+$sql = "SELECT nome, email FROM clientes";
+$sth = $pdo->prepare($sql);
+$sth->execute();
+$result = $sth->fetch(PDO::FETCH_ASSOC);
+print $result['nome'].'-'.$result['email'];
+
+Ou
+$result = $sth->fetch(PDO::FETCH_OBJ);
+print $result->nome.'-'.$result->email;
+

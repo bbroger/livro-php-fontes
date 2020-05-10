@@ -1,0 +1,264 @@
+Tutorial sobre criação de sites estáticos usando o MkDocs
+
+https://www.mkdocs.org/
+
+MkDocs é um gerador de site estático rápido, simples e francamente lindo que é voltado para a documentação do projetos. Os arquivos de origem da documentação são gravados no Markdown e configurados com um único arquivo de configuração YAML e ele gera/build um site em HTML e cia.
+
+O MkDocs é um gerador de site estático minimalista e muito simples de usar.
+
+Instalação no Linux Mint (19.1):
+
+sudo apt install python-pip
+sudo pip install --upgrade pip
+
+Baixar
+wget https://bootstrap.pypa.io/get-pip.py
+
+sudo python get-pip.py
+sudo pip install mkdocs
+
+mkdocs --version
+
+
+Criar projeto
+
+mkdocs new nomeProjeto
+mkdocs new ead-api
+
+O comando acima criou a estrutura:
+
+mkdocs.yml
+/docs/
+    index.md
+
+
+Abrir no navegador
+
+cd ead-api
+mkdocs serve
+
+http://127.0.0.1:8000/
+
+
+Customizações
+
+Edite o 
+mkdocs.yml
+
+E altere a vontade.
+
+Veja aqui configurações:
+https://www.mkdocs.org/user-guide/configuration/#pages
+
+
+Adicionar uma segunda página
+
+Vamos usar uma pronta:
+curl 'https://jaspervdj.be/lorem-markdownum/markdown.txt' > docs/about.md
+Mas podemos usar qualquer outra ou criar uma nossa manualmente usando markdown
+
+Edite o mkdocs.yml e adicione a página about.md:
+
+site_name: MkLorum
+nav:
+    - Home: index.md
+    - About: about.md
+
+
+Adicionando tema personalizado
+https://www.mkdocs.org/user-guide/configuration/#theme
+
+Editar mkdocs.yml e adicionar:
+
+theme: readthedocs
+
+Para que fique assim:
+
+site_name: Meu Site
+nav:
+    - Home: index.md
+    - About: about.md
+theme: readthedocs
+
+Temas disponíveis: readthedocs, mkdoc
+
+
+Instalando um tema de terceiros
+
+Material dark theme
+
+Este foi o tema que melhor mostrou os números de linhas comigo
+
+sudo pip install mkdocs-material
+
+Alterar no mkdocs.yml
+
+theme:
+  name: material
+
+mkdocs serve
+
+Voltando para o readthedocs tive o melhor layout para mim, mas com o material instalado.
+
+theme:
+  name: readthedocs
+
+mkdocs serve
+
+Outros temas
+https://sphinx-themes.org/
+https://mkdocs.readthedocs.io/en/stable/user-guide/custom-themes/
+https://neps.in/setup-disqus-commenting-plugin-for-readthedocs-theme-with-mkdocs.html
+
+
+Efetuando um build/gerar HTML:
+
+Configurações
+https://www.mkdocs.org/user-guide/configuration/#docs_dir
+
+Depois de tudo pronto vamos publicar nosso site no formato HTML na pasta site:
+
+mkdocs build
+
+A pasta site contém:
+
+/about
+/css
+/fonts
+/img
+/js
+/search
+404.html
+index.html
+search.html
+sitemap.xml
+sitemap.xml.gz
+
+
+Testando o site criado
+
+Após o build os links não funcionam bem localmente chamando diretamente com aed-api/site, apenas copiando a pasta site para o diretório web e chamando com
+http://localhost/site
+
+Após o build podemos editar os arquivos html, css e javascript para customizar antes de enviar para o servidor.
+
+
+
+Outros comandos
+
+Limpando um build anterior
+mkdocs build --clean
+
+mkdocs --help
+
+mkdocs build --help
+
+
+Temas antivos
+
+Temas nativos:
+
+theme:
+    name: readthedocs
+    highlightjs: true
+    hljs_languages:
+        - yaml
+        - rust
+
+Temas de terceiros
+https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes
+
+
+Extensões
+
+Extensões
+https://facelessuser.github.io/pymdown-extensions/
+https://facelessuser.github.io/pymdown-extensions/extensions/highlight/
+
+HighLight de código
+
+markdown_extensions:
+    - codehilite:
+            guess_lang: False
+            use_pygments: True
+            noclasses: True
+            linenums: True
+            pygments_style: monokai
+
+Com o server ativo, após alguma alteração no mkdocs.yml ele já atualiza sem precisar de refresh
+
+
+Plugins
+
+https://www.mkdocs.org/user-guide/plugins/
+https://github.com/mkdocs/mkdocs/wiki/MkDocs-Plugins
+
+
+Usando imagens
+
+Imagens
+
+A pasta fica dentro da docs
+
+docs/
+    img/
+        riba.png
+
+site_name: Meu Site
+nav:
+    - Home: index.md
+    - Código PHP: php.md
+    - About: about.md
+theme:
+  name: 'rtd-dropdown'
+markdown_extensions:
+    - codehilite:
+            guess_lang: False
+            use_pygments: True
+            noclasses: True
+            linenums: True
+            pygments_style: monokai
+
+Link para a imagem num arquivo .md:
+
+![RibaFS](img/riba.png)
+![RibaFS](../img/riba.png)
+
+
+Referências
+
+Markdown Cheatsheet
+https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+
+Mais detalhes
+http://daringfireball.net/projects/markdown/
+http://github.github.com/github-flavored-markdown/
+
+Editor online de markdown
+https://stackedit.io/app
+
+Editor offline
+http://pad.haroopress.com/user.html
+
+
+Finalmente meu
+mkdocs.yml ficou assim:
+
+site_name: EAD-API
+nav:
+    - Home: index.md
+    - MySQL: mysql.md
+    - MongoDB: mongodb.md
+    - PHP: php.md
+    - Sobre o EAD-API: about.md
+theme:
+    #readthedocs
+    name: readthedocs
+markdown_extensions:
+    - codehilite:
+            guess_lang: False
+            use_pygments: True
+            noclasses: True
+            linenums: True
+            pygments_style: monokai
+

@@ -1,0 +1,18 @@
+<?php
+
+return array(
+    // how many spaces to use for indention, 0 will make it use real tabs
+    'tabsize' => 4,
+
+    // whitelist of IPs which don't need to be authenticated
+    // use '*' to allow any IP
+    'ip_whitelist' => array('127.0.0.1', '::1'),
+
+    // bootstrap file, if defined this file will be included before
+    // the code entered by the user is evaluated. any variables and classes
+    // defined here will be accessible by the eval'd code
+    'bootstrap' => null,
+
+    // maximun execution time for melody scripts
+    'melody_timeout' => 600,    
+);

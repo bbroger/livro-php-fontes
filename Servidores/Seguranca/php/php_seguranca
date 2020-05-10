@@ -1,0 +1,47 @@
+Segurança do PHP
+
+Filtrar todas as entradas e escapar as saídas
+Não confiar nos cookies.  Não usar em áreas sensíveis de aplicativos
+
+Limitar non banco os privilégios de cada usuário da aplicação
+
+Evite acesso remoto ao banco. Se permitir filtre o IP
+
+Preferir usar PDO para interagir com bancos
+E sempre usar prepared statments nas consultas
+
+Não deixar arquivo de configuração do banco de dados no raiz
+
+Não fechar o php ao final do arquivo, caso esteja usando somente PHP no mesmo.
+Fechar somente se estiver misturando HTML com PHP
+
+Usar sempre HTTPS. Se num VPS use o lets encrypt - https://letsencrypt.org/
+
+Usar password_hash() para proteger as senhas. Não requer definição de salt. Usar bluefish por padrão
+
+Validate e Sanitize
+
+filter_var()
+
+
+Cuidado Injeção CSS 
+Arquivos CSS que contenham 
+expression()
+url()
+metodos específicos
+
+Usar token em forms e se possível controlar pelo IP
+
+Tools
+https://beefproject.com/
+https://chrome.google.com/webstore/detail/bishop-vulnerability-scan/cbkdeoaaclnbidadjimofnhpbfhjakoe
+http://sqlmap.org/
+https://webgoat.github.io/WebGoat/
+
+Monitorar logs
+Manter php atualizado
+Use frameworks
+Cuide da segurança física dos servidores
+
+Cuidar das permissões do sistema de arquivos
+

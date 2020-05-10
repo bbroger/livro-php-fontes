@@ -1,0 +1,2 @@
+Um cliente te manda um desenho de como deseja o layout do seu site
+Então você deve criar o layout com o CSS

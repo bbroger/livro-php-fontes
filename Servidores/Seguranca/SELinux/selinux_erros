@@ -1,0 +1,11 @@
+http://www.serverlab.ca/tutorials/linux/administration-linux/troubleshooting-selinux-centos-red-hat/
+
+tail -f /var/log/audit/audit.log
+
+Instalar
+yum install setroubleshoot setools
+
+Usar a ferramenta sealerts
+sealert -a /var/log/audit/audit.log
+
+

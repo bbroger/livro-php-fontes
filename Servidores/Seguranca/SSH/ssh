@@ -1,0 +1,16 @@
+A IANA - Internet Assigned Numbers Authority é responsável pela coordenação global da DNS Root, endereçamento IP e outros recursos de protocolo da Internet. É uma boa prática seguir suas diretrizes de atribuição de portas. Dito isto, os números das portas são divididos em três intervalos: 
+
+portas bem conhecidas - As Portos bem conhecidos são aqueles de 0 a 1023 e NÃO DEVEM ser usados
+portas registradas - Portas registradas são de 1024 a 49151 também devem ser evitadas também
+portas dinâmicas e / ou privadas - As portas dinâmicas e / ou privadas são de 49152 a 65535 e devem ser usadas. 
+
+Embora nada o impede de usar números de portas reservados, nossa sugestão é que para evitar problemas técnicos com a alocação de portas no futuro.
+
+Crédito - http://linuxlookup.com/howto/change_default_ssh_port
+Tradução livre com o Google Translate
+
+Permitir login do root sem senha
+PermitRootLogin without-password
+
+Permitir outros usuários
+AllowUsers ribafs

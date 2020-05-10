@@ -1,0 +1,57 @@
+sudo nano /etc/apache2/apache2.conf
+
+ServerName localhost
+
+Mudar as ocorrenciasn de 
+AllowOverride none
+Para
+AllowOverride All
+
+sudo service apache2 restart
+
+== Configurar mysql para resetar senha root. Mas antes testar se já funciona normalmente
+
+sudo mysql -uroot
+USE mysql;
+UPDATE user SET plugin='mysql_native_password' WHERE User='root';
+UPDATE user SET authentication_string=PASSWORD("senhaforte") WHERE User='root';
+FLUSH PRIVILEGES;
+exit;
+
+sudo service mysql restart
+mysql -uroot -psenhaforte
+
+Executar
+
+mysql_secure_installation
+
+== Criar senha do postgres e liberar acesso no pg_hba
+sudo su
+su - postgres
+psql
+alter role postgres password 'senhaforte';
+\q
+exit
+nano /etc/postgresql/11/main/pg_hba.conf
+
+Mudar 
+local   all             postgres                                peer
+
+Para
+local   all             postgres                                md5
+
+service postgresql restart
+
+Desabilitar o postgresql no boot, caso não vá usar agora
+
+sudo systemctl disable postgresql
+
+== Instalar nodejs 12
+
+OBS: Instale somente se for usar
+
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt install -y nodejs
+
+
+

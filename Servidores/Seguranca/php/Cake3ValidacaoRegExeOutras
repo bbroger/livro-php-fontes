@@ -1,0 +1,205 @@
+Validação no CakePHP 3 com regex
+
+No frontend - formHelper
+            <?= $this->Form->input('password',['label'=>'Senha', 'class'=>'col4', 'pattern'=>'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$', 'minlenght'=>8, 'title'=>'Favor digitar uma senha com pelo menos 8 dígitos, sendo pelo menos 1 algarismo, um minúsculo, um maiúsculo e um símbolo']) ?>
+
+
+        $validator
+            ->scalar('username')
+            //->maxLength('username', 55)
+            ->requirePresence('username', 'create')
+            ->allowEmptyString('username', false)
+            ->add('username', 'unique', ['rule' => 'validateUnique', 'provider' => 'table'])
+            ->add('username', 'validFormat',[
+                    'rule' => ['custom', '/^([a-z]{6,8})$/i'],
+                    'message' => 'Somente minúsculas e com 6 a 8 letras.'
+            ]);
+
+        $validator
+            ->scalar('password')
+            ->maxLength('password', 55)
+            ->requirePresence('password', 'create')
+            ->allowEmptyString('password', false)
+            ->add('password', 'validFormat',[
+                    'rule' => ['custom', '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i'],
+                    'message' => 'No mínimo 8 dígitos, sendo pelo menos uma minúscula, uma maiúscula e um símbolo.'
+            ]);
+
+
+public function validationDefault(Validator $validator)
+{        
+    $validator
+        ->requirePresence('username')
+        ->notEmpty('username', 'A username is required.')
+        ->alphaNumeric('username', 'A username must be alphanumeric.')  
+        ->add('username', 'validChars',[ 
+            'rule' => function ($value, $context) {
+                return !preg_match('/[0-9]/', $value); //Return true if no number is present in the value     
+            },
+            'message' => 'Excepts anything except a number.'
+        ]) 
+        ->requirePresence('password')
+        ->notEmpty('password', 'A password is required.');
+
+        return $validator;
+}
+
+$validator = new Validator();
+$validator
+    ->email('username')
+    ->ascii('username')
+    ->lengthBetween('username', [4, 8]);
+
+$validator
+        ->notEmpty('sl_no')
+        ->add('reg_no', 'validFormat',[
+                'rule' => ['custom', '/^([ABCD]{2,2}[0-9]{4,4})$/i'],
+                'message' => 'Please enter a valid serial number.'
+        ]);
+
+'Phone' => array(
+	'rule' => array(
+	'rule'    => '/^[0-9 ]+$/',
+	'message' => 'Numbers are only allowed..!',
+	),
+)
+
+regex( string $field , string $regex , string|null $message null , string|callable|null $when null ) 
+
+Cake 2
+'Phone' => [
+	'rule' => [
+	'rule'    => '/^[0-9 ]+$/',
+	'message' => 'Numbers are only allowed..!',
+	],
+]
+
+public $validate = array(
+    'login' => array(
+        'rule' => '/^[a-z0-9]{3,}$/i',
+        'message' => 'Only letters and integers, min 3 characters'
+    )
+);
+
+public $validate = [
+    'login' => [
+        'rule'    => '/^([a-z]{6,8})$/i',
+        'message' => 'Somente letras minúsculas e inteiros, mínimo de 3 caracteres'
+    ]
+];
+
+Outro:
+		'mes' => array(
+			'soalgarismos' => array(
+				'rule' => array('custom', '/[0-9\/]{7,7}$/i'),
+				'message' => 'Apenas algarismos e a barra, exatamente 7 caracteres'
+			),
+		),
+
+    public function alphaNumericDashUnderscore($check) {
+        // $data array is passed using the form field name as the key
+        // have to extract the value to make the function generic
+        $value = array_values($check);
+        $value = $value[0];
+
+        return preg_match('|^[0-9a-zA-Z_-]*$|', $value);
+    }
+
+Validação de telefone (falta testar)
+
+'fone' => [
+        'rule' => array('isValidBRFoneFormat')
+    ],
+
+// Formatos aceitos: (99) 99999-9999 e (99) 9999-9999
+
+ /*isValidBRFoneFormat() - Custom method to validate US Phone Number
+ * @params Int $phone
+ */
+ function isValidBRFoneFormat($phone){
+ $fone=$fone['fone'];
+ $errors = array();
+    if(empty($fone)) {
+        $errors [] = "Favor entrar um tenefone válido";
+    }
+    else if (!preg_match('/^(\(11\) [9][0-9]{4}-[0-9]{4})|(\(1[2-9]\) [5-9][0-9]{3}-[0-9]{4})|(\([2-9][1-9]\) [5-9][0-9]{3}-[0-9]{4})$/', $fone)) {
+        $errors [] = "Favor entrar um tenefone válido";
+    } 
+
+    if (!empty($errors))
+    return implode("\n", $errors);
+
+    return true;
+}
+
+Sugestão para lista    
+
+    public function validationDefault(Validator $validator)
+    {
+        return $validator
+            ->notEmpty('first_name', 'A username is required')
+            ->notEmpty('last_name', 'A username is required')
+            ->notEmpty('email', 'A username is required')
+            ->notEmpty('username', 'A username is required')
+            ->notEmpty('password', 'A username is required')
+            ->add('role', 'inList', [
+                'rule' => ['inList', ['Employer', 'Job Seeker']],
+                'message' => 'Please enter a valid role'
+            ]);
+    }
+
+minLength
+
+$validator
+    ->requirePresence('title')
+    ->notEmpty('title', 'Please fill this field')
+    ->add('title', [
+        'length' => [
+            'rule' => ['minLength', 10],
+            'message' => 'Titles need to be at least 10 characters long',
+        ]
+    ])
+
+$validator->add('length', 'custom', [
+    'rule' => function ($value, $context) {
+        if (!$value) {
+            return false;
+        }
+
+        if ($value < 10) {
+            return 'Error message when value is less than 10';
+        }
+
+        if ($value > 20) {
+            return 'Error message when value is greater than 20';
+        }
+
+        return true;
+    },
+    'message' => 'Generic error message used when `false` is returned'
+]);
+
+$validator = new Validator();
+$validator
+    ->add('body', [
+        'minLength' => [
+            'rule' => ['minLength', 10],
+            'last' => true,
+            'message' => 'Comments must have a substantial body.'
+        ],
+        'maxLength' => [
+            'rule' => ['maxLength', 250],
+            'message' => 'Comments cannot be too long.'
+        ]
+    ]);
+
+$validator = new Validator();
+$validator
+    ->add('title', 'minLength', [
+        'rule' => ['minLength', 10]
+    ])
+    ->add('rating', 'validValue', [
+        'rule' => ['range', 1, 5]
+    ]);
+
+

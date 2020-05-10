@@ -1,0 +1,195 @@
+Add a Token to a Form
+(Chapter 2, Forms and URLs - Pg 28)
+
+<?php
+
+session_start();
+$token = md5(uniqid(rand(), TRUE));
+$_SESSION['token'] = $token;
+$_SESSION['token_time'] = time();
+
+?>
+
+<form action="buy.php" method="POST">
+<input type="hidden" name="token" value="<?php echo $token; ?>" />
+<p>
+Item:
+<select name="item">
+    <option name="pen">pen</option>
+    <option name="pencil">pencil</option>
+</select><br />
+Quantity: <input type="text" name="quantity" /><br />
+<input type="submit" value="Buy" />
+</p>
+</form>
+
+
+//Check a Token in a Form
+
+<?php
+
+if (isset($_SESSION['token']) && $_POST['token'] == $_SESSION['token'])
+{
+    /* Valid Token */
+}
+
+$token_age = time() - $_SESSION['token_time'];
+
+if ($token_age <= 300)
+{
+    /* Less than five minutes has passed. */
+}
+
+?>
+
+
+$formName = "signin"; // name of the form 
+$ip       = get_ip(); // create a function to get the ip of the user
+$salt     = "8077_(-(àyhvboyr(à"; // uniq secret salt
+$token    = md5(sha1($salt.$ip).sha1($salt.$formName));
+
+...
+
+if(empty($_COOKIE['token'])){ // if(empty($_SESSION['token'])){ 
+
+    setcookie("token",$token, time()+3600*1); // use with cookie // time()+3600*1 = now + 1 hour
+    $_SESSION['token'] = $token; // OR use with session
+
+}else{
+
+    // when the form is submit regenerate the token and compare with the request token
+    if($_COOKIE['token'] == $token){ // OR if($_SESSION['token'] == $token){
+       // request from server - ok
+       // ...
+    }else{
+        // bad request
+        setcookie("token",0); // destruct cookie
+        $_SESSION['token'] = "";  // OR destruct session
+        // redirect at the first form
+    }
+}
+
+
+<form>
+    // if you want use the token directly in your form, add this :
+    <input type="hidden" name="token" value="<?php echo $token ?>" />
+</form>
+
+
+
+<?php
+/**
+ * In this case, we want to increase the default cost for BCRYPT to 12.
+ * Note that we also switched to BCRYPT, which will always be 60 characters.
+ */
+$options = [
+    'cost' => 12,
+];
+echo password_hash("rasmuslerdorf", PASSWORD_BCRYPT, $options);
+?>
+
+
+<?php
+/**
+ * Note that the salt here is randomly generated.
+ * Never use a static salt or one that is not randomly generated.
+ *
+ * For the VAST majority of use-cases, let password_hash generate the salt randomly for you
+ */
+$options = [
+    'cost' => 11,
+    'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
+];
+echo password_hash("rasmuslerdorf", PASSWORD_BCRYPT, $options);
+?>
+
+
+Exemplo de busca de um bom custo para password_hash()
+<?php
+/**
+ * This code will benchmark your server to determine how high of a cost you can
+ * afford. You want to set the highest cost that you can without slowing down
+ * you server too much. 8-10 is a good baseline, and more is good if your servers
+ * are fast enough. The code below aims for ≤ 50 milliseconds stretching time,
+ * which is a good baseline for systems handling interactive logins.
+ */
+$timeTarget = 0.05; // 50 milliseconds 
+
+$cost = 8;
+do {
+    $cost++;
+    $start = microtime(true);
+    password_hash("test", PASSWORD_BCRYPT, ["cost" => $cost]);
+    $end = microtime(true);
+} while (($end - $start) < $timeTarget);
+
+echo "Appropriate Cost Found: " . $cost;
+?>
+
+Criptografar e descriptografar bcrypt online
+https://bcrypt-generator.com/
+
+=======
+session_start();
+
+function generateFormToken($form) {
+    
+       // generate a token from an unique value
+    	$token = md5(uniqid(microtime(), true));  
+    	
+    	// Write the generated token to the session variable to check it against the hidden field when the form is sent
+    	$_SESSION[$form.'_token'] = $token; 
+    	
+    	return $token;
+
+}
+
+<?php
+   // generate a new token for the $_SESSION superglobal and put them in a hidden field
+   $newToken = generateFormToken('form1');   
+?>
+
+<input type="hidden" name="token" value="<?php echo $newToken; ?>">
+
+
+function verifyFormToken($form) {
+    
+    // check if a session is started and a token is transmitted, if not return an error
+	if(!isset($_SESSION[$form.'_token'])) { 
+		return false;
+    }
+	
+	// check if the form is sent with token in it
+	if(!isset($_POST['token'])) {
+		return false;
+    }
+	
+	// compare the tokens against each other if they are still the same
+	if ($_SESSION[$form.'_token'] !== $_POST['token']) {
+		return false;
+    }
+	
+	return true;
+}
+
+if (verifyFormToken('form1')) {
+
+   // ... more security testing
+   // if pass, send email
+
+} else {
+   
+   echo "Hack-Attempt detected. Got ya!.";
+   writeLog('Formtoken');
+
+}
+
+// Lets check the URL whether it's a real URL or not. if not, stop the script
+if(!filter_var($_POST['URL-main'],FILTER_VALIDATE_URL)) {
+   writeLog('URL Validation');
+   die('Please insert a valid URL');
+}
+
+Tutorial sobre o JSON Web Token
+https://imasters.com.br/back-end/entendendo-o-jwt
+

@@ -1,0 +1,47 @@
+Quem prcisa de classes?
+
+Podemos criar as nossas próprias tags/elementos no HTML e tratar no CSS.
+
+Experimente
+
+<ribafs>
+    <p>Ribamar FS</p>
+</ribafs>
+
+<style>
+    ribafs{
+        font-size: 36px;
+        color: red;
+    }
+</style>
+
+<sea>
+<crustacean class="crab">Shane</crustacean>
+<crustacean class="lobster">Martin</crustacean>
+</sea>
+
+<style>
+
+sea {
+   background:black;
+}
+
+crustacean {
+   width:200px;
+   height:200px;
+   border:2px solid;
+   text-align:center;
+   color:white;
+}
+
+.crab {
+   color: blue;
+}
+
+.lobster {
+   color: green;
+}
+
+</style>
+
+

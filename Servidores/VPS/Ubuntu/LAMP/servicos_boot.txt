@@ -1,0 +1,71 @@
+How to Enable or Disable Services in Ubuntu Systemd/Upstart
+Updated October 29, 2018LINUX HOWTO
+https://linoxide.com/linux-how-to/enable-disable-services-ubuntu-systemd-upstart/
+
+How to enable and disable services in  Systemd init
+
+To start a service in systemd run the command as shown:
+systemctl start service-name
+
+For example, to start apache web service, run
+systemctl start apache2
+
+To verify that the service is running, run
+systemctl status apache2
+
+To stop the service running service
+systenctl stop apache2
+
+To confirm that the service is not running, run
+systemctl status apache2
+
+
+To enable apache2 service on boot up run
+systemctl enable apache2
+
+To disable apache2 service on boot up run
+systemctl disable apache2
+
+To restart the service
+systemctl restart apache2
+
+To check whether the service is currently configured to start on the next boot up
+systemctl is-enabled apache2
+
+To check whether the service is active
+systemctl is-active apache2
+
+Output
+active
+
+
+How to remove Systemd services completely
+What if you installed a package, and later on decide that you don't need it anymore. How do you go about removing it completely ? Follow the commands below.
+
+First, stop the service
+systemctl stop service-name
+
+Then disable the service
+systemctl disable service-name
+
+Removing the service in systemd
+rm /etc/systemd/system/service-name
+rm /etc/systemd/system/service-name/[related symlinks]
+
+Reload systemd
+systemctl daemon-reload
+
+Finally run,
+systemctl reset-failed
+
+Administrando via terminal
+sudo apt install sysv-rc-conf
+
+sysv-rc-conf
+
+Via modo gráfico
+sudo apt install jobs-admin
+
+
+
+

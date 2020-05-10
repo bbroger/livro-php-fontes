@@ -1,0 +1,16 @@
+Valide as entradas dos usuários
+Codifique as saídas
+Autenticação dos usuários
+Use hash em senhas e salve o hash
+Controle de acesso
+Criptografe as senhas
+Trate os erros
+Segurança das comunicações
+Configuração do sistema
+Segurança no banco, use PDO para combater SQL injection
+Segurança no sistema de arquivos
+Cuidados na codificação
+Use HTTPS
+Use SSH para comuunicar com o servidor
+Atualização do sistema operacional
+Sanitizar o desktop    

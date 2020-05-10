@@ -1,0 +1,23 @@
+{
+    "name": "ribafs/mini-route",
+    "description": "MINI ROUTER PARA APLICATIVOS EM PHP COM MVC",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ribamar FS",
+            "email": "ribafs@gmail.com"
+        }
+    ],
+	"minimum-stability": "stable",
+    "require": {
+
+    },
+    "autoload":
+    {
+        "psr-4":
+        {
+            "Mvc\\" : "src/"
+        }
+    }
+}

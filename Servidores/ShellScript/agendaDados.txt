@@ -1,0 +1,43 @@
+AGENDA
+
+CEP DNOCS - 60.035-111
+
+TELEFONE - 3288.5190 - Ramal 6129
+
+Pizza (mercado) - 3254.1582
+Água mineral - 3252.0513
+Côco verde - 3243.8345
+Farmácia Michele - 3223.9996
+CECOMIL MERCADO - 4012-5252
+
+Ramais
+
+Eliane - COB - 3288.5163 (9925.9657)
+
+Dados dos Servidores
+
+apoena.dnocs.gov.br - 10.40.100.13
+postgresql - 10.40.100.186
+
+
+Esquema da sala dos servidores:
+
+
+				3o. (Run após o beep, atráz)
+
+
+U		U		U
+2o.		1o.		4o.
+
+Ligar disjuntores no quadro à direita dos switchs
+
+
+Partições
+
+/ 		- 20GB
+swap 	- 1GB
+/home	- 50GB
+/outra	- 5GB
+
+
+Lourenço - jose.lourenco@superig.com.br

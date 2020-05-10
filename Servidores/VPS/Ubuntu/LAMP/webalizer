@@ -1,0 +1,41 @@
+Instalação do webalizer
+
+sudo su
+apt-get install webalizer
+
+nano /etc/webalizer/webalizer.conf
+
+Ajustas as duas linhas:
+
+LogFile /var/log/apache2/access.log
+
+OutputDir /var/www/html/webalizer
+
+webalizer
+
+http://localhost/webalizer
+
+Edite o arquivo:
+
+nano /var/www/html/webalizer/index.html
+
+Dentro da tag <head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+==============
+#Webalizer
+apt-get install vlogger webalizer awstats geoip-database libclass-dbi-mysql-perl
+
+Abrir e descomentar tudo
+nano /etc/cron.d/awstats
+
+#MAILTO=root
+
+#*/10 * * * * www-data [ -x /usr/share/awstats/tools/update.sh ] && /usr/share/awstats/tools/update.sh
+
+# Generate static reports:
+#10 03 * * * www-data [ -x /usr/share/awstats/tools/buildstatic.sh ] && /usr/share/awstats/tools/buildstatic.sh
+
+
+

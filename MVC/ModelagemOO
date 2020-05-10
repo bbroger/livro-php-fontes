@@ -1,0 +1,7 @@
+Modelamos cada tabela pelo MVC:  View -> Router -> Controller -> Model -> Controller -> View
+
+Encapsulamento:
+
+Se propriedades e métodos precisam ser usados apenas internamente na classe devem ser private.
+
+

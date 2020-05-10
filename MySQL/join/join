@@ -1,0 +1,16 @@
+JOIN, LEFT JOIN
+Ex:
+Voce tem tabela1 e tabela2
+tabela1
+Id tipo int pk
+Nome varchar
+Email varchar
+Empresa int
+
+tabela2
+Id int pk
+Empresa varchar
+Cargo varchar
+
+O sql seria assim
+SELECT * FROM tabela1 LEFT JOIN tabela2 ON tabela2.id = tabela1.empresa

@@ -1,0 +1,74 @@
+/* layout */
+
+body {
+  margin: 0 auto;
+}
+
+/* Style the header */
+.header {
+  background-color: #f1f1f1;
+  padding: 20px;
+  text-align: center;
+}
+ /* Menu */
+.menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+.menu li {
+  padding: 8px;
+  margin-bottom: 8px;
+  display: inline;
+  background-color: #33b5e5;
+  color: #ffffff;
+}
+
+.menu li:hover {
+  background-color: #0099cc;
+}
+
+/* Regiões laterais e central */
+#container{
+    witdh: 95%;
+    margin: 2%;
+}
+  /* Corrigir quando uma imagem é maior que o elemento que a contém
+    .clearfix {
+      overflow: auto;
+    }
+*/
+    #left {
+        float: left;
+        width: 20%;
+        height: 600px;
+        background: green;
+    }
+
+    #main_content {
+        float: left;
+        width: 58%;
+        height: 600px;
+        background: white;
+        text-align: justify;
+        padding: 1%;
+    }
+
+    #right {
+        float: right;
+        width: 20%;
+        height: 600px;
+        background: red;
+    }
+
+/* Rodapé */
+footer {
+    clear: left;
+    background: yellow;
+}

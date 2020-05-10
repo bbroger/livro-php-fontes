@@ -1,0 +1,60 @@
+<!-- Collapse -->
+<div id="accordion" role="tablist" aria-multiselectable="true">
+<div class="card">
+<div class="card-header btn-spl" role="tab" id="firstheading">
+<h5 class="mb-0">
+<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
+Heading 1
+</a>
+</h5>
+</div>
+<div id="collapse1" class="collapse" role="tabpanel" aria-labelledby="firstheading">
+<div class="card-block">
+Here is the content for the first section.
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header btn-spl" role="tab" id="secondheading">
+<h5 class="mb-0">
+<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
+Heading 2
+</a>
+</h5>
+</div>
+<div id="collapse2" class="collapse" role="tabpanel" aria-labelledby="secondheading">
+<div class="card-block">
+Here is the content for the second section.
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header btn-spl" role="tab" id="headingThree">
+<h5 class="mb-0">
+<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
+Heading 3
+</a>
+</h5>
+</div>
+<div id="collapse3" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+<div class="card-block">
+Here is the content for the third section.
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-header btn-spl" role="tab" id="headingFour">
+<h5 class="mb-0">
+<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapse3">
+Heading 4
+</a>
+</h5>
+</div>
+<div id="collapse4" class="collapse" role="tabpanel" aria-labelledby="headingFour">
+<div class="card-block">
+Here is the content for the third section.
+</div>
+</div>
+</div>
+</div>
+<!-- /Collapse -->

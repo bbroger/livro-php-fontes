@@ -1,0 +1,7 @@
+Proteger arquivos de configuração do apache, php e mysql contra escrita:
+
+/etc/php/7.0/apache2/php.ini
+/etc/apache2/sites-available/default e demais
+/etc/mysql/my.ini
+
+

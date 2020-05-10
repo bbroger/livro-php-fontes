@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.0" client="site" method="upgrade">
+	<name>mod_alo</name>
+	<author>Ribamar FS</author>
+	<creationDate>Outubro 2017</creationDate>
+	<copyright>Copyright (C) 2017 Ribamar FS</copyright>
+	<license>GNU General Public License version 2 or later</license>
+	<authorEmail>ribafs@gmx.com</authorEmail>
+	<authorUrl>http://ribafs.org</authorUrl>
+	<version>1.0</version>
+	<description>Modulo simples do tipo alô mundo/</description>
+	<files>
+		<filename module="mod_alo">mod_alo.php</filename>
+	</files>
+</extension>
+

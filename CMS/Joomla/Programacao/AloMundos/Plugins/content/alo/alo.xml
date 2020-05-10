@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="content" method="upgrade">
+	<name>plg_content_alo</name>
+	<author>Ribamar FS</author>
+	<creationDate>Outubro 2017</creationDate>
+	<copyright>Copyright (C) 2017 - Ribamar FS. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>ola@ribafs.org</authorEmail>
+	<authorUrl>http://ribafs.org</authorUrl>
+	<version>1.0</version>
+	<description>Plugin simples, tipo alô mundo</description>
+	<files>
+		<filename plugin="alo">alo.php</filename>
+	</files>
+</extension>

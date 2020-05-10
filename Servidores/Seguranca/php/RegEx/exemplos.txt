@@ -1,0 +1,112 @@
+https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+
+Minimum eight characters, at least one letter and one number:
+
+"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+
+Minimum eight characters, at least one letter, one number and one special character:
+
+"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+
+Minimum eight characters, at least one uppercase letter, one lowercase letter and one number:
+
+"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+
+Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:
+
+"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+
+Minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character:
+
+"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$"
+
+
+Testador online - https://regex101.com/
+
+^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$
+
+This regex will enforce these rules:
+
+    At least one upper case English letter, (?=.*?[A-Z])
+    At least one lower case English letter, (?=.*?[a-z])
+    At least one digit, (?=.*?[0-9])
+    At least one special character, (?=.*?[#?!@$%^&*-])
+    Minimum eight in length .{8,} (with the anchors)
+
+ust a small improvement for @anubhava's answer: Since special character are limited to the ones in the keyboard, use this for any special character:
+
+^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$
+
+This regex will enforce these rules:
+
+    At least one upper case English letter
+    At least one lower case English letter
+    At least one digit
+    At least one special character
+    Minimum eight in length
+
+
+
+Try this one:
+
+    Minimum six characters
+    At least one uppercase character
+    At least one lowercase character
+    At least one special character
+
+Expression:
+
+"/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&.])[A-Za-z\d$@$!%*?&.]{6, 20}/"
+
+Optional Special Characters:
+
+    At least one special character
+    At least one number
+    Special characters are optional
+    Minimum six characters and maximum 16 characters
+
+Expression:
+
+"/^(?=.*\d)(?=.*[a-zA-Z]).{6,20}$/"
+
+If the min and max condition is not required then remove .{6, 16}
+
+    6 is minimum character limit
+    20 is maximum character limit
+    ?= means match expression
+
+Use the following Regex to satisfy the below conditions:
+
+Conditions: 1] Min 1 uppercase letter.
+            2] Min 1 lowercase letter.
+            3] Min 1 special character.
+            4] Min 1 number.
+            5] Min 8 characters.
+            6] Max 30 characters.
+
+Regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/   
+
+
+
+
+    Use the following Regex to satisfy the below conditions:
+
+Conditions: 1] Min 1 special character.
+            2] Min 1 number.
+            3] Min 8 characters or More
+
+    Regex: ^(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,}$
+
+
+<script>
+function myFunction() {
+    var str = "c1TTTTaTTT@";
+    var patt = new RegExp("^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])[a-zA-Z0-9@#$%^&+=]*$");
+    var res = patt.test(str);
+    console.log("Is regular matches:", res);
+    return res;
+}
+alert(myFunction())
+</script>
+
+

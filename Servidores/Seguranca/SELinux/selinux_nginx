@@ -1,0 +1,228 @@
+https://hostpresto.com/community/tutorials/install-and-secure-nginx-on-centos-7/
+
+Nginx é um software servidor web de alta performance. A versão em produção saiu em 2004.
+
+Alguns dos recursos que oferece:
+
+- Balanceamento de carga
+- Pode manipular mais que 10.000 conexões simultâneas com pouca memória
+- Suporte a SSL/OpenSSL
+- Suporte a compressão/descompressão gzip
+- Suporte a autenticação de acesso a páginas/proteção de diretório com senha
+
+Criar diretório de backup
+mkdir /root/back
+
+Garantir que SELinux esteja desabilitado
+
+cp /etc/selinux/config /root/back
+
+nano /etc/selinux/config
+
+Atualização
+sudo yum update -y
+reboot
+
+Atualizar repositórios
+sudo yum install epel-release
+
+Instalar Nginx
+sudo yum install nginx
+sudo systemctl start nginx
+sudo systemctl enable nginx
+
+Segurança
+
+Liberar porta 80
+sudo firewall-cmd --permanent --add-port=80/tcp sudo firewall-cmd --permanent --add-port=443/tcp
+sudo firewall-cmd –reload
+
+Atualizar centos
+sudo yum update -y
+
+Ocultar cabeçalho do nginx
+
+cp /etc/nginx/nginx.conf /root/back
+
+sudo nano /etc/nginx/nginx.conf
+
+    http {
+        server_tokens off;
+    }
+
+Testando:
+
+curl -I http://localhost
+
+Desabilitar métodos não desejados
+
+sudo nano /etc/nginx/nginx.conf
+
+if ($request_method !~ ^(GET|HEAD|POST)$ )
+{
+   return 405;
+}
+
+sudo systemctl restart nginx
+
+telnet localhost 80
+
+Mostrará que o 405 não é permitido
+
+Combater ataques Clickjacking
+
+sudo nano /etc/nginx/nginx.conf
+
+Adicionar a seguinte linha ao bloco server:
+add_header X-Frame-Options "SAMEORIGIN";
+
+sudo systemctl restart nginx
+
+Configurar autenticação
+
+sudo yum install -y httpd-tools
+
+Criar usuário ribafs e conceder senha para ele
+sudo htpasswd -c /etc/nginx/.htpasswd ribafs
+
+Visualizar
+sudo cat /etc/nginx/.htpasswd
+
+Para adicionar a autenticação ao diretório web, adicione auth_basic
+
+sudo nano /etc/nginx/nginx.conf
+
+    ...
+    server {
+        listen       80 default_server;
+        listen       [::]:80 default_server;
+        server_name  _;
+        root         /usr/share/nginx/html;
+        auth_basic "Private Property";
+        auth_basic_user_file /etc/nginx/.htpasswd;
+    ...
+
+sudo systemctl reload nginx
+
+Configurar o SSL para o Nginx
+
+sudo yum install mod_ssl
+sudo mkdir /etc/nginx/ssl/
+
+Criar o certificado
+
+sudo openssl req -x509 -nodes -sha256 -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt
+
+Pode demorar
+sudo openssl dhparam -out /etc/nginx/ssl/dhparam.pem 4096
+
+Configurar o site default para usar SSL
+
+cp /etc/nginx/sites-enabled/default /root/back
+
+sudo nano /etc/nginx/sites-enabled/default
+
+    server {
+    ...
+           server_name localhost;
+            ### SSL Config
+            listen 443 ssl;
+            ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+            ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
+            ssl_prefer_server_ciphers on;
+            ssl_dhparam /etc/nginx/ssl/dhparam.pem;
+            ssl_certificate /etc/nginx/ssl/nginx.crt;
+            ssl_certificate_key /etc/nginx/ssl/nginx.key;
+...
+
+sudo systemctl reload nginx
+
+Restringir acesso para somente certo IP
+
+sudo nano /etc/nginx/sites-enabled/default
+
+    server {
+    ...
+        location /site-admin/ {
+        allow 192.168.1.1/24;
+        allow 10.0.0.1/24;
+        deny  all;
+    }
+    ...
+
+Troque os IPs acima e máscaras pelos desejados
+
+Testando
+
+http://IP
+
+Agora, depois de testar o nginx devemos habilitar o SELinux com a política Enforcing.
+
+nano /etc/selinux/config
+
+Enforcing
+
+reboot
+
+Acessar novamente e testar o nginx
+
+Auditando logs do nginx
+grep nginx /var/log/audit/audit.log | audit2allow
+
+Criar módulo de política customizada
+
+grep nginx /var/log/audit/audit.log | audit2allow -m nginx > nginx.te
+cat nginx.te
+
+
+module nginx 1.0;
+
+require {
+    type var_run_t;
+    type user_home_dir_t;
+    type httpd_log_t;
+    type httpd_t;
+    type user_home_t;
+    type httpd_sys_content_t;
+    type initrc_t;
+    type http_cache_port_t;
+    class sock_file write;
+    class unix_stream_socket connectto;
+    class dir { search getattr };
+    class file { read write setattr };
+    class tcp_socket name_connect;
+}
+
+#============= httpd_t ==============
+
+#!!!! This avc is allowed in the current policy
+allow httpd_t http_cache_port_t:tcp_socket name_connect;
+allow httpd_t httpd_log_t:file setattr;
+allow httpd_t httpd_sys_content_t:sock_file write;
+allow httpd_t initrc_t:unix_stream_socket connectto;
+
+#!!!! This avc is allowed in the current policy
+allow httpd_t user_home_dir_t:dir search;
+
+#!!!! This avc is allowed in the current policy
+allow httpd_t user_home_t:dir { search getattr };
+allow httpd_t user_home_t:sock_file write;
+allow httpd_t var_run_t:file { read write };
+
+grep nginx /var/log/audit/audit.log | audit2allow -M nginx
+semodule -i nginx.pp
+
+semodule -l
+
+Para corrigir todos os erros 502 do nginx execute como root
+
+yum install -y policycoreutils-{python,devel}
+grep nginx /var/log/audit/audit.log | audit2allow -M nginx
+semodule -i nginx.pp
+usermod -a -G git nginx
+chmod g+rx /home/git/
+
+Intrgrar mensagens de erro do SELinux com journald
+journalctl  -r -o verbose -u nginx.service
+
+

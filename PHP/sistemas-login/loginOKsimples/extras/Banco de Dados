@@ -1,0 +1,17 @@
+************Banco de dados*************
+
+cria um databases;
+create database meu_sistema;
+
+crie a tabela
+create table usuario(
+id int auto_increment not null primary key,
+nome varchar(50) not null,
+email varchar(120) not null,
+senha varchar(16) not null
+);
+
+Inserindo dados na tabela
+insert into usuario (nome,email,senha) values ('teste','teste@teste','123456');
+
+

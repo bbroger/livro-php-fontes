@@ -1,0 +1,3 @@
+RewriteEngine on
+#RewriteBase /minifw
+RewriteRule ^(.*) public/$1 [L]

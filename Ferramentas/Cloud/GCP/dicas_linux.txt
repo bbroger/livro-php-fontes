@@ -1,0 +1,59 @@
+Remover PPA (inserir -r). Exemplo:
+
+sudo add-apt-repository -r ppa:paulo-miguel-dias/pkppa
+
+DataHora
+
+sudo date MMDDhhmmYYYY
+sudo date 032011042018
+
+
+Serviços habilitar/desabilitar
+
+sudo systemctl disable mysql
+
+sudo systemctl enable mysql
+
+sudo systemctl disable postgresql
+
+
+Como adicionar a Swap no Linux e configurá-la
+
+Para adicionar a Swap no Linux e configurá-la, você deve fazer o seguinte:
+
+Passo 1. Abra um terminal;
+Passo 2. Antes de começar, certifique-se de que o sistema já está ativado. Se não houver swap, você receberá apenas o cabeçalho de saída.;
+
+sudo swapon -s
+
+Passo 3. Antes de criar o arquivo, verifique se há espaço livre suficiente no disco. Geralmente, recomenda que a troca seja igual ao dobro da memória física instalada. Depois, use os comandos abaixo (lembre-se de ajustar o tamanha para o que você precisa e pode usar);
+
+sudo fallocate -l 4G /swapfile
+
+chmod 600 /swapfile
+
+Passo 4. Torne o arquivo swap utilizável usando o comando mkswap.;
+
+sudo mkswap /swapfile
+
+Passo 5. Em seguida, configure o swap para o sistema usando o comando swapon;
+
+sudo swapon /swapfile
+
+Passo 6. Agora, verifique novamente se a swap está ativada ou não. Você verá resultados como abaixo;
+
+sudo swapon -s
+
+Filename                Type        Size    Used    Priority
+/swapfile               file        4194300 0       -1
+
+Passo 7. Abra o arquivo /etc/fstab com o comando abaixo. Observe que o comando gedit pode ser substituído pelo nome do seu editor favorito;
+
+sudo gedit /etc/fstab
+
+Passo 8. E adicione a seguinte entrada nele para ativar a swap na reinicialização do sistema. Depois, salve o arquivo e feche o editor;
+
+/swapfile   none    swap    sw    0   0
+
+Pronto: Você ativou com sucesso o swap em seu sistema.
+https://www.edivaldobrito.com.br/adicionar-a-swap-no-ubuntu/

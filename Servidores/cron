@@ -1,0 +1,35 @@
+Criei o script /usr/local/bin/cron.sh com as linhas abaixo
+
+sudo chgrp -R www-data /backup/transp/www/
+sudo find /backup/transp/www/ -type d -exec chmod 755 {} \;
+sudo find /backup/transp/www/ -type f -exec chmod 644 {} \;
+
+rsync -avz --remove-source-files /backup/transp/www/ /backup/www/
+#rm -rf /backup/transp/www/*
+
+#!/bin/bash
+
+while true; do
+  # Do something
+    sudo chgrp -R www-data /backup/transp/www/
+    find /backup/transp/www/ -type d -exec chmod 755 {} \;
+    find /backup/transp/www/ -type f -exec chmod 644 {} \;
+
+    rsync -ruval --ignore-existing --remove-source-files --prune-empty-dirs /backup/transp/www/ /backup/www/
+#  sleep 5;
+done
+
+Com o script acima os arquivos são movidos imediatamente
+
+Criei o crontab para que execute o script a cada minuto
+
+sudo crontab -e (usando este)
+
+*/1* * * * *  /usr/local/bin/cron.sh
+
+
+Depois mudei para 20 segundos
+
+* * * * * /bin/bash -l -c "/usr/local/bin/cron.sh; sleep 20 ;"
+
+

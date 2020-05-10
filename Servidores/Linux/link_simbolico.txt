@@ -1,0 +1,17 @@
+
+
+Criar um link simbólico na pasta /var/www/html para a pasta /var/www/local/joomlasem
+
+cd /var/www/html
+ln -s /var/www/local/joomlasem joomlasem
+
+ls -la
+drwxrwxr-x  3 ribafs www-data   4096 Set 29 08:24 .
+drwxr-xr-x  6 root   root       4096 Set 20 09:01 ..
+-rw-rw-r--  1 ribafs www-data  21414 Ago 31 10:28 adminer.css
+-rw-rw-r--  1 ribafs www-data 436227 Ago 31 10:28 adminer.php
+-rw-rw-r--  1 ribafs www-data  11321 Ago 31 09:42 index.html
+lrwxrwxrwx  1 ribafs ribafs       24 Set 29 08:24 joomlasem -> /var/www/local/joomlasem
+
+
+

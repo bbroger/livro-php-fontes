@@ -1,0 +1,20 @@
+Criar uma classe Router
+
+Esta fase somente funciona no raiz do documentRoot. Não funciona em subdiretórios. Caso queira adaptar para rodar em subdiretório precisa ajustar no método splitUrl().
+
+Ao meu ver, em geral o Router é a peça mais complexa de um aplicativo simples que usa MVC com PHP.
+Em minha busca demorada por uma peça de código de Router para usar standalone e usar no mini-framework a maioria não funcionava ou exigia um virtualhost exclusivo. Alguns eram muito complexos. Não encontrei um único simples e funcional. Encontrei alguns pedaços de código que trabalham com a url então decidi criar eu mesmo um e de preferência simples.
+
+Que receba a URL e retorne:
+
+controller
+action
+params
+
+Deve ter os métodos
+add()
+run()
+
+Para que se possa adicionar várias rotas e ao final executar com run após instanciar a classe num index.php
+
+Inspirado no router do Mini3.

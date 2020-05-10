@@ -1,0 +1,25 @@
+<script>
+//Algoritmo de Euclides iterativo
+var a, b, r;
+
+// Algoritmo do MDC
+function mdc(a, b){
+    while(b != 0){
+        r = a % b;
+        a = b;
+        b = r;
+    }
+    return a;
+}
+
+//Testes
+function main() {
+    document.writeln("MDC<br>");
+    document.writeln("mdc(30, 60) = "+mdc(30, 60)+"<br>");
+    document.writeln("mdc(60, 100) = "+mdc(60, 100)+"<br>");
+    document.writeln("mdc(36, 14) = "+mdc(36, 14));
+	return '';
+}
+
+document.writeln(main());
+</script>

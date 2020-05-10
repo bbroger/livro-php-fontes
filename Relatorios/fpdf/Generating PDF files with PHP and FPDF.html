@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Generating PDF files with PHP and FPDF - Program - PHP -  Builder AU</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="shortcut icon" href="http://cgi2.builderau.com.au/builder_favicon.ico" />
+<link rel="alternate" type="application/rss+xml" title="Builder AU latest articles" href="http://www.builderau.com.au/feeds/news.htm" />
+</head>
+<body id="body">
+<div id="width">
+                           <!--AD-->
+
+<!-- leaderboard -->
+<div id="leaderboard">
+<!-- --><div align="center">
+<script language="JavaScript1.1" type="text/javascript" src="http://ad.au.doubleclick.net/adj/builderau.com.au/program/webdev/php/print;sect=program;ssect=webdev;sect3=php;sect4=print;sid=339286044;kw=;sz=728x90;dcopt=ist;tile=2;ord=91382526?">
+</script>
+<noscript>
+<a href="http://ad.au.doubleclick.net/jump/builderau.com.au/program/webdev/php/print;sect=program;ssect=webdev;sect3=php;sect4=print;sid=339286044;kw=;sz=728x90;dcopt=ist;tile=2;ord=91382526?">
+<img src="http://ad.au.doubleclick.net/ad/builderau.com.au/program/webdev/php/print;sect=program;ssect=webdev;sect3=php;sect4=print;sid=339286044;kw=;sz=728x90;dcopt=ist;tile=2;ord=91382526?" width="728" height="90" alt="Advertisement" border="0" /></a>
+</noscript>
+</div>
+<!-- //leaderboard --></div><style type="text/css" media="all">
+body{background:#fff;color:#000;font:12px tahoma}
+#width{width:728px;}
+#leaderboard{background:url(/i/x/ad_grey.gif) no-repeat top right;margin:0 0 20px 0;padding:10px 0 0 0;float:right}
+h1{font-size:18px}
+.alignleft{float:left;font-size:10px;font-weight:700;margin:0 10px 10px 0;text-align:center}
+.alignright{float:right;font-size:10px;font-weight:700;margin:0 0 10px 10px;text-align:center;}
+.alignright p, .alignleft p{padding:0;margin:8px 0 0 0}
+.quote-right { margin:0 0 15px 10px; padding:0; float:right; width:165px; border:none }
+.quote-left { margin:0 10px 15px 0; padding:0; float:left; width:165px; border:none }
+.quote-right p, .quote-left p { margin:0; padding:0 0 0 27px }
+.quote-right span, .quote-left span { font:bold 16px Arial, Helvetica, sans-serif; font-weight:bold; color:#808080 }
+.quote-right .quotation, .quote-left .quotation { position:absolute; margin:-6px 0 0 -27px }
+.quote-right .credit, .quote-left .credit { margin:5px 0 0 0; font:10px Verdana, Arial, Helvetica, sans-serif; color:#666 }
+.quote-right img, .quote-left img { padding:3px 0 0; vertical-align:top }
+</style>
+<style type="text/css" media="print">
+#leaderboard, #google{display:none}
+</style>
+<a href="/"><img src="http://cdn.cbsi.com.au/builder/i/x/builder_logo_print.jpg" border="0" width="209" height="60"  /></a>
+<h1>Generating PDF files with PHP and FPDF</h1>
+<p>Lana Kovacevic - 2008/02/20 11:15:01</p>
+<p><a href="/program/php/soa/Generating-PDF-files-with-PHP-and-FPDF/0,339028448,339286044,00.htm">http://www.builderau.com.au/program/php/soa/Generating-PDF-files-with-PHP-and-FPDF/0,339028448,339286044,00.htm</a></p>
+<div id="story">
+<p class="smdeck">PHP allows you to generate PDF files dynamically, which can be useful for a variety of tasks. <a href="http://www.fpdf.org/" target="new">FPDF</a> is a free PHP class containing a number of functions that let you create and manipulate PDFs. </p>
+
+<p><b>PDFlib</b></p>
+<p>The PHP API contains a number of functions for handling PDF files designed to be used with the <a href ="http://www.pdflib.com/" target="new">PDFlib</a>. Although extensive, this library is not free for commercial use. A free version called PDFlib Lite is available for personal use, but is limited in functionality. To use the full PDFlib library you must purchase a rather expensive license. </p>
+
+<p><b>Why FPDF?</b></p>
+<p>An alternative way of generating PDF files with PHP is using FPDF, a free PHP class containing a number of functions for creating and manipulating PDFs. The key word here is free. You are free to download and use this class or customise it to fit your needs. In addition to being free, it's also simpler to use than PDFlib. The PDFlib needs to be installed as an extension in your PHP package, whereas FPDF can just be included in your PHP script and it's ready to use. 
+</p>
+
+<p><b>Creating PDF files </b></p>
+
+<p>To get started, you will need to download the FPDF class from the <a href="http://www.fpdf.org/" target="new">FPDF Web site</a> and include it in your PHP script like this:</p>
+
+<p><code>require('fpdf.php');</code></p>
+
+<p>Below is an example of how you can generate a simple PDF using FPDF.</p>
+
+<p>We begin by creating a new FPDF object with:</p>
+<p><code>$pdf= new FPDF();</code></p>
+<p>The FPDF constructor can take the following parameters:</p>
+<p>
+<b>|></b>String orientation (P or L) -- portrait or landscape <br>
+<b>|></b>String unit (pt,mm,cm and in) -- measure unit<br>
+<b>|></b>Mixed format (A3, A4, A5, Letter and Legal) -- format of pages<br>
+</p>
+<p>Next, we are going to set some document properties:</p>
+<p><code>
+$pdf->SetAuthor('Lana Kovacevic');<br>
+$pdf->SetTitle('FPDF tutorial'); </code>
+</p>
+<p>Because we want to use the same font throughout the whole document, we can set it before we create a page. </p>
+<p><code>
+$pdf->SetFont('Helvetica','B',20);<br>
+$pdf->SetTextColor(50,60,100);
+</code>
+</p>
+<p>The SetFont function takes three parameters; the font family, style and size. We are using Helvetica, Bold and 20 points, which will be applied to the title of our document. You can either use one of the regular font families or set up a different one using the AddFont () function. </p>
+<p>
+With SetTextColor () we are also setting the font colour for the entire document. The colours can be represented as RGB or grey scale. Here we are using RGB values. 
+</p>
+<p>Now that that's done, let's set up a page for our PDF document. </p>
+<p><code>$pdf->AddPage('P'); <br>
+$pdf->SetDisplayMode(real,'default');
+</code>
+</p>
+<p>You can pass the AddPage () a parameter of "P" or "L" to specify the page orientation. I've used "P" for portrait. The SetDisplayMode function determines how the page will be displayed. You can pass it zoom and layout parameters. Here we're using 100 percent zoom and the viewer's default layout. </p>
+<p>Now, that we've set up a page, let's insert an image to make it look nicer and make it a link while we're at it. We'll display the FPDF logo by calling the Image function and passing it the following parameters -- name of the file, the dimensions and the URL.</p>
+<p><code>$pdf->Image('logo.png',10,20,33,0,' ','http://www.fpdf.org/');</code></p>
+<p>You could have also inserted the link with:</p>
+<p><code>$pdf->Link(10, 20, 33,33, 'http://www.fpdf.org/');</code></p>
+<p>Now let's make a title for our document with a border around it. </p>
+<p><code>$pdf->SetXY(50,20);<br>
+$pdf->SetDrawColor(50,60,100);<br>
+$pdf->Cell(100,10,'FPDF Tutorial',1,0,'C',0);<br>
+</code>
+</p>
+<p>The SetXY function sets the position of x and y coordinates, where we want the title to appear. SetDrawColor will set the colour of the border, using RGB values. After that's done, we call the Cell function to print out a cell rectangle along with the text of our title.  We are passing the function the following parameters; width, height, text, border, ln, align and fill. The border is either 0 for no border or 1 for frame. For ln we are using the default value 0, "C" to centre align the text inside it and 0 for fill. Had we used 1 for fill the rectangle would have been coloured in. With a value of 0 we are making it transparent. </p>
+<p>Now we want to write the main text to the PDF, that is display a little message.  </p>
+<p><code>
+$pdf->SetXY(10,50);<br>
+$pdf->SetFontSize(10);<br>
+$pdf->Write(5,'Congratulations! You have generated a PDF. ');<br>
+</code>
+</p>
+<p>Again we are setting the x and y positions of the text, but this time we are reducing the font size with the SetFontSize function. The write function will print the text to a PDF. The parameter 5 will set the line height. This is only relevant however, if there are multiple lines of text. </p>
+<p>Finally we want to send the output to a given destination, using the Output function. </p>
+<p><code>$pdf->Output('example1.pdf','I');</code></p>
+<p>Here we are passing the function the name of the file and the destination, in this case "I". The "I" parameter will send the output to the browser. </p>
+
+<p>Putting it all together: </p>
+
+<p><code>
+
+&lt;?php <br>
+require('fpdf.php'); <br><br>
+
+//create a FPDF object<br>
+$pdf=new FPDF();<br><br>
+
+//set document properties<br>
+$pdf->SetAuthor('Lana Kovacevic');<br>
+$pdf->SetTitle('FPDF tutorial');<br><br>
+
+//set font for the entire document<br>
+$pdf->SetFont('Helvetica','B',20);<br>
+$pdf->SetTextColor(50,60,100);<br><br>
+
+//set up a page<br>
+$pdf->AddPage('P'); <br>
+$pdf->SetDisplayMode(real,'default');<br><br>
+
+
+//insert an image and make it a link<br>
+$pdf->Image('logo.png',10,20,33,0,' ','http://www.fpdf.org/');<br><br>
+
+//display the title with a border around it<br>
+$pdf->SetXY(50,20);<br>
+$pdf->SetDrawColor(50,60,100);<br>
+$pdf->Cell(100,10,'FPDF Tutorial',1,0,'C',0);<br><br>
+
+//Set x and y position for the main text, reduce font size and write content<br>
+$pdf->SetXY (10,50);<br>
+$pdf->SetFontSize(10);<br>
+$pdf->Write(5,'Congratulations! You have generated a PDF.');<br><br>
+
+//Output the document<br>
+$pdf->Output('example1.pdf','I'); <br>
+
+?&gt;
+</code></p>
+
+
+<p>Now that you've learnt how to generate a simple PDF, let's see what else we can do with FPDF. The example code below demonstrates how to make a header and a footer for your document.  </p>
+<pre>
+<code>
+&lt;?php
+require('fpdf.php');
+
+class PDF extends FPDF
+{
+  function Header()
+    {
+      $this->Image('logo.png',10,8,33);
+      $this->SetFont('Helvetica','B',15);
+      $this->SetXY(50, 10);
+      $this->Cell(0,10,'This is a header',1,0,'C');
+     }
+
+  function Footer()
+    {
+      $this->SetXY(100,-15);
+      $this->SetFont('Helvetica','I',10);
+      $this->Write (5, 'This is a footer');
+    }
+}
+
+$pdf=new PDF();
+$pdf->AddPage();
+$pdf->Output('example2.pdf','D');
+?&gt;
+</code>
+
+</pre>
+<p>As you can see we are creating a child class of FPDF using inheritance and setting up the behaviour for both the Header and Footer functions. We then create a new object of this PDF class and add a page to our document. The AddPage () will automatically call the Header and Footer.  Finally, we output it to a file called example2.pdf, this time using the "D" option for the sake of the example. This will send the file to the browser and open a dialog box, prompting the user to save the file. </p>
+<p>Now that you have an understanding of how FPDF works, go ahead and play with some of its functions and have fun building your own PDFs. For the full list of functions, refer to the <a href="http://www.fpdf.org/" target="new">FPDF Web site</a>. </p>
+</div>
+<p>Copyright Â© 2009 CBS Interactive, a CBS Company. All rights reserved.</p>
+<iframe id="google" src="http://bwp.builderau.com.au/search" align="top" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" height="300" width="100%"></iframe> 	
+
+
+
+<!-- SiteCatalyst code version: H.1.
+Copyright 1997-2005 Omniture, Inc. More info available at
+http://www.omniture.com -->
+	<script language="JavaScript" src="/common/lib/s_code.js"></script>
+	
+<script language="JavaScript"><!--
+	
+	
+	s.server="www.builderau.com.au"	
+	s.channel="program"
+	
+	
+	s.prop1 = "320002008"
+s.prop11 = "php"
+s.eVar2 = "320002008"
+s.eVar13 = "php"
+s.prop7 = "<= 5"
+s.eVar1 = "program"
+s.eVar9 = "unknown"
+s.prop27 = "text"
+s.eVar32 = "text"
+s.prop19 = "Mozilla%2F5.0+%28X11%3B+U%3B+Linux+i686%3B+pt-BR%3B+rv%3A1.9.0.11%29+Gecko%2F2009060308+Ubuntu%2F9.04+%28jaunty%29+Firefox%2F3.0.11"
+s.events = "event2"
+s.prop16 = "leaderboard"
+s.hier1 = ",php"
+s.pageName = "/php/Generating PDF files with PHP and FPDF - print-version"
+
+		
+	
+
+
+/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+var s_code=s.t();if(s_code)document.write(s_code)//--></script>
+<script language="JavaScript"><!--
+if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
+//--></script><noscript><img
+src="http://zdau-builder.122.2O7.net/b/ss/zdau-builder/1/H.1--NS/0?[AQB]&cdp=3&[AQE]"
+height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
+<!-- End SiteCatalyst code version: H.1. -->
+
+ </div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+Checklist de Segurança para Joomla
+
+
+- Se possível/viável escolher a melhor hospedagem do mercado, não a mais barata;
+
+- Utilizar sempre a última versão do CMS e das extensões;
+
+- Efetue um backup completo de todos os arquivos e do banco e restaure localmente
+
+- Efetuar backup completo com frfequência, especialmente antes de instalar novas extensões ou efetuar alterações como adição de conteúdo
+
+- Ativar URLs amigáveis e mod_rewrite
+
+- Mover configuration.php para fora do public_html, usando:
+require_once( dirname( __FILE__ ) . '/../../portal.cfg' );
+
+- Bloquear cadastro de usuários pelo site caso não tenha necessidade: Configuração Global - Sistema - Permitir Cadastro de Usuários - Não
+
+- Alterar metatags em Configuração Global - Configurações de Meta Dados (Trocar Joomla por outra palavra)
+
+- Adicionar para a tag <head> do template (para ocultar Joomla na origem do código HTML), no início do index.php:
+<?php $this->setGenerator('Ribafs - Desenvolvimento Web'); ?>
+ou
+<?php $this->setGenerator(''); ?>
+
+- Faça sempre o download do Joomla do site oficial - http://joomla.org
+
+- Cheque o hash MD5 do arquivo baixado:
+md5sum Joomla_3.7.5-Stable-Full_Package.zip
+bd67cb02627e60bffef5e3b4ba3b2ece Joomla_3.7.5-Stable-Full_Package.zip
+
+- Algumas extensões úteis:
+Firebug/Inspetor
+
+- Instalar os principais navegadores para testar o site:
+Firefox, Chrome, Internet Explorer, Opera, Safari
+
+- Mantenha os arquivos de configuração, logs e os diretórios de upload (repositórios de documentos, imagens e chache) fora do public_html.
+
+- Remover desnecessários:
+Arquivos
+Extensões (se não precisa remova e não simplesmente desabilite. Quando precisar instale)
+
+- Sempre antes de instalar novas extensões:
+
+- faça um backup completo do site e instale localmente
+
+- Verifique se a extensão é confiável em:
+https://docs.joomla.org/Archived:Vulnerable_Extensions_List
+
+- Faça o download do site do criador
+
+- Teste bastante localmente e somente então envie para o servidor
+
+- Evite instalar extensões que tenham código criptografado
+
+- Sempre que possível evite hospedar seu site em servidores compartilhados
+
+- Use um servidor de SSL, pelo menos para o administrator
+
+- Use o .htaccess
+
+- Atualize para a versão 3 e última do Joomla
+

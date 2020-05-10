@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Criando Aplicativos com PHP</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="assets/images/favicons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="assets/images/favicons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="assets/images/favicons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/images/favicons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/images/favicons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/images/favicons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="assets/images/favicons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/images/favicons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/images/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="assets/images/favicons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <!--  
+    Stylesheets
+    =============================================
+    
+    -->
+    <!-- Default stylesheets-->
+    <link href="assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Template specific stylesheets-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="assets/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Main stylesheet and color file-->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link id="color-scheme" href="assets/css/colors/default.css" rel="stylesheet">
+  </head>
+  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+    <main>
+      <div class="page-loader">
+        <div class="loader">Loading...</div>
+      </div>
+      <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="index.html">PHP</a>
+          </div>
+          <div class="collapse navbar-collapse" id="custom-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <!--<li><a href="#">Início</a></li>-->
+
+              <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">AJAX</a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown"><a href="#">add-edit</a></li>
+                  <li><a href="#">CRUDs</a></li>
+                  <li><a href="#">datatables</a></li>
+                  <li><a href="#">datatable-simples</a></li>
+                  <li><a href="#">datatable_pdopg</a></li>
+                  <li><a href="#">editablegrid</a></li>    
+                  <li><a href="#">paginacao_simples</a></li>
+                  <li><a href="#">pdo_datatables</a></li>
+                  <li><a href="#">pdo_datatables_bs</a></li>
+                  <li><a href="#">search_ajax</a></li>
+                  <li><a href="#">search-live</a></li>
+                </ul>
+              </li>
+              <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">CMS</a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">custom-cms</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">Joomla</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">OpenCart</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">PHP-PDO-CMS</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">WordPress</a></li>
+                </ul>
+              </li>
+              <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Sistemas</a>
+                <ul class="dropdown-menu" role="menu">
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">Comentários</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">Guestbook</a></li>
+                </ul>
+              </li>
+              <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Ferramentas</a>
+                <ul class="dropdown-menu" role="menu">
+                      <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">File Managers</a>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">filemanager</a></li>
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">listaArqs</a></li>
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">listaDir</a></li>
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">listaFiles</a></li>
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">tinyfilemanager</a></li>
+                            </ul>
+                          </li>
+                      </li>
+                      <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Relatórios</a>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">fPDF</a></li>
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">HTML, CSS e PHP</a></li>
+                            </ul>
+                          </li>
+                      </li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">Captchas</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">Chats</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">Google Cloud</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">Faker</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">Generic Backup</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">MkDocs</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">PDF Editado</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">PHP Console</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">PHP Geo</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">PHP Console2</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">UBench</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">PHP Upload</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">Web Maker</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">Browser Detect</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">Captcha JS</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">Extenso PHP</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">Redes Sociais Open</a></li>
+                </ul>
+              </li>
+              <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Frameworks</a>
+                <ul class="dropdown-menu" role="menu">
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">FuelPHP</a></li>
+                  <li class="dropdown"><a href="#" data-toggle="dropdown">Yii</a></li>
+                </ul>
+              </li>
+              <li class="dropdown"><a class="dropdown-toggle" href="documentation.html" data-toggle="dropdown">FrontEnd</a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">BootStrap</a></li>
+                  <li><a href="#">CSS</a></li>
+                  <li><a href="#">Fontes Web</a></li>
+                  <li><a href="#">HTML</a></li>
+                  <li><a href="#">JavaScript</a></li>
+                  <li><a href="#">Sintax HighLight</a></li>
+                  <li><a href="#">Templates</a></li>
+                </ul>
+              </li>
+              <li class="dropdown"><a class="dropdown-toggle" href="documentation.html" data-toggle="dropdown" title="Programação Mobile Híbrida">Mobile</a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">jQueryMobile</a></li>
+                  <li><a href="#">Phaser</a></li>
+                  <li><a href="#">PhoneGap</a></li>
+                  <li><a href="#">Unity 3D</a></li>
+                </ul>
+              </li>
+              <li class="dropdown"><a class="dropdown-toggle" href="documentation.html" data-toggle="dropdown">Paginação</a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">bootpag</a></li>
+                  <li><a href="#">bootpag_simples</a></li>
+                  <li><a href="#">paginacao_bootpag</a></li>
+                  <li><a href="#">paginacao_exs</a></li>
+                  <li><a href="#">paginacao_php</a></li>
+                  <li><a href="#">paginacao_simples</a></li>
+                  <li><a href="#">paginacao_search_pdo</a></li>
+                </ul>
+              </li>
+              <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">PHP</a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">PHP</a>
+                    <ul class="dropdown-menu">
+                      <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Sistemas de Login</a>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">login-min-sec</a></li>
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">login-multi</a></li>
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">login_multi</a></li>
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">loogin-multi_rfs</a></li>
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">loginOKSemSession</a></li>
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">loginOKsimples</a></li>
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">loginOtimo</a></li>
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">login-reg</a></li>
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">login -sha512</a></li>
+                              <li class="dropdown"><a href="#" data-toggle="dropdown">secureloginOK</a></li>
+                            </ul>
+                          </li>
+                      </li>
+                      <li><a href="#">agenda_ribafs2</a></li>
+                      <li><a href="#">app_php</a></li>
+                      <li><a href="#">crud-pdo</a></li>
+                      <li><a href="#">crud_php</a></li>
+                      <li><a href="#">crud_simple_mysqli</a></li>
+                      <li><a href="#">Email</a></li>
+                      <li><a href="#">Exercícios</a></li>
+                      <li><a href="#">Formulários com PHP</a></li>
+                      <li><a href="#">Matemática</a></li>
+                      <li><a href="#">Multi Checkbox</a></li>
+                      <li><a href="#">Novidades do PHP</a></li>
+                      <li><a href="#">Validation</a></li>
+                      <li><a href="#">crop_image.php</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">PDO</a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Conversão para PDO</a></li>
+                      <li><a href="#">PDO BS</a></li>
+                      <li><a href="#">PDO BS Pag Busca</a></li>
+                      <li><a href="#">PDO BS sempag</a></li>
+                      <li><a href="#">PDO CRUD</a></li>
+                      <li><a href="#">PDO CRUD ribafs</a></li>
+                      <li><a href="#">PDO CRUD ribafs3</a></li>
+                      <li><a href="#">PDO Puro</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">PHPOO</a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">app_phpoo</a></li>
+                      <li><a href="#">Várias classes e funcoes</a></li>
+                      <li><a href="#">Conceitos</a></li>
+                      <li><a href="#">crud_oop_puro</a></li>
+                      <li><a href="#">crud_phpoo</a></li>
+                      <li><a href="#">crud_phpoo-msgs</a></li>
+                      <li><a href="#">datatables_bs_pdo</a></li>
+                      <li><a href="#">datatables-pag</a></li>
+                      <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">estrut-oo</a>
+                            <ul class="dropdown-menu">
+                              <li><a href="#">1paginacao-bootpag</a></li>
+                              <li><a href="#">2crud-estruturado</a></li>
+                              <li><a href="#">3crud-oo</a></li>
+                              <li><a href="#">4estoque</a></li>
+                            </ul>
+                          </li>
+                      </li>
+                      <li><a href="#">Exemplos</a></li>
+                      <li><a href="#">Namespace</a></li>
+                      <li><a href="#">paging_search_poo</a></li>
+                      <li><a href="#">pdo-crud-bs2</a></li>
+                      <li><a href="#">pholib</a></li>
+                      <li><a href="#">phplib2</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" title="Exemplos de aplicativo com PHP e MVC">MVC</a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Com BD - 26 apps</a></li>
+                      <li><a href="#">Routes - 17 apps</a></li>
+                      <li><a href="#">Sem BD - 3 apps</a></li>
+                    </ul>
+                  </li>
+
+                </ul>
+              </li>
+              <li class="dropdown"><a class="dropdown-toggle" href="repo.html" title="Relação com conteúdo do Repositório" target="_blank">Repo</a>
+              <li class="dropdown"><a class="dropdown-toggle" href="indice.pdf" title="Índice do livro" target="_blank">Índice</a>
+                  <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" title="E-mail para contato">Contato</a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">ribafs@gmail.xom</a></li>
+                    </ul>
+                  </li>
+
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <section class="bg-dark-30 module" data-background="assets/images/bg.jpg">
+        <div class="titan-caption">
+          <div class="caption-content">
+            <div class="font-alt mb-30 titan-title-size-1">Livro</div>
+            <div class="font-alt mb-40 titan-title-size-3">Criando Aplicativos com PHP</div>
+            <div class="font-alt mb-30 titan-title-size-1">Contato - ribafs@gmail.com</div>
+                   <div class="font-alt mb-50 titan-title-size-1"><b>Este livro tem os seguintes recursos:</b>
+                    <ul class="text-left">
+                        <li>Livro texto com 217 páginas</li>
+                        <li>Repositório private no GitHub com o código fonte de muitos aplicativos</li>            
+                        <li>Grupo fechado no Facebook onde serão tiradas dúvidas sobre o conteúdo do livro e dos aplicativos do repositório</li>
+                    </ul>
+                    <div>O menu acima apenas representa o conteúdo do repositório private no GitHub. Nenhum item é ativo</div>
+                    </div>
+
+        </div>
+      </section>
+      <div class="main showcase-page">
+        <section class="module-extra-small bg-dark">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-10 col-md-11 col-lg-12">
+                <div class="callout-text font-alt">
+
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="callout-btn-box"><a class=""></a></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+        <hr class="divider-d">
+        <footer class="footer bg-dark">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6">
+                <p class="copyright font-alt">&copy; 2017&nbsp;<a href="index.html">TitaN</a>, All Rights Reserved</p>
+              </div>
+              <div class="col-sm-6">
+                <div class="footer-social-links"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i class="fa fa-skype"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+
+      <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+    </main>
+
+    <script src="assets/lib/jquery/dist/jquery.js"></script>
+    <script src="assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="assets/lib/wow/dist/wow.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

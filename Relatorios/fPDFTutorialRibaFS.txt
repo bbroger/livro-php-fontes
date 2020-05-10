@@ -1,0 +1,706 @@
+		FPDF TUTORIAL
+
+http://www.fpdf.org
+O fPDF é uma classe em PHP para uso do PDF no PHP.
+Esta classe é free para qualquer uso.
+
+Exemplo básico:
+
+Lembre de adicionar a linha abaixo (como no exemplo) em todos os arquivos:
+define('FPDF_FONTPATH','c:/apache/htdocs/fpdf/font/');
+
+<?php
+define('FPDF_FONTPATH','c:/apache/htdocs/fpdf/font/');  // Path das fontes
+require('fpdf.php');
+
+$pdf=new FPDF();
+$pdf->AddPage();
+$pdf->SetFont('Arial','B',16);
+$pdf->Cell(40,10,'Hello World!');
+$pdf->Output();
+?> 
+
+conexao.inc.php
+<? 
+$conexao=pg_connect("host=localhost user=postgres password=senha dbname=banco");
+?>
+
+<?php
+//Exemplo de Uso do fPDF gerando PDF através do PHP com PostgreSQL
+//Ribamar FS - ribamar.sousa@dnocs.gov.br
+
+define('FPDF_FONTPATH','/var/www/default/fpdf/font/');
+require('fpdf.php');
+include ("conexao.inc.php");
+
+$pdf=new FPDF();
+$pdf->Open();
+$pdf->AddPage();
+$pdf->SetFillColor(255,0,0);
+$pdf->SetTextColor(255);
+$pdf->SetDrawColor(128,0,0);
+$pdf->SetLineWidth(.3);
+$pdf->SetFont('Arial','B',16);
+$pdf->SetTitle('Exemplo de Relatório em PDF via PHP');
+
+$fill=0;
+
+$consulta=pg_exec($conexao,"select * from conveniologin");
+$numregs=pg_numrows($consulta);
+
+$pdf->Cell(20,10,'SIAPE','1',0,'L',1);
+$pdf->Cell(50,10,'Nome','1',1,'L',1);
+$pdf->SetFont('Arial','B',10);
+
+	$i=0;
+	while($i < $numregs)
+	{
+		  $siape=pg_result($consulta,$i,siape);  
+		  $nome=pg_result($consulta,$i,nome);  
+
+        //Color and font restoration
+        $pdf->SetFillColor(224,235,255);
+        $pdf->SetTextColor(0);
+        $pdf->SetFont('');
+
+		  $pdf->Rect(5,5,170,80,'D');
+        $pdf->Cell(20,10,$siape,1,0,'R',$fill);
+        $pdf->Cell(50,10,$nome,1,1,'L',$fill);
+        $fill=!$fill;	//Não fill. Quando 0 muda para 1. Quando 1 muda para 0.
+	$i++;
+	}
+
+        $pdf->SetFillColor(224,235);
+        $pdf->SetTextColor(0);
+        $pdf->SetFont('Arial','B',8);
+		  $pdf->Line(5,90,90,90);
+		  $pdf->Image('mouse.jpg',185,5,10,0,'JPG','http://www.dnocs.gov.br');
+		  $pdf->SetY(95); //95mm abaixo
+        $pdf->SetX(5);//Deve vir após SetY, pois este volta para a esquerda
+        $pdf->Cell(170,5,'PDF gerado via PHP acessando banco de dados - Por Ribamar FS',1,1,'L',1,'mailto:ribafs@dnocs.gov.br');
+
+$pdf->Output();
+?> 
+
+
+Cabeçalho, rodapé, quebra de página e imagem:
+
+<?php
+require('fpdf.php');
+
+class PDF extends FPDF
+{
+//Cabeçalho de Página
+function Header()
+{
+    //Logo
+    $this->Image('logo_pb.png',10,8,33);
+    //Arial bold 15
+    $this->SetFont('Arial','B',15);
+    //Move to the right
+    $this->Cell(80);
+    //Title
+    $this->Cell(30,10,'Title',1,0,'C');
+    //Line break
+    $this->Ln(20);
+}
+
+//Rodapé de Página
+function Footer()
+{
+    //Position at 1.5 cm from bottom
+    $this->SetY(-15);
+    //Arial italic 8
+    $this->SetFont('Arial','I',8);
+    //Page number
+    $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
+}
+}
+
+//Instanciando classe herdada
+$pdf=new PDF();
+$pdf->Open();
+$pdf->AliasNbPages();
+$pdf->AddPage();
+$pdf->SetFont('Times','',12);
+for($i=1;$i<=40;$i++)
+    $pdf->Cell(0,10,'Imprimindo número de linha '.$i,0,1);
+$pdf->Output();
+?>  
+
+Imprimir parágrafos justicados (quebra de linha) e uso de cores:
+
+<?php
+require('fpdf.php');
+
+class PDF extends FPDF{
+function Header(){
+    global $title;
+
+    //Arial bold 15
+    $this->SetFont('Arial','B',15);
+    //Calculate width of title and position
+    $w=$this->GetStringWidth($title)+6;
+    $this->SetX((210-$w)/2);
+    //Colors of frame, background and text
+    $this->SetDrawColor(0,80,180);
+    $this->SetFillColor(230,230,0);
+    $this->SetTextColor(220,50,50);
+    //Thickness of frame (1 mm)
+    $this->SetLineWidth(1);
+    //Title
+    $this->Cell($w,9,$title,1,1,'C',1);
+    //Line break
+    $this->Ln(10);
+}
+
+// Reescrevendo o rodapé
+function Footer(){
+    //Position at 1.5 cm from bottom
+    $this->SetY(-15);
+    //Arial italic 8
+    $this->SetFont('Arial','I',8);
+    //Text color in gray
+    $this->SetTextColor(128);
+    //Page number
+    $this->Cell(0,10,'Page '.$this->PageNo(),0,0,'C');
+}
+
+function ChapterTitle($num,$label){
+    //Arial 12
+    $this->SetFont('Arial','',12);
+    //Background color
+    $this->SetFillColor(200,220,255);
+    //Title
+    $this->Cell(0,6,"Chapter $num : $label",0,1,'L',1);
+    //Line break
+    $this->Ln(4);
+}
+
+function ChapterBody($file){
+    //Read text file
+    $f=fopen($file,'r');
+    $txt=fread($f,filesize($file));
+    fclose($f);
+    //Times 12
+    $this->SetFont('Times','',12);
+    //Output justified text
+    $this->MultiCell(0,5,$txt);
+    //Line break
+    $this->Ln();
+    //Mention in italics
+    $this->SetFont('','I');
+    $this->Cell(0,5,'(end of excerpt)');
+}
+
+function PrintChapter($num,$title,$file){
+    $this->AddPage();
+    $this->ChapterTitle($num,$title);
+    $this->ChapterBody($file);
+}
+}
+
+$pdf=new PDF();
+$pdf->Open();
+$title='20000 Leagues Under the Seas';
+$pdf->SetTitle($title);
+$pdf->SetAuthor('Jules Verne');
+$pdf->PrintChapter(1,'A RUNAWAY REEF','20k_c1.txt');
+$pdf->PrintChapter(2,'THE PROS AND CONS','20k_c2.txt');
+$pdf->Output();
+?>  
+
+
+Texto com múltiplas colunas:
+
+<?php
+require('fpdf.php');
+
+class PDF extends FPDF
+{
+//Current column
+var $col=0;
+//Ordinate of column start
+var $y0;
+
+// Reescrevendo o cabeçalho
+function Header()
+{
+    //Page header
+    global $title;
+
+    $this->SetFont('Arial','B',15);
+    $w=$this->GetStringWidth($title)+6;
+    $this->SetX((210-$w)/2);
+    $this->SetDrawColor(0,80,180);
+    $this->SetFillColor(230,230,0);
+    $this->SetTextColor(220,50,50);
+    $this->SetLineWidth(1);
+    $this->Cell($w,9,$title,1,1,'C',1);
+    $this->Ln(10);
+    //Save ordinate
+    $this->y0=$this->GetY();
+}
+
+function Footer(){
+    //Page footer
+    $this->SetY(-15);
+    $this->SetFont('Arial','I',8);
+    $this->SetTextColor(128);
+    $this->Cell(0,10,'Page '.$this->PageNo(),0,0,'C');
+}
+
+function SetCol($col){
+    //Set position at a given column
+    $this->col=$col;
+    $x=10+$col*65;
+    $this->SetLeftMargin($x);
+    $this->SetX($x);
+}
+
+function AcceptPageBreak(){
+    //Method accepting or not automatic page break
+    if($this->col<2)
+    {
+        //Go to next column
+        $this->SetCol($this->col+1);
+        //Set ordinate to top
+        $this->SetY($this->y0);
+        //Keep on page
+        return false;
+    }
+    else
+    {
+        //Go back to first column
+        $this->SetCol(0);
+        //Page break
+        return true;
+    }
+}
+
+function ChapterTitle($num,$label){
+    //Title
+    $this->SetFont('Arial','',12);
+    $this->SetFillColor(200,220,255);
+    $this->Cell(0,6,"Chapter $num : $label",0,1,'L',1);
+    $this->Ln(4);
+    //Save ordinate
+    $this->y0=$this->GetY();
+}
+
+function ChapterBody($fichier){
+    //Read text file
+    $f=fopen($fichier,'r');
+    $txt=fread($f,filesize($fichier));
+    fclose($f);
+    //Font
+    $this->SetFont('Times','',12);
+    //Output text in a 6 cm width column
+    $this->MultiCell(60,5,$txt);
+    $this->Ln();
+    //Mention
+    $this->SetFont('','I');
+    $this->Cell(0,5,'(end of excerpt)');
+    //Go back to first column
+    $this->SetCol(0);
+}
+
+function PrintChapter($num,$title,$file){
+    //Add chapter
+    $this->AddPage();
+    $this->ChapterTitle($num,$title);
+    $this->ChapterBody($file);
+}
+}
+
+$pdf=new PDF();
+$pdf->Open();
+$title='20000 Leagues Under the Seas';
+$pdf->SetTitle($title);
+$pdf->SetAuthor('Jules Verne');
+$pdf->PrintChapter(1,'A RUNAWAY REF','20k_c1.txt');
+$pdf->PrintChapter(2,'THE PROS AND CONS','20k_c2.txt');
+$pdf->Output();
+?>  
+
+Especial atenção para o método AcceptPageBreak(). (Aceita quebra automática de página).
+
+Uso de Tabelas, que de fato são o uso do rico método Cell():
+
+<?php
+require('fpdf.php');
+
+class PDF extends FPDF
+{
+//Load data
+function LoadData($file)
+{
+    //Read file lines
+    $lines=file($file);
+    $data=array();
+    foreach($lines as $line)
+        $data[]=explode(';',chop($line));
+    return $data;
+}
+
+//Simple table
+function BasicTable($header,$data)
+{
+    //Header
+    foreach($header as $col)
+        $this->Cell(40,7,$col,1);
+    $this->Ln();
+    //Data
+    foreach($data as $row)
+    {
+        foreach($row as $col)
+            $this->Cell(40,6,$col,1);
+        $this->Ln();
+    }
+}
+
+//Better table
+function ImprovedTable($header,$data)
+{
+    //Column widths
+    $w=array(40,35,40,45);
+    //Header
+    for($i=0;$i<count($header);$i++)
+        $this->Cell($w[$i],7,$header[$i],1,0,'C');
+    $this->Ln();
+    //Data
+    foreach($data as $row)
+    {
+        $this->Cell($w[0],6,$row[0],'LR');
+        $this->Cell($w[1],6,$row[1],'LR');
+        $this->Cell($w[2],6,number_format($row[2]),'LR',0,'R');
+        $this->Cell($w[3],6,number_format($row[3]),'LR',0,'R');
+        $this->Ln();
+    }
+    //Closure line
+    $this->Cell(array_sum($w),0,'','T');
+}
+
+//Colored table
+function FancyTable($header,$data)
+{
+    //Colors, line width and bold font
+    $this->SetFillColor(255,0,0);
+    $this->SetTextColor(255);
+    $this->SetDrawColor(128,0,0);
+    $this->SetLineWidth(.3);
+    $this->SetFont('','B');
+    //Header
+    $w=array(40,35,40,45);
+    for($i=0;$i<count($header);$i++)
+        $this->Cell($w[$i],7,$header[$i],1,0,'C',1);
+    $this->Ln();
+    //Color and font restoration
+    $this->SetFillColor(224,235,255);
+    $this->SetTextColor(0);
+    $this->SetFont('');
+    //Data
+    $fill=0;
+    foreach($data as $row)
+    {
+        $this->Cell($w[0],6,$row[0],'LR',0,'L',$fill);
+        $this->Cell($w[1],6,$row[1],'LR',0,'L',$fill);
+        $this->Cell($w[2],6,number_format($row[2]),'LR',0,'R',$fill);
+        $this->Cell($w[3],6,number_format($row[3]),'LR',0,'R',$fill);
+        $this->Ln();
+        $fill=!$fill;
+    }
+    $this->Cell(array_sum($w),0,'','T');
+}
+}
+
+$pdf=new PDF();
+$pdf->Open();
+//Column titles
+$header=array('Country','Capital','Area (sq km)','Pop. (thousands)');
+//Data loading
+$data=$pdf->LoadData('countries.txt');
+$pdf->SetFont('Arial','',14);
+$pdf->AddPage();
+$pdf->BasicTable($header,$data);
+$pdf->AddPage();
+$pdf->ImprovedTable($header,$data);
+$pdf->AddPage();
+$pdf->FancyTable($header,$data);
+$pdf->Output();
+?> 
+
+Links (internos e externos) e uma nova maneira de escrever texto
+e um rudimentar HTML "parser"
+
+<?php
+require('fpdf.php');
+
+class PDF extends FPDF
+{
+var $B;
+var $I;
+var $U;
+var $HREF;
+
+function PDF($orientation='P',$unit='mm',$format='A4')
+{
+    //Call parent constructor
+    $this->FPDF($orientation,$unit,$format);
+    //Initialization
+    $this->B=0;
+    $this->I=0;
+    $this->U=0;
+    $this->HREF='';
+}
+
+function WriteHTML($html)
+{
+    //HTML parser
+    $html=str_replace("\n",' ',$html);
+    $a=preg_split('/<(.*)>/U',$html,-1,PREG_SPLIT_DELIM_CAPTURE);
+    foreach($a as $i=>$e)
+    {
+        if($i%2==0)
+        {
+            //Text
+            if($this->HREF)
+                $this->PutLink($this->HREF,$e);
+            else
+                $this->Write(5,$e);
+        }
+        else
+        {
+            //Tag
+            if($e{0}=='/')
+                $this->CloseTag(strtoupper(substr($e,1)));
+            else
+            {
+                //Extract properties
+                $a2=split(' ',$e);
+                $tag=strtoupper(array_shift($a2));
+                $prop=array();
+                foreach($a2 as $v)
+                    if(ereg('^([^=]*)=["\']?([^"\']*)["\']?$',$v,$a3))
+                        $prop[strtoupper($a3[1])]=$a3[2];
+                $this->OpenTag($tag,$prop);
+            }
+        }
+    }
+}
+
+function OpenTag($tag,$prop)
+{
+    //Opening tag
+    if($tag=='B' or $tag=='I' or $tag=='U')
+        $this->SetStyle($tag,true);
+    if($tag=='A')
+        $this->HREF=$prop['HREF'];
+    if($tag=='BR')
+        $this->Ln(5);
+}
+
+function CloseTag($tag)
+{
+    //Closing tag
+    if($tag=='B' or $tag=='I' or $tag=='U')
+        $this->SetStyle($tag,false);
+    if($tag=='A')
+        $this->HREF='';
+}
+
+function SetStyle($tag,$enable)
+{
+    //Modify style and select corresponding font
+    $this->$tag+=($enable ? 1 : -1);
+    $style='';
+    foreach(array('B','I','U') as $s)
+        if($this->$s>0)
+            $style.=$s;
+    $this->SetFont('',$style);
+}
+
+function PutLink($URL,$txt)
+{
+    //Put a hyperlink
+    $this->SetTextColor(0,0,255);
+    $this->SetStyle('U',true);
+    $this->Write(5,$txt,$URL);
+    $this->SetStyle('U',false);
+    $this->SetTextColor(0);
+}
+}
+
+$html='You can now easily print text mixing different
+styles : <B>bold</B>, <I>italic</I>, <U>underlined</U>, or
+<B><I><U>all at once</U></I></B>!<BR>You can also insert links
+on text, such as <A HREF="http://www.fpdf.org">www.fpdf.org</A>,
+or on an image: click on the logo.';
+
+$pdf=new PDF();
+$pdf->Open();
+//First page
+$pdf->AddPage();
+$pdf->SetFont('Arial','',20);
+$pdf->Write(5,'To discover what\'s new in this tutorial, click ');
+$pdf->SetFont('','U');
+$link=$pdf->AddLink();
+$pdf->Write(5,'here',$link);
+$pdf->SetFont('');
+//Second page
+$pdf->AddPage();
+$pdf->SetLink($link);
+$pdf->Image('logo.png',10,10,30,0,'','http://www.fpdf.org');
+$pdf->SetLeftMargin(45);
+$pdf->SetFontSize(14);
+$pdf->WriteHTML($html);
+$pdf->Output();
+?>  
+
+O novo método para imprimir texto é o Write(). 
+As diferenças para o MultiCell() são: 
+- O final da linha é na margem direita e a próxima linha inicia à esquerda
+- A posição atual move para o final do texto
+ 
+
+Algumas Referências (vide docs):
+
+Cell() - Imprime uma célula
+
+Sintaxe:
+Cell(float c [, float h [, string t [, mixed b [, int ln [, string a [, int f [, mixed l]]]]]]]) 
+
+Obs.: a posição inicial da célula é a posição atual.
+
+c - comprimento da célula em milímetros. Se zero a célula terá a largura da página.
+h - altura da célula em milímetros (veja que é um float, admite decimais). Default é zero.
+t - texto da célula (alinhado ou centralizado). Default empty string.
+b - bordas da célula. Valores posíveis:
+	0 - sem bordas
+	1 - com bordas
+	L - bordas à esquerda somente
+	T - bordas acima
+	R - bordas à direita
+	B - bordas abaixo
+
+Default é 0.
+
+ln - indica para onde deverá ir a posição atual após esta célula:
+	0 - para a direita
+	1 - para o início da próxima linha (quebra de linha)
+	2 - para baixo
+	Obs.: Colocar 0 e chamar Ln() corresponde a 1. Default é zero
+
+a - alinhar o texto:
+	C - centralizado
+	R - pela direita
+	L - pela esquerda (default)
+
+f - indica e a célula tem (1) ou não (0) uma cor de fundo. Default é 0.
+l - url ou identificador retornado por AddLink()
+
+Exemplo
+//Set font
+$pdf->SetFont('Arial','B',16);
+//Mover 8cm para a direita
+$pdf->Cell(80);
+//Texto centralizado em uma moldura de 20x10 mm e quebra de linha
+$pdf->Cell(20,10,'Título',1,1,'C');  
+
+
+Image() - inserir uma imagem jpg ou png no arquivo
+
+Sintaxe:
+Image(string file, float x, float y, float w [, float h [, string type [, mixed link]]]) 
+
+Obs.: o canto superior esquerdo da imagem é requerido. 
+
+file - string com o path da imagem
+x - abicissa do canto superior esquerdo
+y - ordenada do canto superior esquerdo
+w - largura da imagem na página. Se 0 a largura será calculada automaticamente para guardar
+    as proporções originais.
+h - altura da imagem na página. Se não especificada ou 0 a altura será automaticamente
+    calculada para guardar as proporções originais
+type - formato da imagem. Possíveis valores (case sensitive): JPG, JPEG e PNG. Se não 
+       especificado o tipo será inferido pela extensão do arquivo
+link - URL ou identificador retornado pelo método AddLink().
+
+
+MultiCell() - Imprime texto com multiplas linhas (quebra de linha)
+
+Sintaxe:
+MultiCell(float w, float h, string txt [, mixed border [, string align [, int fill]]]) 
+
+Obs.: A quebra será automática ou explícita (\n) 
+w - largura da célula. Se 0 ocupará a largura da página.
+h - altura da célula
+txt - texto da célula
+border - semelhante ao método Cell(): 0,1,L,R,B,T. Default é 0
+align - alinhamento do texto:
+	L - pela esquerda
+	C - centralizado
+	R - pela direita
+	J - justificado (default)
+
+fill - indica se terá cor de fundo (1) ou se este será transparente (0)
+Line() - desenha uma linha entre dois pontos
+
+Sintaxe:
+Line(float x1, float y1, float x2, float y2) 
+
+x1 - abicissa do primeiro ponto
+y1 - ordenada do primeiro ponto
+x2 - abicissa do segundo ponto
+y2 - ordenada do segundo ponto
+
+
+Rect() - desenha um retângulo na tela
+
+Sintaxe:
+Rect(float x, float y, float w, float h [, string style])
+
+Pode ser somente com bordas ou cheio.
+x - abcissa do canto superior esquerdo
+y - ordenada do canto superior esquerdo
+w - largura
+h - altura
+
+style - estilo de renderização. Valores possíveis:
+	D ou draw - desenhado (somente bordas). Default
+	F - cheio
+	DF ou FD - desenhado e cheio
+
+SetTitle() - Define um título para o documento
+
+Sintaxe:
+SetTitle(string title)
+
+title - Texto para o título
+SetX() - Define a abicissa da posição atual. Caso seja passado um valor negativo
+este é relativo à parte direita da página.
+
+Sintaxe:
+SetX(float x)
+
+x - abicissa da posição atual
+
+
+
+SetY() - Move a abicissa atual para a margem esquerda e seta a ordenada. 
+Se for passado um valor negativo este é relativo à parte inferior da página.
+Obs.: Use o SetY() antes do SetX(), já que o primeiro anula o segundo.
+
+
+Sintaxe:
+SetY(float y) 
+
+y - valor da ordenada da posição atual
+
+Links úteis:
+
+http://www.fpdf.org/fr/dl.php?id=34 - Adicionar fontes TrueType
+http://ttf2pt1.sourceforge.net/
+http://www.fpdf.org/fr/dl.php?id=22
+http://www.lcdf.org/~eddietwo/type/#t1utils
+http://www.abstractfonts.com/fonts/

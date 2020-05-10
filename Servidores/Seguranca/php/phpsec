@@ -1,0 +1,11 @@
+Cuidados com a segurança em PHP
+
+- Cuidados com a configuração no php.ini. Usar o phpsecinfo para ajudar
+- Cuidados para proteger contra SQL injections e contra ataques de XSS
+- A aplicação foi projetada com segurança em mente
+- O ambiente do servidor é seguro?
+- A infraestrutura de desenvolvimento é segura?
+- O banco de dados é seguro e o SGBD?
+- Atende para o tratamento de erros com try/catch
+
+

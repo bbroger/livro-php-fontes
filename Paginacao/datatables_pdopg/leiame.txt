@@ -1,0 +1,6 @@
+Funciona de forma muito, muito lenta com até um milhão de registros.
+Testado em máquina com 8 GB de RAM e com MySQL, praticamente travou a máquina na última vez.
+
+Crédito
+http://www.webslesson.info/2017/01/php-pdo-crud-with-ajax-jquery-and-bootstrap.html
+

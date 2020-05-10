@@ -1,0 +1,49 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-battery-status": {
+      "PACKAGE_NAME": "org.ribafs.brakout"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "org.ribafs.brakout"
+    },
+    "cordova-plugin-media-capture": {
+      "PACKAGE_NAME": "org.ribafs.brakout"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "org.ribafs.brakout"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "org.ribafs.brakout"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "org.ribafs.brakout"
+    },
+    "cordova-plugin-globalization": {
+      "PACKAGE_NAME": "org.ribafs.brakout"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "org.ribafs.brakout"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "org.ribafs.brakout"
+    },
+    "cordova-plugin-vibration": {
+      "PACKAGE_NAME": "org.ribafs.brakout"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-compat": {
+      "PACKAGE_NAME": "org.ribafs.brakout"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "org.ribafs.brakout"
+    }
+  }
+}

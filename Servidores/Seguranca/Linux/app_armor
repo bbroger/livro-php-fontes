@@ -1,0 +1,18 @@
+Apparmor
+
+No Debian não instalar.
+
+É um software que melhora o kernel para isolamento de aplicativos. Este confinamento é provido por perfis de aplicativos do kernel.
+
+Mais detalhes:
+https://wiki.ubuntu.com/AppArmor
+https://help.ubuntu.com/lts/serverguide/apparmor.html
+https://help.ubuntu.com/community/AppArmor 
+
+Instalação
+apt-get install apparmor apparmor-profiles
+
+Checar funcionamento
+apparmor_status
+ou
+sudo aa-status

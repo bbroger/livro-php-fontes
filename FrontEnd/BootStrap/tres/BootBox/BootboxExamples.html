@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Examples | Bootbox.js — alert, confirm and flexible dialogs for the Bootstrap framework</title>
+
+    <link rel="stylesheet" type="text/css" href="BootboxExamples_arquivos/animate.css">
+    <link href="BootboxExamples_arquivos/page.css" rel="stylesheet">
+    <link href="BootboxExamples_arquivos/style.css" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target=".nav-sidebar" cz-shortcut-listen="true" class="" style="">
+    <nav id="main-navigation" class="navbar navbar-expand-lg navbar-light navbar-stick-dark" data-navbar="sticky">
+        <div class="container">
+            <div class="navbar-left">
+                <button class="navbar-toggler" type="button">☰</button>
+                <a class="navbar-brand" href="http://bootboxjs.com/">
+                    bootbox<span class="text-white">.js</span>
+                </a>
+            </div>
+            <section class="navbar-mobile">
+                <span class="navbar-divider d-mobile-none"></span>
+                <nav class="nav nav-navbar">
+                    <a class="nav-link" href="http://bootboxjs.com/getting-started.html">Getting Started</a>
+                    <a class="nav-link active" href="http://bootboxjs.com/examples.html">Examples</a>
+                    <a class="nav-link" href="http://bootboxjs.com/documentation.html">Documentation</a>
+                    <a class="nav-link" href="https://github.com/makeusabrew/bootbox">
+                        <i class="fa fa-github"></i>
+                        GitHub
+                    </a>
+                </nav>
+            </section>
+            <a class="btn btn-light" href="https://github.com/makeusabrew/bootbox/releases/download/v5.4.0/bootbox.zip" id="download-bootbox">
+                <i class="fa fa-download"></i>
+                Download
+            </a>
+        </div>
+    </nav>
+
+    <header class="header text-white pt-9 pb-2">
+        <div class="container">
+            <h3>Examples</h3>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-xl-2">
+                    <aside class="sidebar sidebar-sticky sidebar-stick-shadow pr-md-5 br-1" style="width: 160px;">
+                        <nav>
+                            <ul class="nav nav-sidebar nav-sidebar-hero" data-accordion="true">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="http://bootboxjs.com/">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="http://bootboxjs.com/getting-started.html">Getting Started</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Documentation</a>
+                                    <div class="nav">
+                                        <a class="nav-link" href="#">
+                                            Dialogs
+                                        </a>
+                                        <div class="nav">
+                                            <a class="nav-link" href="http://bootboxjs.com/documentation.html#bb-alert">Alert</a>
+                                            <a class="nav-link" href="http://bootboxjs.com/documentation.html#bb-confirm">Confirm</a>
+                                            <a class="nav-link" href="http://bootboxjs.com/documentation.html#bb-prompt">Prompt</a>
+                                            <a class="nav-link" href="http://bootboxjs.com/documentation.html#bb-dialog">Custom</a>
+                                        </div>
+                                        <a class="nav-link" href="http://bootboxjs.com/documentation.html#bb-options">Options</a>
+                                        <a class="nav-link" href="http://bootboxjs.com/documentation.html#bb-locales">Locales</a>
+                                        <a class="nav-link" href="http://bootboxjs.com/documentation.html#bb-public-functions">Public Functions</a>
+                                        <a class="nav-link" href="http://bootboxjs.com/documentation.html#bb-notes">Notes</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Examples</a>
+                                    <div class="nav">
+                                        <a class="nav-link" href="#bb-alert">Alert</a>
+                                        <a class="nav-link" href="#bb-confirm">Confirm</a>
+                                        <a class="nav-link" href="#bb-prompt">Prompt</a>
+                                        <a class="nav-link" href="#bb-dialog">Custom</a>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </nav>
+                    </aside>
+                </div>
+
+                <!-- Content -->
+                <div class="col-md-9 col-xl-9 ml-md-auto py-9">
+                    <p class="lead">
+                        The examples below attempt to demonstrate the myriad ways in which you can use Bootbox.
+                    </p>
+                    <p>
+                        Have an example you'd like to add? <a href="https://github.com/makeusabrew/bootbox/issues">Open a new issue</a>, or 
+                        add a <a href="https://github.com/makeusabrew/bootbox/pulls">pull-request</a> with your example added to this page.
+                    </p>
+
+                    <section id="bb-alert" class="bb-section">
+                        <div class="bb-section-header">
+                            <h2 id="bb-alert" class="page-header bb-anchor">
+                                Alert
+                                <small class="float-right">
+                                    <a href="http://bootboxjs.com/documentation.html#bb-alert" class="btn btn-link">Documentation</a>
+                                    |
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#bb-alert-examples" aria-expanded="false" aria-controls="bb-alert-examples">
+                                        Show / Hide
+                                    </button>
+                                </small>
+                            <a class="anchor" href="#bb-alert"></a></h2>
+                        </div>
+                        <div id="bb-alert-examples" class="collapse show">
+                            <div>
+                                <dl class="bb-examples-list">
+                                    <dt id="bb-alert-basic" class="bb-anchor h5">Basic usage<a class="anchor" href="#bb-alert-basic"></a></dt>
+                                    <dd class="bb-example">
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-default">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">"This is the default alert!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                    </dd>
+
+                                    <dt id="alert-basic-callback" class="bb-anchor h5">Basic usage, with callback<a class="anchor" href="#alert-basic-callback"></a></dt>
+                                    <dd class="bb-example">
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-callback">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">"This is an alert with a callback!"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span> 
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'This was logged in the callback!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                    </dd>
+
+                                    <dt id="alert-basic-options" class="bb-anchor h5">Basic usage, using options object<a class="anchor" href="#alert-basic-options"></a></dt>
+                                    <dd class="bb-example">
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-options">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    message<span class="token punctuation">:</span> <span class="token string">"This is an alert with a callback!"</span><span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'This was logged in the callback!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                    </dd>
+
+                                    <dt id="alert-small-size" class="bb-anchor h5">Small dialog<a class="anchor" href="#alert-small-size"></a></dt>
+                                    <dd class="bb-example">
+                                        <p class="text-sm">
+                                            Also applies to: <b>Confirm</b>, <b>Prompt</b>, <b>Custom</b>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-small">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    message<span class="token punctuation">:</span> <span class="token string">"This is the small alert!"</span><span class="token punctuation">,</span>
+    size<span class="token punctuation">:</span> <span class="token string">'small'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                        <p>
+                                            <i class="fa fa-info-circle text-danger"></i> Requires Bootstrap <b>3.1.0</b> or newer.
+                                        </p>
+                                    </dd>
+
+                                    <dt id="alert-large-size" class="bb-anchor h5">Large dialog<a class="anchor" href="#alert-large-size"></a></dt>
+                                    <dd class="bb-example">
+                                        <p class="text-sm">
+                                            Also applies to: <b>Confirm</b>, <b>Prompt</b>, <b>Custom</b>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-large">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    message<span class="token punctuation">:</span> <span class="token string">"This is the large alert!"</span><span class="token punctuation">,</span>
+    size<span class="token punctuation">:</span> <span class="token string">'large'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                        <p>
+                                            <i class="fa fa-info-circle text-danger"></i> Requires Bootstrap <b>3.1.0</b> or newer.
+                                        </p>
+                                    </dd>
+
+                                    <dt id="alert-custom-class" class="bb-anchor h5">
+                                        Custom CSS class (using <a href="https://daneden.github.io/animate.css/">Animate.css</a>)
+                                    <a class="anchor" href="#alert-custom-class"></a></dt>
+                                    <dd class="bb-example">
+                                        <p class="text-sm">
+                                            Also applies to: <b>Confirm</b>, <b>Prompt</b>, <b>Custom</b>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-custom-class">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    message<span class="token punctuation">:</span> <span class="token string">"This is an alert with additional classes!"</span><span class="token punctuation">,</span>
+    className<span class="token punctuation">:</span> <span class="token string">'rubberBand animated'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                    </dd>
+
+                                    <dt id="alert-dismiss-on-click" class="bb-anchor h5">
+                                        Dismiss with overlay click
+                                    <a class="anchor" href="#alert-dismiss-on-click"></a></dt>
+                                    <dd class="bb-example">
+                                        <p class="text-sm">
+                                            Also applies to: <b>Confirm</b>, <b>Prompt</b>, <b>Custom</b>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-overlay-click">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    message<span class="token punctuation">:</span> <span class="token string">"This alert can be dismissed by clicking on the background!"</span><span class="token punctuation">,</span>
+    backdrop<span class="token punctuation">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                    </dd>
+
+                                    <dt id="alert-locale" class="bb-anchor h5">
+                                        Using a locale
+                                    <a class="anchor" href="#alert-locale"></a></dt>
+                                    <dd class="bb-example">
+                                        <p class="text-sm">
+                                            Also applies to: <b>Confirm</b>, <b>Prompt</b>, <b>Custom</b>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-locale">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    message<span class="token punctuation">:</span> <span class="token string">"This alert uses the Arabic locale!"</span><span class="token punctuation">,</span>
+    locale<span class="token punctuation">:</span> <span class="token string">'ar'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="bb-confirm" class="bb-section">
+                        <div class="bb-section-header">
+                            <h2 id="bb-confirm" class="page-header bb-anchor">
+                                Confirm
+                                <small class="float-right">
+                                    <a href="http://bootboxjs.com/documentation.html#bb-confirm" class="btn btn-link">Documentation</a>
+                                    |
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#bb-confirm-examples" aria-expanded="false" aria-controls="bb-confirm-examples">
+                                        Show / Hide
+                                    </button>
+                                </small>
+                            <a class="anchor" href="#bb-confirm"></a></h2>
+                        </div>
+                        <div id="bb-confirm-examples" class="collapse show">
+                            <div>
+                                <dl class="bb-examples-list">
+                                    <dt id="confirm-basic" class="bb-anchor h5">Basic usage<a class="anchor" href="#confirm-basic"></a></dt>
+                                    <dd class="bb-example">
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="confirm-default">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">confirm</span><span class="token punctuation">(</span><span class="token string">"This is the default confirm!"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">{</span> 
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'This was logged in the callback: '</span> <span class="token operator">+</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                    </dd>
+
+                                    <dt id="confirm-alternate-text-color" class="bb-anchor h5">
+                                        With alternate button text and color
+                                    <a class="anchor" href="#confirm-alternate-text-color"></a></dt>
+                                    <dd class="bb-example">
+                                        <p class="text-sm">
+                                            Also applies to: <b>Alert</b>, <b>Prompt</b>, <b>Custom</b>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="confirm-options">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">confirm</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    message<span class="token punctuation">:</span> <span class="token string">"This is a confirm with custom button text and color! Do you like it?"</span><span class="token punctuation">,</span>
+    buttons<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        confirm<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            label<span class="token punctuation">:</span> <span class="token string">'Yes'</span><span class="token punctuation">,</span>
+            className<span class="token punctuation">:</span> <span class="token string">'btn-success'</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        cancel<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            label<span class="token punctuation">:</span> <span class="token string">'No'</span><span class="token punctuation">,</span>
+            className<span class="token punctuation">:</span> <span class="token string">'btn-danger'</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'This was logged in the callback: '</span> <span class="token operator">+</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                    </dd>
+
+                                    <dt id="confirm-buttons-with-icon-text" class="bb-anchor h5">
+                                        With icon and button text
+                                    <a class="anchor" href="#confirm-buttons-with-icon-text"></a></dt>
+                                    <dd class="bb-example">
+                                        <p class="text-sm">
+                                            Also applies to: <b>Alert</b>, <b>Prompt</b>, <b>Custom</b>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="confirm-button-text">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">confirm</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    title<span class="token punctuation">:</span> <span class="token string">"Destroy planet?"</span><span class="token punctuation">,</span>
+    message<span class="token punctuation">:</span> <span class="token string">"Do you want to activate the Deathstar now? This cannot be undone."</span><span class="token punctuation">,</span>
+    buttons<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        cancel<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            label<span class="token punctuation">:</span> <span class="token string">'&lt;i class="fa fa-times"&gt;&lt;/i&gt; Cancel'</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        confirm<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            label<span class="token punctuation">:</span> <span class="token string">'&lt;i class="fa fa-check"&gt;&lt;/i&gt; Confirm'</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'This was logged in the callback: '</span> <span class="token operator">+</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                    </dd>
+
+                                    <dt id="confirm-all-locales-demo" class="bb-anchor h5">
+                                        Demoing all locales
+                                    <a class="anchor" href="#confirm-all-locales-demo"></a></dt>
+                                    <dd class="bb-example">
+                                        <p class="text-sm">
+                                            Also applies to: <b>Alert</b>, <b>Prompt</b>, <b>Custom</b>
+                                        </p>
+                                        <div class="form-group">
+                                            <label>Choose a locale: </label>
+                                            <select id="locales" class="custom-select" style="max-width: 200px;"><option value="ar" selected="selected">ar</option><option value="bg_BG">bg_BG</option><option value="br">br</option><option value="cs">cs</option><option value="da">da</option><option value="de">de</option><option value="el">el</option><option value="en">en</option><option value="es">es</option><option value="eu">eu</option><option value="et">et</option><option value="fa">fa</option><option value="fi">fi</option><option value="fr">fr</option><option value="he">he</option><option value="hu">hu</option><option value="hr">hr</option><option value="id">id</option><option value="it">it</option><option value="ja">ja</option><option value="ka">ka</option><option value="ko">ko</option><option value="lt">lt</option><option value="lv">lv</option><option value="nl">nl</option><option value="no">no</option><option value="pl">pl</option><option value="pt">pt</option><option value="ru">ru</option><option value="sk">sk</option><option value="sl">sl</option><option value="sq">sq</option><option value="sv">sv</option><option value="sw">sw</option><option value="ta">ta</option><option value="th">th</option><option value="tr">tr</option><option value="uk">uk</option><option value="zh_CN">zh_CN</option><option value="zh_TW">zh_TW</option></select>
+                                        </div>
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="confirm-locale">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js"><span class="token keyword">var</span> locale <span class="token operator">=</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#locales'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">val</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            
+bootbox<span class="token punctuation">.</span><span class="token function">confirm</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    message<span class="token punctuation">:</span> <span class="token string">"This confirm uses the selected locale. Were the labels what you expected?"</span><span class="token punctuation">,</span>
+    locale<span class="token punctuation">:</span> locale<span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'This was logged in the callback: '</span> <span class="token operator">+</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="bb-prompt" class="bb-section">
+                        <div class="bb-section-header">
+                            <h2 id="bb-prompt" class="page-header bb-anchor">
+                                Prompt
+                                <small class="float-right">
+                                    <a href="http://bootboxjs.com/documentation.html#bb-prompt" class="btn btn-link">Documentation</a>
+                                    |
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#bb-prompt-examples" aria-expanded="false" aria-controls="bb-prompt-examples">
+                                        Show / Hide
+                                    </button>
+                                </small>
+                            <a class="anchor" href="#bb-prompt"></a></h2>
+                        </div>
+                        <div id="bb-prompt-examples" class="collapse show">
+                            <div>
+                                <p>
+                                    <b>Please note:</b> prompt requires the <code>title</code> option (when using the options object). You may use the <code>message</code> option,
+                                    but the prompt result will <b>not</b> include any form inputs from your message.
+                                </p>
+                                <dl class="bb-examples-list">
+                                    <dt id="prompt-basic" class="bb-anchor h5">Basic usage<a class="anchor" href="#prompt-basic"></a></dt>
+                                    <dd class="bb-example">
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-default">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token string">"This is the default prompt!"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">{</span> 
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                        <p>
+                                            <i class="fa fa-info-circle text-info"></i>
+                                            If you want to style the input, you can target the <code>.bootbox-input-text</code> class.
+                                        </p>
+                                    </dd>
+
+                                    <dt id="prompt-centerVertical" class="bb-anchor h5">Vertically Centered<a class="anchor" href="#prompt-centerVertical"></a></dt>
+                                    <dd class="bb-example">
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-default">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    title<span class="token punctuation">:</span> <span class="token string">"This is a prompt, vertically centered!"</span><span class="token punctuation">,</span> 
+    centerVertical<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">{</span> 
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                    </dd>
+
+                                    <dt id="prompt-with-custom-locale" class="bb-anchor h5">With a custom locale<a class="anchor" href="#prompt-with-custom-locale"></a></dt>
+                                    <dd class="bb-example">
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-custom-locale">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js"><span class="token keyword">var</span> locale <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token constant">OK</span><span class="token punctuation">:</span> <span class="token string">'I Suppose'</span><span class="token punctuation">,</span>
+    <span class="token constant">CONFIRM</span><span class="token punctuation">:</span> <span class="token string">'Go Ahead'</span><span class="token punctuation">,</span>
+    <span class="token constant">CANCEL</span><span class="token punctuation">:</span> <span class="token string">'Maybe Not'</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+            
+bootbox<span class="token punctuation">.</span><span class="token function">addLocale</span><span class="token punctuation">(</span><span class="token string">'custom'</span><span class="token punctuation">,</span> locale<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            
+bootbox<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token punctuation">{</span> 
+    title<span class="token punctuation">:</span> <span class="token string">"This is a prompt with a custom locale! What do you think?"</span><span class="token punctuation">,</span> 
+    locale<span class="token punctuation">:</span> <span class="token string">'custom'</span><span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'This was logged in the callback: '</span> <span class="token operator">+</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                    </dd>
+
+                                    <dt id="prompt-with-checkbox" class="bb-anchor h5">Prompt with checkbox<a class="anchor" href="#prompt-with-checkbox"></a></dt>
+                                    <dd class="bb-example">
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-checkbox">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    title<span class="token punctuation">:</span> <span class="token string">"This is a prompt with a set of checkbox inputs!"</span><span class="token punctuation">,</span>
+    value<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'1'</span><span class="token punctuation">,</span> <span class="token string">'3'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    inputType<span class="token punctuation">:</span> <span class="token string">'checkbox'</span><span class="token punctuation">,</span>
+    inputOptions<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        text<span class="token punctuation">:</span> <span class="token string">'Choice One'</span><span class="token punctuation">,</span>
+        value<span class="token punctuation">:</span> <span class="token string">'1'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+        text<span class="token punctuation">:</span> <span class="token string">'Choice Two'</span><span class="token punctuation">,</span>
+        value<span class="token punctuation">:</span> <span class="token string">'2'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+        text<span class="token punctuation">:</span> <span class="token string">'Choice Three'</span><span class="token punctuation">,</span>
+        value<span class="token punctuation">:</span> <span class="token string">'3'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                        <p>
+                                            <i class="fa fa-info-circle text-info"></i>
+                                            Checkboxes are nested in an element with the class <code>.bootbox-checkbox-list</code>.
+                                            If you want to style the individual checkbox inputs, you can target the <code>.bootbox-input-checkbox</code> class.
+                                        </p>
+                                    </dd>
+
+                                    <dt id="prompt-with-radios-message" class="bb-anchor h5">Prompt with radio buttons and a <code>message</code> value<a class="anchor" href="#prompt-with-radios-message"></a></dt>
+                                    <dd class="bb-example">
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-radio">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    title<span class="token punctuation">:</span> <span class="token string">"This is a prompt with a set of radio inputs!"</span><span class="token punctuation">,</span>
+    message<span class="token punctuation">:</span> <span class="token string">'&lt;p&gt;Please select an option below:&lt;/p&gt;'</span><span class="token punctuation">,</span>
+    inputType<span class="token punctuation">:</span> <span class="token string">'radio'</span><span class="token punctuation">,</span>
+    inputOptions<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+        text<span class="token punctuation">:</span> <span class="token string">'Choice One'</span><span class="token punctuation">,</span>
+        value<span class="token punctuation">:</span> <span class="token string">'1'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+        text<span class="token punctuation">:</span> <span class="token string">'Choice Two'</span><span class="token punctuation">,</span>
+        value<span class="token punctuation">:</span> <span class="token string">'2'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+        text<span class="token punctuation">:</span> <span class="token string">'Choice Three'</span><span class="token punctuation">,</span>
+        value<span class="token punctuation">:</span> <span class="token string">'3'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                        <p>
+                                            <i class="fa fa-info-circle text-info"></i>
+                                            Radio buttons are nested in an element with the class <code>.bootbox-radiobutton-list</code>.
+                                            If you want to style the individual radio inputs, you can target the <code>.bootbox-input-radio</code> class.
+                                        </p>
+                                        <p>
+                                            <i class="fa fa-info-circle text-info"></i> When using the <code>radio</code> option, the first radio button
+                                            will be checked if <code>value</code> is missing or does not match an <code>inputOptions</code> value.
+                                        </p>
+                                    </dd>
+
+                                    <dt id="prompt-with-date" class="bb-anchor h5">
+                                        Prompt with date
+                                    <a class="anchor" href="#prompt-with-date"></a></dt>
+                                    <dd class="bb-example">
+                                        <p class="text-sm text-danger">
+                                            Requires browser support: <a href="https://caniuse.com/#feat=input-datetime">https://caniuse.com/#feat=input-datetime</a>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-date">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    title<span class="token punctuation">:</span> <span class="token string">"This is a prompt with a date input!"</span><span class="token punctuation">,</span>
+    inputType<span class="token punctuation">:</span> <span class="token string">'date'</span><span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                        <p>
+                                            <i class="fa fa-info-circle text-info"></i>
+                                            If you want to style the input, you can target the <code>.bootbox-input-date</code> class.
+                                        </p>
+                                    </dd>
+
+                                    <dt id="prompt-with-email" class="bb-anchor h5">
+                                        Prompt with email
+                                    <a class="anchor" href="#prompt-with-email"></a></dt>
+                                    <dd class="bb-example">
+                                        <p class="text-sm text-danger">
+                                            Requires browser support: <a href="https://caniuse.com/#feat=email">https://caniuse.com/#feat=email</a>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-email">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    title<span class="token punctuation">:</span> <span class="token string">"This is a prompt with an email input!"</span><span class="token punctuation">,</span>
+    inputType<span class="token punctuation">:</span> <span class="token string">'email'</span><span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                        <p>
+                                            <i class="fa fa-info-circle text-info"></i>
+                                            If you want to style the input, you can target the <code>.bootbox-input-email</code> class.
+                                        </p>
+                                    </dd>
+
+                                    <dt id="prompt-with-number" class="bb-anchor h5">
+                                        Prompt with number
+                                    <a class="anchor" href="#prompt-with-number"></a></dt>
+                                    <dd class="bb-example">
+                                        <p class="text-sm text-danger">
+                                            Requires browser support: <a href="https://caniuse.com/#feat=input-number">https://caniuse.com/#feat=input-number</a>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-number">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    title<span class="token punctuation">:</span> <span class="token string">"This is a prompt with a number input!"</span><span class="token punctuation">,</span>
+    inputType<span class="token punctuation">:</span> <span class="token string">'number'</span><span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                        <p>
+                                            <i class="fa fa-info-circle text-info"></i>
+                                            If you want to style the input, you can target the <code>.bootbox-input-number</code> class.
+                                        </p>
+                                    </dd>
+
+                                    <dt id="prompt-with-password" class="bb-anchor h5">Prompt with password<a class="anchor" href="#prompt-with-password"></a></dt>
+                                    <dd class="bb-example">
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-password">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    title<span class="token punctuation">:</span> <span class="token string">"This is a prompt with a password input!"</span><span class="token punctuation">,</span>
+    inputType<span class="token punctuation">:</span> <span class="token string">'password'</span><span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                        <p>
+                                            <i class="fa fa-info-circle text-info"></i>
+                                            If you want to style the input, you can target the <code>.bootbox-input-password</code> class.
+                                        </p>
+                                    </dd>
+
+                                    <dt id="prompt-with-select" class="bb-anchor h5">Prompt with select<a class="anchor" href="#prompt-with-select"></a></dt>
+                                    <dd class="bb-example">
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-select">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    title<span class="token punctuation">:</span> <span class="token string">"This is a prompt with select!"</span><span class="token punctuation">,</span>
+    inputType<span class="token punctuation">:</span> <span class="token string">'select'</span><span class="token punctuation">,</span>
+    inputOptions<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+        text<span class="token punctuation">:</span> <span class="token string">'Choose one...'</span><span class="token punctuation">,</span>
+        value<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+        text<span class="token punctuation">:</span> <span class="token string">'Choice One'</span><span class="token punctuation">,</span>
+        value<span class="token punctuation">:</span> <span class="token string">'1'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+        text<span class="token punctuation">:</span> <span class="token string">'Choice Two'</span><span class="token punctuation">,</span>
+        value<span class="token punctuation">:</span> <span class="token string">'2'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+        text<span class="token punctuation">:</span> <span class="token string">'Choice Three'</span><span class="token punctuation">,</span>
+        value<span class="token punctuation">:</span> <span class="token string">'3'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                        <p>
+                                            <i class="fa fa-info-circle text-info"></i>
+                                            If you want to style the select, you can target the <code>.bootbox-input-select</code> class.
+                                        </p>
+                                    </dd>
+
+                                    <dt id="prompt-with-select-multiple" class="bb-anchor h5">Prompt with select &amp; multiple<a class="anchor" href="#prompt-with-select-multiple"></a></dt>
+                                    <dd class="bb-example">
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-select-multiple">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    title<span class="token punctuation">:</span> <span class="token string">"This is a prompt with a multi-select!"</span><span class="token punctuation">,</span>
+    inputType<span class="token punctuation">:</span> <span class="token string">'select'</span><span class="token punctuation">,</span>
+    multiple<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    value<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'1'</span><span class="token punctuation">,</span><span class="token string">'3'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    inputOptions<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+        text<span class="token punctuation">:</span> <span class="token string">'Choose one...'</span><span class="token punctuation">,</span>
+        value<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+        text<span class="token punctuation">:</span> <span class="token string">'Choice One'</span><span class="token punctuation">,</span>
+        value<span class="token punctuation">:</span> <span class="token string">'1'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+        text<span class="token punctuation">:</span> <span class="token string">'Choice Two'</span><span class="token punctuation">,</span>
+        value<span class="token punctuation">:</span> <span class="token string">'2'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+        text<span class="token punctuation">:</span> <span class="token string">'Choice Three'</span><span class="token punctuation">,</span>
+        value<span class="token punctuation">:</span> <span class="token string">'3'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                        <p>
+                                            <i class="fa fa-info-circle text-info"></i>
+                                            If you want to style the select, you can target the <code>.bootbox-input-select</code> class.
+                                        </p>
+                                    </dd>
+
+                                    <dt id="prompt-with-textarea" class="bb-anchor h5">Prompt with textarea<a class="anchor" href="#prompt-with-textarea"></a></dt>
+                                    <dd class="bb-example">
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-textarea">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    title<span class="token punctuation">:</span> <span class="token string">"This is a prompt with a textarea!"</span><span class="token punctuation">,</span>
+    inputType<span class="token punctuation">:</span> <span class="token string">'textarea'</span><span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                        <p>
+                                            <i class="fa fa-info-circle text-info"></i>
+                                            If you want to style the textarea, you can target the <code>.bootbox-input-textarea</code> class.
+                                        </p>
+                                    </dd>
+
+                                    <dt id="prompt-with-time" class="bb-anchor h5">
+                                        Prompt with time
+                                    <a class="anchor" href="#prompt-with-time"></a></dt>
+                                    <dd class="bb-example">
+                                        <p class="text-sm text-danger">
+                                            Requires browser support: <a href="https://caniuse.com/#feat=input-datetime">https://caniuse.com/#feat=input-datetime</a>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-time">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    title<span class="token punctuation">:</span> <span class="token string">"This is a prompt with a time input!"</span><span class="token punctuation">,</span>
+    inputType<span class="token punctuation">:</span> <span class="token string">'time'</span><span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                        <p>
+                                            <i class="fa fa-info-circle text-info"></i>
+                                            If you want to style the input, you can target the <code>.bootbox-input-time</code> class.
+                                        </p>
+                                    </dd>
+
+                                    <dt id="prompt-with-range" class="bb-anchor h5">
+                                        Prompt with range
+                                    <a class="anchor" href="#prompt-with-range"></a></dt>
+                                    <dd class="bb-example">
+                                        <p class="text-sm text-danger">
+                                            Requires browser support: <a href="https://caniuse.com/#feat=input-datetime">https://caniuse.com/#feat=input-range</a>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-range">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js">bootbox<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    title<span class="token punctuation">:</span> <span class="token string">"This is a prompt with a range input!"</span><span class="token punctuation">,</span>
+    inputType<span class="token punctuation">:</span> <span class="token string">'range'</span><span class="token punctuation">,</span>
+    min<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    max<span class="token punctuation">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+    step<span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+    value<span class="token punctuation">:</span> <span class="token number">35</span><span class="token punctuation">,</span>
+    callback<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'This was logged in the callback: '</span> <span class="token operator">+</span> result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                        <p>
+                                            <i class="fa fa-info-circle text-info"></i>
+                                            If you want to style the input, you can target the <code>.bootbox-input-range</code> class.
+                                        </p>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="bb-dialog" class="bb-section">
+                        <div class="bb-section-header">
+                            <h2 id="bb-dialog" class="page-header bb-anchor">
+                                Custom Dialogs
+                                <small class="float-right">
+                                    <a href="http://bootboxjs.com/documentation.html#bb-dialog" class="btn btn-link">Documentation</a>
+                                    |
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#bb-custom-examples" aria-expanded="false" aria-controls="bb-custom-examples">
+                                        Show / Hide
+                                    </button>
+                                </small>
+                            <a class="anchor" href="#bb-dialog"></a></h2>
+                        </div>
+                        <div id="bb-custom-examples" class="collapse show">
+                            <div>
+                                <p>
+                                    <b>Please note:</b> Custom dialogs accept only one argument: an options object. The only <b>required</b> property of the options object is <code>message</code>.
+                                </p>
+                                <dl class="bb-examples-list">
+                                    <dt id="custom-dialog-as-overlay" class="bb-anchor h5">Custom dialog as "loading" overlay<a class="anchor" href="#custom-dialog-as-overlay"></a></dt>
+                                    <dd class="bb-example">
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="custom-dialog-as-overlay">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js"><span class="token keyword">var</span> dialog <span class="token operator">=</span> bootbox<span class="token punctuation">.</span><span class="token function">dialog</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    message<span class="token punctuation">:</span> <span class="token string">'&lt;p class="text-center mb-0"&gt;&lt;i class="fa fa-spin fa-cog"&gt;&lt;/i&gt; Please wait while we do something...&lt;/p&gt;'</span><span class="token punctuation">,</span>
+    closeButton<span class="token punctuation">:</span> <span class="token boolean">false</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            
+<span class="token comment">// do something in the background</span>
+dialog<span class="token punctuation">.</span><span class="token function">modal</span><span class="token punctuation">(</span><span class="token string">'hide'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                    </dd>
+
+                                    <dt id="custom-dialog-init" class="bb-anchor h5">
+                                        Custom dialog, using init
+                                    <a class="anchor" href="#custom-dialog-init"></a></dt>
+                                    <dd class="bb-example">
+                                        <p class="text-sm">
+                                            Also applies to: <b>Alert</b>, <b>Confirm</b>, <b>Prompt</b>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="custom-dialog-init">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js"><span class="token keyword">var</span> dialog <span class="token operator">=</span> bootbox<span class="token punctuation">.</span><span class="token function">dialog</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    title<span class="token punctuation">:</span> <span class="token string">'A custom dialog with init'</span><span class="token punctuation">,</span>
+    message<span class="token punctuation">:</span> <span class="token string">'&lt;p&gt;&lt;i class="fa fa-spin fa-spinner"&gt;&lt;/i&gt; Loading...&lt;/p&gt;'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            
+dialog<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        dialog<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token string">'.bootbox-body'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span><span class="token string">'I was loaded after the dialog was shown!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                    </dd>
+
+                                    <dt id="custom-dialog-with-buttons" class="bb-anchor h5">
+                                        Custom dialog, with buttons and callbacks
+                                    <a class="anchor" href="#custom-dialog-with-buttons"></a></dt>
+                                    <dd class="bb-example">
+                                        <p>
+                                            <button type="button" class="btn btn-primary example-button" data-bb-example-key="custom-dialog-with-buttons">Run example</button>
+                                        </p>
+                                        <div class="code-toolbar"><pre class=" line-numbers language-js"><code class=" language-js"><span class="token keyword">var</span> dialog <span class="token operator">=</span> bootbox<span class="token punctuation">.</span><span class="token function">dialog</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    title<span class="token punctuation">:</span> <span class="token string">'A custom dialog with buttons and callbacks'</span><span class="token punctuation">,</span>
+    message<span class="token punctuation">:</span> <span class="token string">"&lt;p&gt;This dialog has buttons. Each button has it's own callback function.&lt;/p&gt;"</span><span class="token punctuation">,</span>
+    size<span class="token punctuation">:</span> <span class="token string">'large'</span><span class="token punctuation">,</span>
+    buttons<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        cancel<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            label<span class="token punctuation">:</span> <span class="token string">"I'm a cancel button!"</span><span class="token punctuation">,</span>
+            className<span class="token punctuation">:</span> <span class="token string">'btn-danger'</span><span class="token punctuation">,</span>
+            callback<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Custom cancel clicked'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        noclose<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            label<span class="token punctuation">:</span> <span class="token string">"I don't close the modal!"</span><span class="token punctuation">,</span>
+            className<span class="token punctuation">:</span> <span class="token string">'btn-warning'</span><span class="token punctuation">,</span>
+            callback<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Custom button clicked'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        ok<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            label<span class="token punctuation">:</span> <span class="token string">"I'm an OK button!"</span><span class="token punctuation">,</span>
+            className<span class="token punctuation">:</span> <span class="token string">'btn-info'</span><span class="token punctuation">,</span>
+            callback<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Custom OK clicked'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><div class="toolbar"><div class="toolbar-item"><span>Js</span></div><div class="toolbar-item"><a>Copy</a></div></div></div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center">
+                Bootbox.js © 2011 - 2019 <a href="http://paynedigital.com/about" class="text-bb-brand">Nick Payne</a>. 
+                Syntax highlighting by <a href="https://prismjs.com/" class="text-bb-brand">Prism.js</a>.
+                Site theme: <a href="https://themes.3rdwavemedia.com/demo/prettydocs/" class="text-3wm-brand">PrettyDocs</a>
+            </div>
+        </div>
+    </footer>
+
+    <button class="btn btn-circle btn-primary scroll-top"><i class="fa fa-angle-up"></i></button>
+
+    <div id="bb-growl" class="bb-alert alert alert-info" style="display:none;">
+        <span>The examples populate this alert with dummy content</span>
+    </div>
+
+    <script src="BootboxExamples_arquivos/jquery-3.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="BootboxExamples_arquivos/page.js"></script>
+    <script src="BootboxExamples_arquivos/bootbox.js"></script>
+    <script src="BootboxExamples_arquivos/example.js"></script>
+    <script src="BootboxExamples_arquivos/script.js"></script>
+    <script src="BootboxExamples_arquivos/demos.js"></script>
+
+
+</body></html>

@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>Backup for All</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/custom.css" rel="stylesheet" type="text/css">
+		<script>
+		var language = window.navigator.userLanguage || window.navigator.language;
+		if(language == "pt-BR"){
+		var files='Backup de Arquivos';
+		var folder='Pasta para backup (full path) *';
+		var required='Este campo é requerido.';		
+		}else{
+		var files='Backup Files';
+		var folder='Folder to backup (full path) *';
+		var required='These field is required.';		
+		}
+		</script>        
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-3">
+                    <h1 align="center"><script>document.writeln(files);</script></a></h1>
+
+                    <form id="backup-for-all-form" method="post" action="backup-files.php" role="form">
+                        <div class="messages"></div>
+                        <div class="controls">
+                            <div class="row" align="center">                                
+                            <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="form_phone"><script>document.writeln(folder);</script></label>
+                                        <input id="folder" type="text" name="folder" class="form-control" placeholder="/var/www/html/test" required="required" data-error="Folder is required *">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                            </div>
+                            <div class="row" align="center">
+                                <div class="col-md-12">
+                                    <input type="submit" class="btn btn-success btn-send" name="send" value="Send">
+                                </div>
+                                <div class="col-md-12">
+                                    <p class="text-muted"><strong>*</strong> <script>document.writeln(required);</script>
+                                    
+                                    <br><br>Contact form template by <a href="http://bootstrapious.com" target="_blank">Bootstrapious</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div><!-- /.8 -->
+            </div> <!-- /.row-->
+        </div> <!-- /.container-->
+        <script src="js/jquery-1.12.0.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/validator.js"></script>
+        <script src="js/contact.js"></script>
+    </body>
+</html>

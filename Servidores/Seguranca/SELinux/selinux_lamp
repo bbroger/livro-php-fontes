@@ -1,0 +1,378 @@
+Configuração do SELinux para LAMP com WordPress no CentOS 7
+
+Referência
+Building a Secure WordPress server with LAMP on CentOS 7 and SELinux
+
+Configurar o SELinux para usar a política Enforcing
+Usar o IPTables
+Usar SSL e forçar HTTPS
+Usar para transferência de arquivos e acesso ao servidor somente SSH e nunca FTP
+
+Antes de habilitar o SELinux instalar os pacotes e o LAMP e o Wordpress devem ser configurados.
+SELinux somente deve ser configurado após tudo isso, ao final.
+        
+- Criar o servidor
+- Configurar o acesso via SSH
+- Atualizar os pacotes e reiniciar
+
+yum check-update
+yum update -y
+
+Criar pasta para backup
+
+mkdir /root/back
+
+Desabilitar o SELinux
+
+cp /etc/selinux/config /root/back/se_configORIG
+Mudar para Disabled
+reboot
+
+Criar um usuário
+
+useradd ribafs
+passwd ribafs
+
+Adicionar este usuário ao sudo
+
+cp /etc/sudoers /root/back/sudoersORIG
+nano /etc/sudoers
+
+ribafs  ALL=(ALL)   NOPASSWD:ALL
+
+Configurar o SSH e remover o acesso do root
+
+cp /etc/ssh/sshd_config /root/back/sshd_configORIG
+
+su - ribafs
+mkdir .ssh
+chmod 700 .ssh
+cd .ssh
+ssh-keygen -b 1024 -f id_ribafs -t dsa (Enter 2 vezes)
+cat ../.ssh/id_ribafs*.pub > ../.ssh/authorized_keys
+chmod 600 ../.ssh/*
+exit
+
+nano /etc/ssh/sshd_config
+
+Port 65522
+logingrace 30
+permitirrootlogin no
+MaxAuthTries 3
+AllowUsers ribafs
+
+service sshd restart
+
+exit
+
+Copiar a chave do SSH do desktop para o servidor
+Caso ainda não tenha gerado a cheve execute:
+ssh-keygen -t rsa -b 4096
+
+Apenas tecle Enter duas vezes.
+
+Copiar a chave para o servidor:
+ssh-copy-id ribafs@IP -p 65522
+
+Na primeira vez ele pede sua senha do servidor, mas das próximas vezes não pedirá.
+
+ssh -p 65522 ribafs@IP
+
+Conecta sem pedir senha.
+
+Para ogar com privilégios de root, se necessário, use:
+sudo -i
+
+Desabilitar autenticação de senha (recomendado)
+
+sudo -i
+
+nano /etc/ssh/sshd_config
+
+PasswordAuthentication no
+
+Instalação dos pacotes do LAMP
+
+Parar, desabilitar e desinstalar o firewalld:
+
+service stop firewalld
+systemctl disable firewalld.service
+yum remove firewalld
+
+Instalação de alguns pacotes básicos:
+
+yum install -y wget mc unzip net-tools iptable-services yum-cron sshfs epel-release
+
+yum install -y httpd mariadb-server mariadb openssl mod_ssl
+
+wget https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+rpm -Uvh remi-release-7.rpm
+
+Configurar o repositório
+
+cp /etc/yum.repos.d/remi.repo /root/back/remi.repoORIG
+nano /etc/yum.repos.d/remi.repo
+
+Setar a primeira entrada para enable=1
+
+[remi]
+name=Remi's RPM repository for Enterprise Linux 7 - $basearch
+#baseurl=http://rpms.remirepo.net/enterprise/7/remi/$basearch/
+#mirrorlist=https://rpms.remirepo.net/enterprise/7/remi/httpsmirror
+mirrorlist=http://rpms.remirepo.net/enterprise/7/remi/mirror
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi
+
+Instalando PHP 7.1
+
+cp /etc/yum.repos.d/remi-php71.repo /root/back/remi-php71.repoORIG
+
+nano /etc/yum.repos.d/remi-php71.repo
+
+[remi-php71]
+name=Remi's PHP 7.1 RPM repository for Enterprise Linux 7 - $basearch
+#baseurl=http://rpms.remirepo.net/enterprise/7/php71/$basearch/
+#mirrorlist=https://rpms.remirepo.net/enterprise/7/php71/httpsmirror
+mirrorlist=http://rpms.remirepo.net/enterprise/7/php71/mirror
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi
+
+Instalar
+yum install php php-pecl-ssh2 gcc php-devel php-pear php php-gd php-mysql php-mcrypt php-mbstring
+
+yum update -y
+
+php -v
+
+Configurações
+
+systemctl enable yum-cron
+systemctl enable iptables
+systemctl start iptables
+
+nano /etc/yum/yum-cron.conf
+
+update_cmd = security
+apply_updates = yes
+
+systemctl start yum-cron
+
+Lista de pacotes instalados
+/var/log/yum.log
+
+Configurar o IPTables
+
+iptables -L > /root/back/iptablesORIG
+
+iptables -F
+
+# Drop NULL packets
+iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
+
+# Block syn flood attack
+iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP
+
+# Block XMAS packets
+iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
+
+# SSH Rate limit new connections (drop if more than 3 attempts in 60 seconds) and allow only established SSH connections
+iptables -A INPUT -i eth0 -p tcp --dport 65522 -m state --state NEW -m recent --set --name SSH
+iptables -A INPUT -i eth0 -p tcp --dport 65522 -m state --state NEW -m recent --update --seconds 300 --hitcount 4 --rttl --name SSH -j DROP
+iptables -A INPUT -i eth0 -p tcp --dport 65522 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 65522 -m state --state ESTABLISHED -j ACCEPT
+
+# Web Server (HTTP/HTTPS)
+iptables -A INPUT -i eth0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -i eth0 -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --sport 443 -m state --state ESTABLISHED -j ACCEPT
+
+# Web Browsing
+iptables -A INPUT -i eth0 -p tcp --sport 80 -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -i eth0 -p tcp --sport 443 -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --dport 443 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+
+# Allow Inbound/Outbound to Localhost
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+
+#Allow SMTP outbound (E.g Sendmail)
+iptables -A INPUT -i eth0 -p tcp --sport 25 -m state --state ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth0 -p tcp --dport 25 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# Log all dropped packets
+iptables -N LOGINPUT
+iptables -N LOGOUTPUT
+iptables -A INPUT -j LOGINPUT
+iptables -A OUTPUT -j LOGOUTPUT
+iptables -A LOGINPUT -m limit --limit 4/min -j LOG --log-prefix "DROP INPUT: " --log-level 4
+iptables -A LOGOUTPUT -m limit --limit 4/min -j LOG --log-prefix "DROP OUTPUT: " --log-level 4
+
+# Set policies to drop everything else
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT DROP
+
+Save and then restart:
+iptables-save > /etc/sysconfig/iptables
+systemctl restart iptables
+
+Instalando fail2ban
+
+yum install -y fail2ban
+systemctl enable fail2ban
+
+Criar uma configuração básica
+
+
+cp /etc/fail2ban/jail.local /root/back/jail.localORIG
+
+nano /etc/fail2ban/jail.local
+
+Alterar
+
+[DEFAULT]
+# Set a 1 hour ban
+bantime = 3600
+
+# Override /etc/fail2ban/jail.d/00-firewalld.conf:
+banaction = iptables-multiport
+
+[sshd]
+enabled = true
+
+
+== MARIADB
+
+systemctl enable mariadb
+systemctl start mariadb
+
+mysql_secure_installation
+
+Conectar com
+mysql -u root -p
+
+
+== Configurar o SSL
+
+
+== Transferir arquivos do desktop para o servidor usuando
+
+sftp
+
+== Instalar o Wordpress, Joomla ou outro site
+
+Forçar SSL no administrator
+
+
+== Protegendo administrator com senha
+
+Usando .htaccess
+
+nano /portal/administrator/.htaccess
+
+<Files wp-login.php>
+    order deny,allow
+    Deny from all
+    Allow from X.X.X.X
+</Files>
+
+X.X.X.X - seu IP
+
+Testar:
+
+http://dominio/portal/
+http://dominio/portal/administrator
+
+
+== Habilitar e configurar o SELinux
+
+yum install -y policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
+
+Mudar para modo Permissive como primeiro passo
+
+nano /etc/sysconfig/selinux
+
+SELINUX=permissive
+
+reboot
+
+Consultar estado do SELinux:
+
+sestatus
+
+Configurado como permissive ele não nega nenhum acesso mas  monitora via logs
+
+Contexto e Rótulo do SELinux
+
+Listar todos os tipos de contextos
+seinfo -t
+
+seinfo -t | grep httpd_sys
+
+Mostra todos os contextos iniciados com httpd_sys
+
+Label/Rótulo incorreto gera o erro:
+Forbidden
+You don't have permission to access / on this server.
+
+Listar labels do /var/www
+
+cd /var/www
+ls -aZ
+
+Labels usam o seguinte formato:
+
+user:role:type:level
+
+Listar todos
+
+getsebool -a 
+Comando para mudar o estado
+
+setsebool -P
+
+semanage boolean -l | grep httpd
+ 
+restorecon -Rv /var/www/html/portal
+
+Permitir SSH em porta diferente da default
+
+semanage port -a -t ssh_port_t -p tcp 65522
+
+Permitir apache ler e escrever no /var/www
+
+setsebool -P httpd_unified 1
+
+Quando encontrar algum problema sem solução no SELinux faça o seguinte:
+- Limpe o audit.log com:
+
+> /var/log/audit/audit.log
+reboot
+
+Use o comando sealert
+sealert -a /var/log/audit/audit.log
+
+Sumário do audit.log:
+aureport -a -ts today
+
+
+==Reforçar o SELinux
+
+nano /etc/sysconfig/selinux
+
+SELINUX=enforced
+reboot
+
+Após o boot, acesse por ssh faça login e teste o sistema. Teste também o acesso ao site.
+
+Ver este
+http://www.drupalwatchdog.com/volume-2/issue-2/using-apache-and-selinux-together
+
+
+Para permitir o httpd
+
+semanage permissive -a httpd_t

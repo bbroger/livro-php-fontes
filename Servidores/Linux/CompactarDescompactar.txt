@@ -1,0 +1,134 @@
+Compactar e Descompactar Arquivos no Terminal do Linux
+
+Instalar compactadores para Linux:
+sudo apt-get install unace zip unzip p7zip-full p7zip-rar sharutils uudeview mpack arj unrar rar lzma lha lzma-dev rar unrar-free ark ncompress
+
+
+zip
+Compactação
+
+zip pacote.zip arquivoa.txt arquivob.txt arquivoc.odt
+zip pacote.zip *.txt
+zip -r documentos.zip /usr/*.txt
+
+Opções:
+-r recursivo
+-1 rápido
+-9 maior compactação
+-D compactar somente arquivos, nada de diretório
+-x arquivos - excluir da compactação alguns arquivos
+
+Descompactação
+
+unzip nome.zip
+
+Em diretório específico
+unzip nome.zip -d /tmp
+
+
+arj
+arj a pacote.arj arquivo.odt
+
+Descompactar
+arj x pacote.arj
+
+
+tar
+Compactar
+tar -czpvf pacote.tar arquivo1.gif memorando.htm carta.doc
+tar -czpvf pacote.tar pasta
+
+Descompactar:
+tar -zxpvf nomedoarq.tar
+
+
+tar.gz
+tar -czpvf pacote.tar.gz arquivo1.gif memorando.htm carta.doc
+tar -czpvf pacote.tar.gz pasta
+
+Descompactar no diretório atual
+tar -zxpvf pacote.tar.gz -C /tmp
+
+
+tar.bz2
+tar -jxpvf pacote.tar.bz2
+
+Descompactar apenas um arquivo de dentro do pacote
+tar -xvf pacote.tar.gz foto1.png
+
+Lista de parâmetros do tar:
+
+-c – cria um novo arquivo tar;
+-M – cria, lista ou extrai um arquivo multivolume;
+-p – mantém as permissões originais do(s) arquivo(s);
+-r – acrescenta arquivos a um arquivo tar;
+-t – exibe o conteúdo de um arquivo tar;
+-v – exibe detalhes da operação;
+-w – pede confirmação antes de cada ação;
+-x – extrai arquivos de um arquivo tar;
+-z – comprime ou extrai arquivos tar resultante com o gzip;
+-j – comprime ou extrai arquivos tar resultante com o bz2;
+-f – especifica o arquivo tar a ser usado;
+-C – especifica o diretório dos arquivos a serem armazenados.
+
+
+gzip
+Compactar
+gzip documentos.odt
+
+Descompactar
+gunzip documentos.odt.gz
+
+
+bzip2
+Compactar
+bzip2 pacote.gz
+
+Descompactar
+bunzip2 pacote.bz2
+bunzip2 pacote.tar.bz2
+
+
+rar
+Compactar
+rar a pacote.rar arquivoa arquivob
+rar a pacote.rar /pasta
+
+Descompactar
+unrar x pacote.rar
+
+
+7z
+Compactar
+7za a pacote.7z arquivoa arquivob 
+
+Descompactar
+7za x pacote.7z 
+
+
+lha
+Compactar
+lha a pacote.lha arquivoa arquivob 
+
+Descompactar
+lha x pacote.lha 
+
+
+zoo
+Compactar
+zoo a pacote.zoo arquivoa arquivob 
+
+Descompactar
+zoo x pacote.zoo 
+
+Ajuda sobre um dos compactadores acima:
+man nome_compactador
+
+Ex:
+man arj
+
+Referências:
+http://blog.kolaborativa.com/2011/10/compactar-e-descompactar-arquivos-zip-rar-tar-gz-bz2-tar-tar-bz2-pelo-terminal/
+https://linuxdicasesuporte.blogspot.com.br/2015/03/compactacao-de-arquivos-para-debian.html
+
+

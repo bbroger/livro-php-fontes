@@ -1,0 +1,303 @@
+Configuração de um firewall com IPFW no FreeBSD 11.1
+
+Exemplos de rules no FreeBSD em
+
+/etc/rc.firewall
+
+Habilitando o firewall
+
+nano /etc/rc.conf
+
+firewall_enable="YES"
+
+Tipo do firewall
+
+firewall_type="open"
+
+Os tipos são:
+
+open: todo o tráfego passa
+client: protege somente esta maquina
+simple: protege a rede inteira
+closed: inteiramente desabilitado o tráfego do IP exceto para a interface de loopback
+workstation: protege somente esta máquina usando regras completas.
+UNKNOWN: desabilita a carga das regras do firewall
+filename: path completo do arquivo que contém as regras
+
+Se for configurado para cliente ou simple modifique as regras default em /etc/rc.firewall
+
+firewall_script="/etc/ipfw.rules"
+ou
+firewall_script="/usr/local/etc/ipfw.rules"
+
+
+Criando as regras - exemplo
+
+nano /usr/local/etc/ipfw.rules
+
+IPF="ipfw -q add"
+ipfw -q -f flush
+
+#loopback 
+$IPF 10 allow all from any to any via lo0
+$IPF 20 deny all from any to 127.0.0.0/8
+$IPF 30 deny all from 127.0.0.0/8 to any
+$IPF 40 deny tcp from any to any frag
+
+# statefull
+$IPF 50 check-state
+$IPF 60 allow tcp from any to any established
+$IPF 70 allow all from any to any out keep-state
+$IPF 80 allow icmp from any to any
+
+# open port ftp (20,21), ssh (22), mail (25)
+# http (80), dns (53) etc
+$IPF 110 allow tcp from any to any 21 in
+$IPF 120 allow tcp from any to any 21 out
+$IPF 130 allow tcp from any to any 22 in
+$IPF 140 allow tcp from any to any 22 out
+$IPF 150 allow tcp from any to any 25 in
+$IPF 160 allow tcp from any to any 25 out
+$IPF 170 allow udp from any to any 53 in
+$IPF 175 allow tcp from any to any 53 in
+$IPF 180 allow udp from any to any 53 out
+$IPF 185 allow tcp from any to any 53 out
+$IPF 200 allow tcp from any to any 80 in
+$IPF 210 allow tcp from any to any 80 out
+
+# deny and log everything 
+$IPF 500 deny log all from any to any
+
+Reboot ou apenas carregar a regras com
+sh /usr/local/etc/ipfw.rules
+
+
+Controlando limites em
+
+nano /etc/sysctl.conf
+
+net.inet.ip.fw.verbose_limit=5
+
+Para habilitar as alterações inicie ou reinicie
+
+service ipfw start
+
+Sintaxe das regras/rules
+
+# - comentários
+Linhas em branco são ignoradas
+Palavras em maiúsculas são variáveis
+Palavras em minúsculas devem preceder as variáveis que as seguem
+
+CMD RULE_NUMBER set SET_NUMBER ACTION log LOG_AMOUNT PROTO from SRC SRC_PORT to DST DST_PORT OPTIONS
+
+Lista completa
+https://www.freebsd.org/cgi/man.cgi?query=ipfw&sektion=8&manpath=freebsd-release-ports
+
+Exemplo de conjuntos de regras
+
+nano /etc/ipfw.rules
+
+Ao iniciar a criação ou teste de regras execute o comando abaixo temporariamente
+
+net.inet.ip.fw.default_to_accept="1"
+
+Que irá configurar a política para ser mais permissiva que o default
+
+#!/bin/sh
+# Flush out the list before we begin.
+ipfw -q -f flush
+
+# Set rules command prefix
+cmd="ipfw -q add"
+pif="dc0"     # interface name of NIC attached to Internet
+
+Estas primeiras duas regras permitem todo o tráfego na interface interna confiável e na interface do loopback
+
+# Change xl0 to LAN NIC interface name
+$cmd 00005 allow all from any to any via xl0
+
+# No restrictions on Loopback Interface
+$cmd 00010 allow all from any to any via lo0
+
+A próxima regra permite que o pacote entre se corresponder a uma entrada existente na tabela de regras dinâmicas:
+
+$cmd 00101 check-state
+
+O próximo conjunto de regras define quais conexões internas os sistemas internos podem criar para hosts na Internet:
+
+# Allow access to public DNS
+# Replace x.x.x.x with the IP address of a public DNS server
+# and repeat for each DNS server in /etc/resolv.conf
+$cmd 00110 allow tcp from any to x.x.x.x 53 out via $pif setup keep-state
+$cmd 00111 allow udp from any to x.x.x.x 53 out via $pif keep-state
+
+# Allow access to ISP's DHCP server for cable/DSL configurations.
+# Use the first rule and check log for IP address.
+# Then, uncomment the second rule, input the IP address, and delete the first rule
+$cmd 00120 allow log udp from any to any 67 out via $pif keep-state
+#$cmd 00120 allow udp from any to x.x.x.x 67 out via $pif keep-state
+
+# Allow outbound HTTP and HTTPS connections
+$cmd 00200 allow tcp from any to any 80 out via $pif setup keep-state
+$cmd 00220 allow tcp from any to any 443 out via $pif setup keep-state
+
+# Allow outbound email connections
+$cmd 00230 allow tcp from any to any 25 out via $pif setup keep-state
+$cmd 00231 allow tcp from any to any 110 out via $pif setup keep-state
+
+# Allow outbound ping
+$cmd 00250 allow icmp from any to any out via $pif keep-state
+
+# Allow outbound NTP
+$cmd 00260 allow udp from any to any 123 out via $pif keep-state
+
+# Allow outbound SSH
+$cmd 00280 allow tcp from any to any 22 out via $pif setup keep-state
+
+# deny and log all other outbound connections
+$cmd 00299 deny log all from any to any out via $pif
+
+
+O próximo conjunto de regras controla conexões de hosts da Internet para a rede interna. Ele começa negando pacotes tipicamente associados a ataques e, em seguida, permite explicitamente tipos específicos de conexões. Todos os serviços autorizados que se originam do limite de uso da Internet para evitar invasões.
+
+# Deny all inbound traffic from non-routable reserved address spaces
+$cmd 00300 deny all from 192.168.0.0/16 to any in via $pif     #RFC 1918 private IP
+$cmd 00301 deny all from 172.16.0.0/12 to any in via $pif      #RFC 1918 private IP
+$cmd 00302 deny all from 10.0.0.0/8 to any in via $pif         #RFC 1918 private IP
+$cmd 00303 deny all from 127.0.0.0/8 to any in via $pif        #loopback
+$cmd 00304 deny all from 0.0.0.0/8 to any in via $pif          #loopback
+$cmd 00305 deny all from 169.254.0.0/16 to any in via $pif     #DHCP auto-config
+$cmd 00306 deny all from 192.0.2.0/24 to any in via $pif       #reserved for docs
+$cmd 00307 deny all from 204.152.64.0/23 to any in via $pif    #Sun cluster interconnect
+$cmd 00308 deny all from 224.0.0.0/3 to any in via $pif        #Class D & E multicast
+
+# Deny public pings
+$cmd 00310 deny icmp from any to any in via $pif
+
+# Deny ident
+$cmd 00315 deny tcp from any to any 113 in via $pif
+
+# Deny all Netbios services.
+$cmd 00320 deny tcp from any to any 137 in via $pif
+$cmd 00321 deny tcp from any to any 138 in via $pif
+$cmd 00322 deny tcp from any to any 139 in via $pif
+$cmd 00323 deny tcp from any to any 81 in via $pif
+
+# Deny fragments
+$cmd 00330 deny all from any to any frag in via $pif
+
+# Deny ACK packets that did not match the dynamic rule table
+$cmd 00332 deny tcp from any to any established in via $pif
+
+# Allow traffic from ISP's DHCP server.
+# Replace x.x.x.x with the same IP address used in rule 00120.
+#$cmd 00360 allow udp from any to x.x.x.x 67 in via $pif keep-state
+
+# Allow HTTP connections to internal web server
+$cmd 00400 allow tcp from any to me 80 in via $pif setup limit src-addr 2
+
+# Allow inbound SSH connections
+$cmd 00410 allow tcp from any to me 22 in via $pif setup limit src-addr 2
+
+# Reject and log all other incoming connections
+$cmd 00499 deny log all from any to any in via $pif
+The last rule logs all packets that do not match any of the rules in the ruleset:
+# Everything else is denied and logged
+$cmd 00999 deny log all from any to any
+
+
+O comando ipfw
+
+O problema de usar este comando é que todas as mudanças efetuadas serão perdidas após o reboot. Por isso todas as regras devem ser escritas no arquivo de regras.
+
+Durante o processo de testar uma regra listando a regra com seu contador é uma forma de determinar se a regra está funcionando como esperado.
+
+Listando todas as regras em sequência
+
+ipfw list
+
+Listar todas as regras com seu tempo correspondente
+
+ipfw -t list
+
+O próximo exemplo lista informações com o contador e a contagem de pacotes para regras correspondentes, juntamente com as próprias regras
+
+ipfw -a list
+
+Para listar também regras dinâmicas
+ipfw -d list
+
+Para também mostrar as regras dinâmicas expiradas
+ipfw -d -e list
+
+Para zerar o contador
+ipfw zero
+
+Para zerar o contador especificamente para a regra com NUM
+ipfw zero NUM
+
+Registrando mensagens do firewall
+
+Normalmente somente regras deny são registradas
+
+Se você não for cuidadoso, uma grande quantidade de dados de logs ou um ataque DoS pode encher o disco com arquivos de log.
+
+IPFIREWALL_VERBOSE_LIMIT=5 limita o número de consecutivas mensagens enviadas para o syslog correspondentes aos pacotes que batem com uma certa regra.
+
+Todas as mensagens de pacotes são registradas em
+/var/log/security
+
+Que é definido em
+/etc/syslog.conf
+
+
+Construindo um script de regras
+
+Scripts com regras podem ser testados confortavelmente sem precisar de reboot
+É importante que scripts com regras sejam compatíveis com os principais shels usados: sh, csh e tcsh.
+Quando usar uma variável, ao chamar a mesma, preceda seu nome com $.
+Campos não são precedidos de $
+Os valores das variáveis precisam ser delimitados com " e ".
+
+Iniciando as regras
+Estas não são regras importantes, apenas como exemplo
+
+nano /etc/ipfw.rules
+
+############### start of example ipfw rules script #############
+#
+ipfw -q -f flush       # Delete all rules
+# Set defaults
+oif="tun0"             # out interface
+odns="192.0.2.11"      # ISP's DNS server IP address
+cmd="ipfw -q add "     # build rule prefix
+ks="keep-state"        # just too lazy to key this each time
+$cmd 00500 check-state
+$cmd 00502 deny all from any to any frag
+$cmd 00501 deny tcp from any to any established
+$cmd 00600 allow tcp from any to any 80 out via $oif setup $ks
+$cmd 00610 allow tcp from any to $odns 53 out via $oif setup $ks
+$cmd 00611 allow udp from any to $odns 53 out via $oif $ks
+################### End of example ipfw rules script ############
+
+Para carregá-las na memória:
+
+sh /etc/ipfw.rules
+
+As regras podem ficar em qualquer diretório e seu script ter qualquer nome.
+
+Também podemos executar os comandos usando o ipfw
+
+ipfw -q -f flush
+ipfw -q add check-state
+ipfw -q add deny all from any to any frag
+ipfw -q add deny tcp from any to any established
+ipfw -q add allow tcp from any to any 80 out via tun0 setup keep-state
+ipfw -q add allow tcp from any to 192.0.2.11 53 out via tun0 setup keep-state
+ipfw -q add 00611 allow udp from any to 192.0.2.11 53 out via tun0 keep-state
+
+
+Logs
+
+tail -f /var/log/system.log

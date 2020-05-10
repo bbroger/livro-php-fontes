@@ -1,0 +1,3 @@
+sudo service cups stop
+sudo systemctl disable cups
+

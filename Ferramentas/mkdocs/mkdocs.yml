@@ -1,0 +1,17 @@
+site_name: RibaFS no GitHub
+nav:
+    - Início: index.md
+    - Categoria Códigos: codigos/index.html
+    - Categoria Joomla: joomla/index.html
+    - Categoria CakePHP: cakephp/index.html
+    - Categoria Mobile: mobile/index.html
+theme:
+    name: bootstrap
+markdown_extensions:
+    - codehilite:
+            guess_lang: False
+            use_pygments: True
+            noclasses: True
+            linenums: True
+            pygments_style: monokai
+

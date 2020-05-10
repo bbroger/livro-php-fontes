@@ -1,0 +1,67 @@
+Aplicando SSL ao Apache
+
+a2enmod ssl
+
+service apache2 restart
+
+mkdir /etc/apache2/ssl
+
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.key -out /etc/apache2/ssl/apache.crt
+
+
+Responda às perguntas:
+
+Country Name (2 letter code) [XX]:BR  
+State or Province Name (full name) []:Ceará
+Locality Name (eg, city) [Default City]:Fortaleza
+Organization Name (eg, company) [Default Company Ltd]:FreeLancer
+Organizational Unit Name (eg, section) []:Free
+Common Name (eg, your name or your server's hostname) []:ribafs.org
+Email Address []:ribafs@gmail.com
+
+
+nano /etc/apache2/sites-available/default-ssl.conf
+
+Remover todo o conteúdo e deixar somente:
+
+<IfModule mod_ssl.c>
+    <VirtualHost _default_:443>
+        ServerAdmin ribafs@gmail.com
+        ServerName 159.65.93.252
+        #ServerAlias www.ribafs.org
+        DocumentRoot /var/www/html
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+        SSLEngine on
+        SSLCertificateFile /etc/apache2/ssl/apache.crt
+        SSLCertificateKeyFile /etc/apache2/ssl/apache.key
+        <FilesMatch "\.(cgi|shtml|phtml|php)$">
+                        SSLOptions +StdEnvVars
+        </FilesMatch>
+        <Directory /usr/lib/cgi-bin>
+                        SSLOptions +StdEnvVars
+        </Directory>
+        BrowserMatch "MSIE [2-6]" \
+                        nokeepalive ssl-unclean-shutdown \
+                        downgrade-1.0 force-response-1.0
+        BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+    </VirtualHost>
+</IfModule>
+
+a2ensite default-ssl.conf
+
+service apache2 restart
+
+
+Testar
+
+https://IP/administrator
+
+
+Agora proteger doretório administrator com senha usando o arquivo
+
+4senha_diretorio
+
+
+Referências
+https://www.digitalocean.com/community/tutorials/how-to-create-a-ssl-certificate-on-apache-for-ubuntu-14-04

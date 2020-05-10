@@ -1,0 +1,5 @@
+Procurar string s sobrescrever com outra em arquivo
+
+sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config;
+
+

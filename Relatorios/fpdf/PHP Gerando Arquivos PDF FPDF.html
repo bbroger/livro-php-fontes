@@ -1,0 +1,1350 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="pt-br">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>PHP, Gerando Arquivos PDF (FPDF) &laquo;  NoDesign</title>
+<link rel="stylesheet" href="http://s1.wordpress.com/wp-content/themes/pub/freshy/style.css?m=1247755030b" type="text/css" media="screen" title="Freshy"/>
+<!--[if gte IE 7]>
+	<link rel="stylesheet" href="http://s2.wordpress.com/wp-content/themes/pub/freshy/ie7.css?m=1225564348b" type="text/css" media="screen" />
+<![endif]-->
+<!--[if lt IE 7]>
+	<link rel="stylesheet" href="http://s3.wordpress.com/wp-content/themes/pub/freshy/ie6.css?m=1224180334b" type="text/css" media="screen" />
+<![endif]-->
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://nodesign.wordpress.com/feed/" />
+<link rel="pingback" href="http://nodesign.wordpress.com/xmlrpc.php" />
+<link rel="alternate" type="application/rss+xml" title="NoDesign &raquo; PHP, Gerando Arquivos PDF&nbsp;(FPDF) Comments Feed" href="http://nodesign.wordpress.com/2007/11/22/php-gerando-arquivos-pdf-fpdf/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel='stylesheet' href='http://s.wordpress.com/wp-content/themes/h4/global.css?m=1243452766b' type='text/css' />
+<script type='text/javascript' src='http://nodesign.wordpress.com/wp-includes/js/comment-reply.js?ver=20090102'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://nodesign.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://nodesign.wordpress.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='NoDesign' href='http://nodesign.wordpress.com' />
+<link rel='start' title='Contruindo uma fila de requisições em&nbsp;Ajax' href='http://nodesign.wordpress.com/2006/08/10/contruindo-uma-fila-de-requisicoes-em-ajax/' />
+<link rel='prev' title='MySQL, Usando Expressões Regulares&nbsp;(+Dicas)' href='http://nodesign.wordpress.com/2007/11/20/mysql-usando-expressoes-regulares-dicas/' />
+<link rel='next' title='JavaFX, a nova aposta da&nbsp;Sun' href='http://nodesign.wordpress.com/2007/11/27/javafx/' />
+<meta name="generator" content="WordPress.com" />
+<link rel='canonical' href='http://nodesign.wordpress.com/2007/11/22/php-gerando-arquivos-pdf-fpdf/' />
+<link rel="shortcut icon" type="image/x-icon" href="http://www.gravatar.com/blavatar/2cabb2f9a4eb005a207779ec162f73b1?s=16&#038;d=http://s.wordpress.com/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="http://www.gravatar.com/blavatar/2cabb2f9a4eb005a207779ec162f73b1?s=16&#038;d=http://s.wordpress.com/favicon.ico" />
+<link rel="apple-touch-icon" href="http://www.gravatar.com/blavatar/2bb6d96bc5eecffd89260e4a097574af?s=158&#038;d=http://s.wordpress.com/wp-content/themes/h4/i/webclip.png" />
+<link rel='openid.server' href='http://nodesign.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='http://nodesign.wordpress.com/' />
+
+	<style type="text/css">
+	.menu li a {
+		background-image:url("http://s2.wordpress.com/wp-content/themes/pub/freshy/images/menu/menu_triple.gif");
+	}
+	.menu li a.first_menu {
+		background-image:url("http://s3.wordpress.com/wp-content/themes/pub/freshy/images/menu/menu_start_triple.gif");
+	}
+	.menu li a.last_menu {
+		background-image:url("http://s1.wordpress.com/wp-content/themes/pub/freshy/images/menu/menu_end_triple.gif");
+	}
+	.menu li.current_page_item a {
+		color:#000000 !important;
+	}
+	
+	.description {
+		color:#ADCF20;
+	}
+	#content .commentlist dd.author_comment {
+		background-color:#a3cb00 !important;
+	}
+	html > body #content .commentlist dd.author_comment {
+		background-color:#a3cb00 !important;
+	}
+	#content .commentlist dt.author_comment .date {
+		color:#a3cb00 !important;
+		border-color:#a3cb00 !important;
+	}
+	#content .commentlist .author_comment .author,
+	#content .commentlist .author_comment .author a {
+		color:#a3cb00 !important;
+		border-color:#a3cb00 !important;
+	}
+	#sidebar h2 {
+		color:#f78b0c;
+		background-color:#FFFFFF;
+		border-bottom-color:#f78b0c;
+	}
+	#sidebar {
+		background-color:#FFFFFF;
+	}
+	*::-moz-selection {
+		background-color:#FF3C00;
+	}
+
+	#content a:hover {
+		border-bottom:1px dotted #FF3C00;
+	}
+
+	#sidebar a:hover,
+	#sidebar .current_page_item li a:hover,
+	#sidebar .current-cat li a:hover,
+	#sidebar .current_page_item a,
+	#sidebar .current-cat a ,
+	.readmore,
+	#content .postmetadata a
+	{
+		color : #FF3C00;
+	}
+	
+	#title_image {
+		margin:0;
+		text-align:left;
+		display:block;
+		height:95px;
+	}
+	
+	</style>
+
+	<style type="text/css">
+	#title_image {
+	background-image:url(http://nodesign.files.wordpress.com/2008/07/nodesign-1.jpg);
+	}
+</style>
+
+<script defer="defer" id="snap_preview_anywhere" type="text/javascript" src="http://spa.snap.com/snap_preview_anywhere.js?ap=0&amp;si=1&amp;sb=1&amp;key=e5a3c1e6dff5de35b1c6e7c470411886&amp;domain=&amp;fl=wordpress&amp;pub=pub-2311827-www.wordpress.com&amp;es=all&amp;lang=pt-br"></script>
+
+</head>
+<body>
+
+<div id="page">
+	
+	<!-- header -->
+	<div id="header">
+		<div id="title">
+			<h1>
+				<a href="http://nodesign.wordpress.com">
+					<span>NoDesign</span>
+				</a>
+			</h1>
+			<div class="description">
+				<small>Technology Blog</small>
+			</div>
+		</div>
+		<div id="title_image"></div>
+	</div>
+	
+	<!-- main div -->
+	<div id="frame">
+
+	<!-- main menu -->
+		<ul class="menu">
+			<li class="page_item">
+				<a class="first_menu" href="http://nodesign.wordpress.com">
+					Início				</a>
+			</li>
+					
+							
+			<li class="last_menu">
+				
+				<!-- put an empty link to have the end of the menu anyway -->
+					
+				<a class="last_menu_off">
+				</a>
+					
+			</li>
+
+		</ul>
+	
+	<hr style="display:none"/>
+
+	<div id="content">
+	
+			
+						
+			<div class="post-62 post hentry category-php tag-fpdf tag-html-pdf tag-nota-fiscal tag-pdf tag-php" id="post-62">
+				
+				<h2><a href="http://nodesign.wordpress.com/2007/11/22/php-gerando-arquivos-pdf-fpdf/" rel="bookmark" title="Ler PHP, Gerando Arquivos PDF&nbsp;(FPDF)">PHP, Gerando Arquivos PDF&nbsp;(FPDF)</a></h2>
+
+				<small class="date">
+					<span class="date_day">22</span>
+					<span class="date_month">11</span>
+					<span class="date_year">2007</span>
+				</small>
+					
+				<div class="entry">
+					<div class='snap_preview'><p>A pouco tempo atrás, em uma de minhas aplicações, precisei recorrer ao pdf para gerar notas fiscais (sim notas fiscais) portando precisei rala um pouco para configurar fontes ajustar margens e tudo mais, sendo assim resolvi escrever sobre.</p>
+<p>Como minha aplicação foi feita em PHP utilizei uma classe chamada <a href="http://www.fpdf.org/" title="FPDF PDF" target="_blank">fpdf</a> que hoje considero a mais popular para geração de documentos pdf.</p>
+<p>Vamos lá.<br />
+<span id="more-62"></span><br />
+<strong>1 &#8211; Baixando os arquivos necessários </strong></p>
+<p>Para isso basta acessar:</p>
+<p><a href="http://www.fpdf.org/en/download.php" title="Download FPDF" target="_blank">http://www.fpdf.org/en/download.php </a></p>
+<p>E escolher a versão mais atual (a versão indicada abaixo verm com a documentação e um tutorial que não tem erro)</p>
+<p>No meu caso o arquivo é fpdf153.zip</p>
+<p>Extraia o arquivo  fpdf153.zip para a pasta de preferência dentro de seu projeto, no meu caso eu extrai para a pasta fpdf.</p>
+<p><strong>2 &#8211; Meu primeiro arquivo</strong></p>
+<p>Para criar seu primeiro arquivo você terá:</p>
+<p><code>require_once("fpdf/fpdf.php");<br />
+define('FPDF_FONTPATH','fpdf/font/');<br />
+$pdf = new FPDF("P","cm",array(17.7,22));<br />
+$pdf-&gt;Open();<br />
+$pdf-&gt;AddPage();<br />
+$pdf-&gt;SetFont('Arial','',10);<br />
+$pdf-&gt;SetMargins(0,0,0);<br />
+$pdf-&gt;setY("2.25");<br />
+$pdf-&gt;setX("11.6");<br />
+$pdf-&gt;Cell(0, 0, "nodesign");<br />
+$pdf-&gt;Output("arquivo","I");</code></p>
+<p>Calma que é mais simples do que parece,</p>
+<p>require_once(&#8221;fpdf/fpdf.php&#8221;); = Importa a classe principal do fpdf</p>
+<ul></ul>
+<p>define(&#8217;FPDF_FONTPATH&#8217;,'fpdf/font/&#8217;); = Define qual o diretório onde está centrado os arquivos do fpdf que você baixou.</p>
+<ul></ul>
+<p>new FPDF(&#8221;P&#8221;,&#8221;cm&#8221;,array(17.7,22)); = Cria o objeto da classe fpdf, passando como argumentos, a orientação da página (L para Paisagem ou P para Retrato), unidade de medida (cm = centimetro e assim vai), e as dimenções da página que você também poderá passar as default da classe como A4, A3 &#8230; ou utilizar um vetor como eu fiz.</p>
+<ul></ul>
+<p>Ufa, até aqui tudo certo, agora vamos começar a escrever:</p>
+<p>SetFont(&#8217;Arial&#8217;,&#8221;,10); = Setando a fonte que será usada a partir de agora no documento. Existe uma penca de fontes já implementadas no fpdf e também tem como adicionar mais fontes (eu tive que fazer isso e é chato demais), para isso basta consutlar o manual.</p>
+<ul></ul>
+<p>SetMargins(0,0,0); = Define as margens que a escrita do documento será iniciado.</p>
+<ul></ul>
+<p>setY(&#8221;2.25&#8243;); = Define em qual posição de Y será iniciada a escrita em relação a margem (lembrando que foi definido centímetros como unidade de página)</p>
+<ul></ul>
+<p>setX(&#8221;11.6&#8243;); = Mesma coisa do setY só que em X (x = horizontal, y = vertical)</p>
+<ul></ul>
+<p>Cell(0, 0, &#8220;nodesign&#8221;); = Aqui finalmente agente escreve, no caso passando como argumento o texto &#8220;nodesign&#8221; que será impresso no documento, o Cell, representa que o texto será de 1 linha apenas, os argumentos 0,0 definem a label que irá abranger o texto, isso é bom mais no caso de alinhar a esquerda um texto e a direita o outro, imagina que isso será &#8220;quanto esse texto vai ocupar na tela&#8221; e como voces perceberam foi definido onde esse texto será escrito na tela no setX e setY.</p>
+<ul></ul>
+<p>Pronto, agora finalizando.</p>
+<p>Output(&#8221;arq.pdf&#8221;,&#8221;I&#8221;); = Está é a função que representa como será a saída do arquivo, se será apenas exibido na tela (use o default Output()) ou como no meu caso eu precisava do arquivo gerado, passei os argumentos &#8220;I&#8221; que gera o arquivo e &#8220;arq.php&#8221; como nome de saída do meu arquivo.</p>
+<ul></ul>
+<p><strong>3 &#8211; Inserindo Imagem</strong></p>
+<p><code>$pdf-&gt;Image('img.jpg',10,10,38,38,jpg);</code></p>
+<p>img.jpg&#8217;,10,10,38,38,jpg = Nome do arquivo, coordenadas, tamanho da imagem, e formato, quer mais fácil que isso ?</p>
+<p><strong><strong>4 &#8211; Múltiplas Linhas</strong></strong></p>
+<p><code>$pdf-&gt;Multicell(5, 0.5, "nodesign");<strong><strong> </strong></strong></code></p>
+<p>5, 0.5, &#8220;nodesign&#8221; = Tamanho da Label (fundamental para definir aonde o texto irá quebrar e quantas linhas ele terá) e texto a ser exibido.</p>
+<p><strong><strong>5 &#8211; Novas Fontes</strong></strong></p>
+<p>Realmente eu acho essa parte meio chata,</p>
+<p><code>$pdf-&gt;AddFont('Lucon','I','lucon.php');</code></p>
+<p>Só isso ? Não, tem uma penca de coisas, primeiro além do ttf em mãos é preciso gerar o mapa de caracteres da fonte e logo em seguida utilizar um arquivo que vem junto no pacote do fpdf:</p>
+<p><code>ttf2pt1 -b -L luconMap.map c:\font\lucon.ttf lucon</code></p>
+<p>Feito isso basta utilizar o AddFont mencionado logo acima.</p>
+<p>Qualquer dúvida basta reclamar.</p>
+<p><strong><strong>6 &#8211; Converter HTML para PDF</strong></strong></p>
+<p>Isso eu vi o script recentemente no próprio site do fpdf e ainda não testei mais mesmo assim segue o link pois parece bem tranquilo:<strong><br />
+</strong><br />
+<a href="http://www.fpdf.org/en/script/index.php" title="fpdf html pdf" target="_blank"> http://www.fpdf.org/en/script/index.php<br />
+Procure por Write HTML</a></p>
+<p><strong>7 &#8211; Finalizando</strong></p>
+<p>Como eu iniciei comentando neste post, a minha aplicação precisava gerar notas fiscais, a impressão seria utilizando impressora matricial foi muito complicada (pdf e matricial não combinam), na base da muita porrada eu consegui resolver o problema das fontes no fpdf e acabo todo mundo feliz, segue abaixo dicas fundamentais.</p>
+<p>Leia a documentação que vem junto ao pacote, ela é SIMPLES DEMAIS.</p>
+<p>Veja os tutoriais que também vem junto ao pacote.</p>
+<p><a href="http://www.fpdf.org/" title="FPDF" target="_blank">Link Site Oficial. </a></p>
+</div>				</div>
+	
+								
+			</div>
+			
+			<p class="navigation">
+				<span class="alignleft">&laquo; <a href="http://nodesign.wordpress.com/2007/11/20/mysql-usando-expressoes-regulares-dicas/">MySQL, Usando Expressões Regulares&nbsp;(+Dicas)</a></span>
+				<span class="alignright"><a href="http://nodesign.wordpress.com/2007/11/27/javafx/">JavaFX, a nova aposta da&nbsp;Sun</a> &raquo;</span>
+			</p>
+			<br/>
+			<h3>Ações</h3>
+			<ul class="postmetadata">
+					<li class="with_icon"><img class="icon" src="http://s2.wordpress.com/wp-content/themes/pub/freshy/images/icons/feed-icon-16x16.gif" alt="rss" />&nbsp;<a href='http://nodesign.wordpress.com/2007/11/22/php-gerando-arquivos-pdf-fpdf/feed/'>Comentários RSS</a></li>
+							<li class="with_icon"><img class="icon" src="http://s3.wordpress.com/wp-content/themes/pub/freshy/images/icons/trackback-icon-16x16.gif" alt="trackback" />&nbsp;<a href="http://nodesign.wordpress.com/2007/11/22/php-gerando-arquivos-pdf-fpdf/trackback/ " rel="trackback" title="make a trackback">Trackback</a></li>
+							</ul>
+				
+			<h3>Informações</h3>
+			<ul class="postmetadata">
+					<!--<li>Autor : Jonathan Isaac</li>-->
+					<li>Data : Novembro 22, 2007</li>
+									<li>Tags: <a href="http://pt-br.wordpress.com/tag/fpdf/" rel="tag">fpdf</a>, <a href="http://pt-br.wordpress.com/tag/html-pdf/" rel="tag">html pdf</a>, <a href="http://pt-br.wordpress.com/tag/nota-fiscal/" rel="tag">nota fiscal</a>, <a href="http://pt-br.wordpress.com/tag/pdf/" rel="tag">pdf</a>, <a href="http://pt-br.wordpress.com/tag/php/" rel="tag">PHP</a></li>
+					<li>Categorias : <a href="http://pt-br.wordpress.com/tag/php/" title="Ver todos os posts em PHP" rel="category tag">PHP</a></li>
+							</ul>
+				
+				<h3 id="comments">30 respostas</h3>
+
+	<dl class="commentlist snap_preview">
+	
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">29</span>
+			<span class="date_month">11</span>
+			<span class="date_year">2007</span>
+		</small>
+	</dt>
+
+	<dd class="comment even thread-even depth-1 commentlist_item" id="comment-208">			
+
+		<div class="comment" id="div-comment-208">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://1.gravatar.com/avatar/5e9a9d116796e5c9955735d5b035fe6d?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://abacaxiatomico.com' rel='external nofollow' class='url'>Allyson de Paula</a></span></strong> <span class="comment-meta commentmetadata"><small>(20:34:11)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Olá,</p>
+<p>Poderia me informar qual foi o TTF que você utilizou e o tamanho?</p>
+<p>Estou tentando utilizar a fonte Sans Serif da Impressora EPSON LX 300, mas até agora sem sucesso. Adicionei a fonte MS Reference Sans Serif &#8211; mas nem de longe o resultado é aceitável.</p>
+<p>Obrigado!</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">29</span>
+			<span class="date_month">11</span>
+			<span class="date_year">2007</span>
+		</small>
+	</dt>
+
+	<dd class="comment odd alt thread-odd thread-alt depth-1 commentlist_item" id="comment-209">			
+
+		<div class="comment" id="div-comment-209">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://1.gravatar.com/avatar/5e9a9d116796e5c9955735d5b035fe6d?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://abacaxiatomico.com' rel='external nofollow' class='url'>Allyson de Paula</a></span></strong> <span class="comment-meta commentmetadata"><small>(20:35:00)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Esqueci de comentar: pra que não sabe a EPSON LX 300 é matricial e a fonte configurada nela é a Sans Serif</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" author_comment">
+		<small class="date">
+			<span class="date_day">30</span>
+			<span class="date_month">11</span>
+			<span class="date_year">2007</span>
+		</small>
+	</dt>
+
+	<dd class="comment byuser comment-author-drwxr bypostauthor even thread-even depth-1 commentlist_item" id="comment-210">			
+
+		<div class="comment" id="div-comment-210">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://1.gravatar.com/avatar/b141352e16032565f9cbb1825a7b8d23?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://nodesign.wordpress.com/' rel='external nofollow' class='url'>Jonathan Isaac</a></span></strong> <span class="comment-meta commentmetadata"><small>(11:24:41)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>A impressora que eu estava lidando era a EPSON LX 300-II e a fonte utilizada foram 3, a Times em dois textos longos, a Arial em todos os campos e a Lucon (Lucion) nos números, mais a grande jogada foi na configuração da impressora: Imprimir Paisagem, Preto e Branco e Somente Imagem.</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">24</span>
+			<span class="date_month">12</span>
+			<span class="date_year">2007</span>
+		</small>
+	</dt>
+
+	<dd class="comment odd alt thread-odd thread-alt depth-1 commentlist_item" id="comment-238">			
+
+		<div class="comment" id="div-comment-238">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://1.gravatar.com/avatar/ffc8aefc8883866aa3b9f6ad67379509?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn">André Fabiano</span></strong> <span class="comment-meta commentmetadata"><small>(19:32:39)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Bom Dia, eu estou precisando inserir um cabeçalho em cada página do meu arquivo pdf( como no word, insere em 1 aparece em todas).<br />
+Se alguem puder me ajudar ficarei grato.<br />
+Att,<br />
+  André Fabiano.</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">14</span>
+			<span class="date_month">02</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment even thread-even depth-1 commentlist_item" id="comment-246">			
+
+		<div class="comment" id="div-comment-246">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://0.gravatar.com/avatar/885b90a2ed73cf6617e0ca18ece1fb98?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn">Estela</span></strong> <span class="comment-meta commentmetadata"><small>(06:33:35)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Olá,</p>
+<p>Estou precisando inserir uma página de rosto em arquivo pdf.<br />
+Agradeço muito se alguém puder me ajudar.</p>
+<p>Att,<br />
+M. Estela</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">13</span>
+			<span class="date_month">03</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment odd alt thread-odd thread-alt depth-1 commentlist_item" id="comment-251">			
+
+		<div class="comment" id="div-comment-251">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://0.gravatar.com/avatar/0227f6274b8a6cce078d7f8a91460c41?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://www.eltonminetto.net' rel='external nofollow' class='url'>Elton Minetto</a></span></strong> <span class="comment-meta commentmetadata"><small>(12:04:41)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Olá Jonathan, boa dica essa.<br />
+Estou usando o fpdf mas no momento de imprimir na LX 300 está ficando desconfigurado o papel e não respeita as posições.<br />
+Que configurações vc precisou fazer na impressora no  windows do cliente para ele imprimir corretamente?<br />
+Obrigado pela ajuda</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">19</span>
+			<span class="date_month">03</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment even thread-even depth-1 commentlist_item" id="comment-252">			
+
+		<div class="comment" id="div-comment-252">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://1.gravatar.com/avatar/3b716ab423642579abf8e89797df9ec9?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://agilfap.fapemig.br' rel='external nofollow' class='url'>Marcelo</a></span></strong> <span class="comment-meta commentmetadata"><small>(17:20:32)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Copiei o código que aparece acima e fiz o download do fpdf conforme indicado.  Mas aparece a seguinte mensagem listada abaixo &#8220;Warning: Cannot add header information &#8211; headers already sent by (output started at c:\apache\htdocs\everest\pdf.php:5) in c:\apache\htdocs\everest\fpdf\fpdf.php on line 1022<br />
+FPDF error: Some data has already been output to browser, can&#8217;t send PDF file&#8221;</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" author_comment">
+		<small class="date">
+			<span class="date_day">19</span>
+			<span class="date_month">03</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment byuser comment-author-drwxr bypostauthor odd alt thread-odd thread-alt depth-1 commentlist_item" id="comment-254">			
+
+		<div class="comment" id="div-comment-254">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://1.gravatar.com/avatar/b141352e16032565f9cbb1825a7b8d23?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://nodesign.wordpress.com/' rel='external nofollow' class='url'>Jonathan Isaac</a></span></strong> <span class="comment-meta commentmetadata"><small>(17:53:04)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Opa,</p>
+<p>Antes de mais nada. verifique se o caminho do require_once está correto junto ao caminho do FONTPATH.</p>
+<p>Normalmente por default o nome da pasta do fpdf tem outro nome tipo fpdf-versão que deverá ser alterado em ambos caminhos.</p>
+<p>: )</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">19</span>
+			<span class="date_month">03</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment even thread-even depth-1 commentlist_item" id="comment-255">			
+
+		<div class="comment" id="div-comment-255">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://1.gravatar.com/avatar/3b716ab423642579abf8e89797df9ec9?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://agilfap.fapemig.br' rel='external nofollow' class='url'>Marcelo</a></span></strong> <span class="comment-meta commentmetadata"><small>(18:34:42)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Os caminhos estão corretos. renomiei a pasta. criei um arquivo pdf.php dentro do diretorio fpdf com o código abaixo</p>
+<p>Open();<br />
+$pdf-&gt;AddPage();<br />
+$pdf-&gt;SetFont(&#8221;Arial&#8221;,&#8221;",10);<br />
+$pdf-&gt;SetMargins(0,0,0);<br />
+$pdf-&gt;setY(&#8221;2.25&#8243;);<br />
+$pdf-&gt;setX(&#8221;11.6&#8243;);<br />
+$pdf-&gt;Cell(0, 0, &#8220;nodesign&#8221;);<br />
+$pdf-&gt;Output(&#8221;arquivo.pdf&#8221;,&#8221;I&#8221;);</p>
+<p>?&gt;</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">19</span>
+			<span class="date_month">03</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment odd alt thread-odd thread-alt depth-1 commentlist_item" id="comment-256">			
+
+		<div class="comment" id="div-comment-256">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://1.gravatar.com/avatar/3b716ab423642579abf8e89797df9ec9?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://agilfap.fapemig.br' rel='external nofollow' class='url'>Marcelo</a></span></strong> <span class="comment-meta commentmetadata"><small>(18:40:21)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Open();<br />
+$pdf-&gt;AddPage();<br />
+$pdf-&gt;SetFont(&#8221;Arial&#8221;,&#8221;",10);<br />
+$pdf-&gt;SetMargins(0,0,0);<br />
+$pdf-&gt;setY(&#8221;2.25&#8243;);<br />
+$pdf-&gt;setX(&#8221;11.6&#8243;);<br />
+$pdf-&gt;Cell(0, 0, &#8220;nodesign&#8221;);<br />
+$pdf-&gt;Output(&#8221;arquivo.pdf&#8221;,&#8221;I&#8221;);</p>
+<p>?&gt;</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" author_comment">
+		<small class="date">
+			<span class="date_day">19</span>
+			<span class="date_month">03</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment byuser comment-author-drwxr bypostauthor even thread-even depth-1 commentlist_item" id="comment-257">			
+
+		<div class="comment" id="div-comment-257">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://1.gravatar.com/avatar/b141352e16032565f9cbb1825a7b8d23?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://nodesign.wordpress.com/' rel='external nofollow' class='url'>Jonathan Isaac</a></span></strong> <span class="comment-meta commentmetadata"><small>(20:33:18)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Correto,</p>
+<p>Provavelmente seu erro sera corrigido tendo em vista que:</p>
+<p>O arquivo que irá gerar o PDF (que inclui o código descrito por você) deverá estar limpo de impressões na tela, exemplo:</p>
+<p>Se no arquivo contendo as instruções tiver algo como saída HTML ou print &#8220;algo&#8221; ou echo &#8220;algo&#8221; ou afins, dará problema na criação do documento, pois nosso output exemplo tem como saída a propria tela de visualização.</p>
+<p>Resumindo: No arquivo (.php) que voce utilizou para gerar o documento em PDF deverá conter APENAS instruções sem nenhuma saída (impressão na tela).</p>
+<p>Este problema é resultante da utilização dos headers do fpdf que definem a pagina presente como sendo do tipo PDF (por estar definido assim no output)</p>
+<p>Espero que tenha compreendido.</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" author_comment">
+		<small class="date">
+			<span class="date_day">19</span>
+			<span class="date_month">03</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment byuser comment-author-drwxr bypostauthor odd alt thread-odd thread-alt depth-1 commentlist_item" id="comment-258">			
+
+		<div class="comment" id="div-comment-258">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://1.gravatar.com/avatar/b141352e16032565f9cbb1825a7b8d23?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://nodesign.wordpress.com/' rel='external nofollow' class='url'>Jonathan Isaac</a></span></strong> <span class="comment-meta commentmetadata"><small>(20:36:08)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>@Elton</p>
+<p>Utilizei todas as definições em centimetros e o mais importante: o tamanho do documento a ser gerado também definido em centimetros, no meu caso usei como argumento a passagem: array(17.7,22).</p>
+<p>Só lembrando que também tive problemas SÉRIOS e CHATOS pra *******, passando todas as medidas corretamentes deu tudo certo.</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">24</span>
+			<span class="date_month">03</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment even thread-even depth-1 commentlist_item" id="comment-259">			
+
+		<div class="comment" id="div-comment-259">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://1.gravatar.com/avatar/3b716ab423642579abf8e89797df9ec9?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://agilfap.fapemig.br' rel='external nofollow' class='url'>Marcelo</a></span></strong> <span class="comment-meta commentmetadata"><small>(12:29:30)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Obrigado pela ajuda.</p>
+<p>Descobri que haviam 2 enter&#8217;s no final do código, após copia-lo de sua página para o dreamwaver.</p>
+<p>Foi só remover esses espaços e o código funcionou normalmente.</p>
+<p>Agora é so o trabalho de montar o pdf.</p>
+<p>Parabens pelo código e pela ajuda</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">19</span>
+			<span class="date_month">04</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment odd alt thread-odd thread-alt depth-1 commentlist_item" id="comment-263">			
+
+		<div class="comment" id="div-comment-263">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://0.gravatar.com/avatar/40d2d1f2eeea98d6decca9e1b7d49e5c?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn">Rodrigo</span></strong> <span class="comment-meta commentmetadata"><small>(17:55:24)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>olá! Minha dúvida é a seguinte consigo transformar um arquivo rtf em pdf com o fpdf?</p>
+<p>desde já agradeço a todos.</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">16</span>
+			<span class="date_month">05</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment even thread-even depth-1 commentlist_item" id="comment-273">			
+
+		<div class="comment" id="div-comment-273">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://0.gravatar.com/avatar/64c34d1f9b6e85acdf93c38d0902db8d?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://lalaa' rel='external nofollow' class='url'>Flavio</a></span></strong> <span class="comment-meta commentmetadata"><small>(19:27:35)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>a</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">16</span>
+			<span class="date_month">05</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment odd alt thread-odd thread-alt depth-1 commentlist_item" id="comment-274">			
+
+		<div class="comment" id="div-comment-274">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://0.gravatar.com/avatar/64c34d1f9b6e85acdf93c38d0902db8d?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://lalaa' rel='external nofollow' class='url'>Flavio Oliveira</a></span></strong> <span class="comment-meta commentmetadata"><small>(19:28:20)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>awd</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">16</span>
+			<span class="date_month">10</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment even thread-even depth-1 commentlist_item" id="comment-328">			
+
+		<div class="comment" id="div-comment-328">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://0.gravatar.com/avatar/21d52ea2bcbf83b642e54e4a3e2a2eca?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn">Marcelo</span></strong> <span class="comment-meta commentmetadata"><small>(01:19:50)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Seguinte fiz tudo certo mas abre uma pagina em branco sem nenhum erro<br />
+alguem pode me ajudar????</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">1</span>
+			<span class="date_month">11</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment odd alt thread-odd thread-alt depth-1 commentlist_item" id="comment-331">			
+
+		<div class="comment" id="div-comment-331">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://1.gravatar.com/avatar/f816a040fd50dc2cc6cca654d1898c62?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://www.baixar.info' rel='external nofollow' class='url'>bruno</a></span></strong> <span class="comment-meta commentmetadata"><small>(00:55:41)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Fui imprimir numa impressora matricial e saiu ilegivel a fonte, alguem sabe me dizer o que devo fazer pra ajusta-la???</p>
+<p>Obrigado</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">2</span>
+			<span class="date_month">11</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment even thread-even depth-1 commentlist_item" id="comment-332">			
+
+		<div class="comment" id="div-comment-332">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://1.gravatar.com/avatar/f1ab353b6303d8c9be0be937de9e4cb2?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn">Pedro Paulo Neto</span></strong> <span class="comment-meta commentmetadata"><small>(23:18:50)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Boa Noite, estou com problemas ou não entendi direito esta classe, pelo que vi é a mais fácil e de fácil operação&#8230; mas não no meu caso&#8230; rsrsrs<br />
+Abaixo colei o script que estou usando, mas para entender eu quero o seguinte exemplo: Tenho 200 cadastros mas quero gerar apenas os dados em relatório que tenha um CPF que eu especifiquei, setado em um arquivo .php que tem um campo com TextField &#8216;cpid&#8217;. (Espero que tenham entendido).<br />
+SCRIPT em PHP:</p>
+<p>Open();<br />
+$pdf-&gt;AddPage();<br />
+$pdf-&gt;SetFont(&#8217;Arial&#8217;, &#8216;B&#8217;, 10);<br />
+$pdf-&gt;Cell(40, 5, &#8216;Nome&#8217;);<br />
+$pdf-&gt;SetX(35);<br />
+$pdf-&gt;Cell(60, 5, &#8216;Identidade&#8217;);<br />
+$pdf-&gt;SetX(50);<br />
+$pdf-&gt;Cell(40, 5, &#8216;CPF&#8217;);<br />
+$pdf-&gt;SetX(77);<br />
+$pdf-&gt;Cell(40, 5, &#8216;Endereço&#8217;);<br />
+while ($resultado = mysql_fetch_array($sql)) {<br />
+$pdf-&gt;ln();<br />
+$pdf-&gt;Cell(40, 5, $resultado['nome']);<br />
+$pdf-&gt;SetX(35);<br />
+$pdf-&gt;Cell(60, 5, $resultado['identidade']);<br />
+$pdf-&gt;SetX(50);<br />
+$pdf-&gt;Cell(40, 5, $resultado['cpf']);<br />
+$pdf-&gt;SetX(77);<br />
+$pdf-&gt;Cell(40, 5, $resultado['endereco']);<br />
+}<br />
+$pdf-&gt;Output();<br />
+?&gt; </p>
+<p>É gerado o arquivo, mas não aparece nada&#8230;<br />
+Mas se eu mudar a linha 5 para $sql = mysql_query(&#8221;SELECT * FROM `tabela`&#8221;);, aparece todos os registros.</p>
+<p>Por favor, ajudem.<br />
+De qualquer forma obrigado.</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" author_comment">
+		<small class="date">
+			<span class="date_day">3</span>
+			<span class="date_month">11</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment byuser comment-author-drwxr bypostauthor odd alt thread-odd thread-alt depth-1 commentlist_item" id="comment-333">			
+
+		<div class="comment" id="div-comment-333">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://1.gravatar.com/avatar/b141352e16032565f9cbb1825a7b8d23?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://nodesign.wordpress.com/' rel='external nofollow' class='url'>Jonathan Isaac</a></span></strong> <span class="comment-meta commentmetadata"><small>(10:55:55)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>@Pedro Paulo Neto</p>
+<p>Eu não entendi muito bem o que voce quiser dizer, já que:</p>
+<p>$sql = mysql_query(”SELECT * FROM `tabela`”);</p>
+<p>É fundamental para o funcionamento do seu sistema (já que voce faz um while com os registros vindos do banco de dados).</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">28</span>
+			<span class="date_month">11</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment even thread-even depth-1 commentlist_item" id="comment-335">			
+
+		<div class="comment" id="div-comment-335">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://0.gravatar.com/avatar/0237fcfca81c2b2c1969b9355a6903b0?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn">Rafael</span></strong> <span class="comment-meta commentmetadata"><small>(11:08:17)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>bom dia Jonathan Isaac,</p>
+<p>estou com um problema com o fpdf q espero q vc possa me ajudar&#8230;</p>
+<p>tenho um relatório a ser gerado com os dados de ponto eletronico (entradas e saidas) de 360 funcionários de uma empresa, estou utilizando o fpdf para gerar meus relatórios, mas existe uma demora muito grande xegando a 5 minutos para gerar um arquivo pdf que utilizando o compactador no proprio php fica com o tamanho de 956 Kb e sem essa compactação o arquivo fica com 6.51 Mb sendo gerado em 4 min, então esse meu ganho de 1 minuto não me é válido tendo em vista que após gerar o relatório no servidor o usuário irá fazer o download em sua máquina para a impressão e fechamentos em sua empresa.<br />
+muitos usuários não tem uma paciencia para esperar o documento ser gerado, então foi me solicitado verificar a codificação para que o mesmo seja gerado mais rapidamente, verifiquei minhas queries de seleção para a obtenção dos dados que o relatório irá utilizar, mas o tempo de execução das queries não está interferindo no tempo de execução total do sistema atingindo, segundo analises em logs, um tempo de execução de banco de dados de aproximadamente 30 segundos.</p>
+<p>será que existe algum processo que a classe fpdf executa e leva a essa lentidão???</p>
+<p>desde já muito obrigado pela ajuda.<br />
+Rafael</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">15</span>
+			<span class="date_month">12</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment odd alt thread-odd thread-alt depth-1 commentlist_item" id="comment-337">			
+
+		<div class="comment" id="div-comment-337">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://0.gravatar.com/avatar/291162dc72c3f6ff0958653cb708fb4d?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn">Lucas</span></strong> <span class="comment-meta commentmetadata"><small>(22:20:51)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Cara, me ajuda ai:</p>
+<p>estou tentando salvar uma tabela que puxa dados de um BD, quero salvar em PDF, para mim poder mandar por email. soh que ta dando o seguinte erro.</p>
+<p>Warning: Cannot modify header information &#8211; headers already sent by (output started at C:\xampp\htdocs\embratel\backup.php:3) in C:\xampp\php\PEAR\fpdf\fpdf.php on line 1022<br />
+FPDF error: Some data has already been output to browser, can&#8217;t send PDF file</p>
+<p>estou usando o cod:<br />
+Open();<br />
+$pdf-&gt;AddPage();<br />
+$pdf-&gt;SetFont(&#8217;Arial&#8217;,&#8221;,10);<br />
+$pdf-&gt;SetMargins(0,0,0);<br />
+$pdf-&gt;setY(&#8221;2.25&#8243;);<br />
+$pdf-&gt;setX(&#8221;11.6&#8243;);<br />
+$pdf-&gt;Cell(0, 0, &#8220;nodesign&#8221;);<br />
+$pdf-&gt;Output(&#8221;arquivo&#8221;,&#8221;I&#8221;);<br />
+?&gt;</p>
+<p>meu email : <a href="mailto:lucasmontano@gmail.com">lucasmontano@gmail.com</a><br />
+se alguem souber o significado desse eroo, por favor me manda um email</p>
+<p>obrigado</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">20</span>
+			<span class="date_month">12</span>
+			<span class="date_year">2008</span>
+		</small>
+	</dt>
+
+	<dd class="comment even thread-even depth-1 commentlist_item" id="comment-340">			
+
+		<div class="comment" id="div-comment-340">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://1.gravatar.com/avatar/1f0513b4df119620336c26aabc4d8544?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn">Cau</span></strong> <span class="comment-meta commentmetadata"><small>(23:58:51)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>A mensagem de erro:<br />
+&#8220;Warning: Cannot modify header information &#8211; headers already sent by (output started at C:\xampp\htdocs\embratel\backup.php:3)&#8221;</p>
+<p>Ocorre se houve qquer código html (até linhas em branco) antes da função &#8220;header()&#8221;<br />
+Reitire e verá q o erro não ocorrerá</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">4</span>
+			<span class="date_month">03</span>
+			<span class="date_year">2009</span>
+		</small>
+	</dt>
+
+	<dd class="comment odd alt thread-odd thread-alt depth-1 commentlist_item" id="comment-352">			
+
+		<div class="comment" id="div-comment-352">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://0.gravatar.com/avatar/8be6ba821ce647502d7dad83c75b6d09?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn">Paulo Nunes</span></strong> <span class="comment-meta commentmetadata"><small>(19:19:21)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Cara,<br />
+Eu usei a presente rotina para gera um arquivo php, a partir de um texto digitado no tinymce e gravado no banco de dados Mysql, e tá dando o seguinte erro:<br />
+&#8220;Warning: Cannot modify header information &#8211; headers already sent by (output started at C:\wamp\www\gera_pdf_reuniao_area.php:3) in C:\wamp\www\FPDF\fpdf.php on line 1017<br />
+FPDF error: Some data has already been output, can&#8217;t send PDF file&#8221;</p>
+<p>O script é o seguinte:</p>
+<p>Open();<br />
+  $pdf-&gt;AddPage();<br />
+  $pdf-&gt;SetFont(&#8221;arial&#8221;,&#8221;",10);<br />
+  $pdf-&gt;SetMargins(0,0,0);<br />
+  $pdf-&gt;setY(&#8221;2.25&#8243;);<br />
+  $pdf-&gt;setX(&#8221;11.6&#8243;);<br />
+  //$pdf-&gt;Image(&#8221;logo_celesc.gif&#8221;,10,10,38,38,gif);<br />
+  $pdf-&gt;Multicell(5, 0.5, &#8220;$assunto&#8221;);<br />
+  $pdf-&gt;Output(&#8221;reuniao_cgr&#8221;,&#8221;I&#8221;);<br />
+?&gt;</p>
+<p>Podes me dizer o que está ocorrendo?</p>
+<p>Obrigado.</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">4</span>
+			<span class="date_month">03</span>
+			<span class="date_year">2009</span>
+		</small>
+	</dt>
+
+	<dd class="comment even thread-even depth-1 commentlist_item" id="comment-353">			
+
+		<div class="comment" id="div-comment-353">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://0.gravatar.com/avatar/8be6ba821ce647502d7dad83c75b6d09?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn">Paulo Nunes</span></strong> <span class="comment-meta commentmetadata"><small>(19:21:51)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Correção: estou tentando gerar um arquivo PDF ( que é a finalidade da rotina que você apresenou) e não um php.</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">5</span>
+			<span class="date_month">03</span>
+			<span class="date_year">2009</span>
+		</small>
+	</dt>
+
+	<dd class="comment odd alt thread-odd thread-alt depth-1 commentlist_item" id="comment-354">			
+
+		<div class="comment" id="div-comment-354">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://0.gravatar.com/avatar/4a65a4b55efc7882c4523cff53b1c962?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn">Luis Gustavo</span></strong> <span class="comment-meta commentmetadata"><small>(18:29:27)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Ola amigo, muito bacana o artigo, fiz os teste porem toda vez que executo aparece na tela do browser tudo cheio de codigo ascii como pode ser visto abaixo. pode me ajudar? </p>
+<p>%PDF-1.3 3 0 obj  endobj 4 0 obj  stream xœ3Rðâ2Ð35W(çr QÐw3T04Ó30PISp  Y˜ëY˜+˜Y˜éY˜*„¤(h„¤—$æ¥ä+$*¤§%^~xq¾BJªBbQaifY~±B€‹›Br~®B€G€ž¦BHÈ SËþ endstream endobj 1 0 obj  endobj 5 0 obj  endobj 2 0 obj &lt;&lt; /ProcSet [/PDF /Text /ImageB /ImageC /ImageI] /Font &lt;&gt; /XObject &lt;&gt; &gt;&gt; endobj 6 0 obj &lt;&gt; endobj 7 0 obj &lt;&gt; endobj xref 0 8 0000000000 65535 f 0000000264 00000 n 0000000452 00000 n 0000000009 00000 n 0000000087 00000 n 0000000351 00000 n 0000000556 00000 n 0000000631 00000 n trailer &lt;&gt; startxref 734 %%EOF</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">15</span>
+			<span class="date_month">03</span>
+			<span class="date_year">2009</span>
+		</small>
+	</dt>
+
+	<dd class="comment even thread-even depth-1 commentlist_item" id="comment-356">			
+
+		<div class="comment" id="div-comment-356">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://1.gravatar.com/avatar/f469e67323cadfb15edec85f48172804?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://www.waldisio.com' rel='external nofollow' class='url'>Waldisio</a></span></strong> <span class="comment-meta commentmetadata"><small>(16:20:57)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Aqui estava dando o tempo todo mensagem de erro “FPDF error: Some data has already been output to browser, can’t send PDF file|”</p>
+<p>Eu sabia que não se tratava de espaço antes ou depois do script PHP porque estava trabalhando com um arquivo seco, bem básico, tirado do próprio manual e contendo apenas umas 6 linhas, muito fáceis de verificar.</p>
+<p>Após perder mais de um dia de tentativas frustradas, resolvi salvar o arquivo do scrip (feito no Notepad) como ANSI, não mais como UTF-8… E DEU CERTO!</p>
+<p>Só queria entender o que houve: por que UTF-8 fazia o FPDF insinuar que já havia sido enviada informação para o browser?</p>
+<p>Abraços.</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">16</span>
+			<span class="date_month">03</span>
+			<span class="date_year">2009</span>
+		</small>
+	</dt>
+
+	<dd class="comment odd alt thread-odd thread-alt depth-1 commentlist_item" id="comment-357">			
+
+		<div class="comment" id="div-comment-357">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://0.gravatar.com/avatar/2a7dcccf955e8f6c4b1542028998416e?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://www.pharmacie.com.br' rel='external nofollow' class='url'>Jonatan Passo</a></span></strong> <span class="comment-meta commentmetadata"><small>(16:13:22)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Tenho duas duvidas. estou fazendo um formulario para gerar relatórios em PDF. esta tudo correto esta gerando normalmente, mais o texteo digitado náo quebra a linha, ele passa direto fica tudo em uma linha só gostaria de ajuda pois nuca trabalhei com esse recurso. Já aproveitando quem tiver conhecimento em FCKEDITOR poderia me da uma força esse formulario que eu fiz usa o FCKEDITOR mais quando eu vou gerar o relatorio em PDF ele sai com tags html antes do texto que esta no relatorio tipo assim.</p>
+<p>teste&lt;/center</p>
+<p>quem puder ajudar.</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">29</span>
+			<span class="date_month">03</span>
+			<span class="date_year">2009</span>
+		</small>
+	</dt>
+
+	<dd class="comment even thread-even depth-1 commentlist_item" id="comment-360">			
+
+		<div class="comment" id="div-comment-360">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://0.gravatar.com/avatar/4208fc42bc28efafac56b8fa67e386d6?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn"><a href='http://não' rel='external nofollow' class='url'>J.Junior</a></span></strong> <span class="comment-meta commentmetadata"><small>(20:52:01)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Sabe como dizer como os meus recorset (dinamicos, pode vir um registro coomo 100, dependendo do formulario preenchido pelo usuario) sejam gerados em pdf. Primeiramente estava mostrando normal, criei uma show region para habilitar a visualização da busca só depois de preenchido o formulário, e dentro dessa comecei a escreve os códigos da classe fpdf:</p>
+<p>&lt;?php require_once(&#8221;fpdf/fpdf.php&#8221;);<br />
+define(&#8217;FPDF_FONTPATH&#8217;,'fpdf/font/&#8217;);</p>
+<p>      0) { // Show if recordset not vazio ?&gt;<br />
+    Open();<br />
+	$pdf-&gt;AddPage();<br />
+	//$pdf-&gt;SetTitle(&#8217;Notícias&#8217;);</p>
+<p>	//Set font and colors<br />
+	$pdf-&gt;SetFont(&#8217;Arial&#8217;,'B&#8217;,16);<br />
+	$pdf-&gt;SetMargins(0,0,0);<br />
+	//$pdf-&gt;setY(”2.25″);<br />
+	//$pdf-&gt;setX(”11.6″);</p>
+<p>		$noticia=$row_Recordset_Busca1['noticia'];<br />
+		$fn=$row_Recordset_Busca1['fn_n'];<br />
+		$pagina=$row_Recordset_Busca1['pagina_n'];<br />
+		$num_livro=$row_Recordset_Busca1['num_livro_n'];<br />
+		$data_noticia=$row_Recordset_Busca1['data_n'];<br />
+    	$pdf-&gt;Cell(0,0,$noticia);<br />
+    	$pdf-&gt;Cell(10,10,$fn);<br />
+		$pdf-&gt;Cell(30,30,$pagina);<br />
+		$pdf-&gt;Cell(40,40,$num_livro);<br />
+		$pdf-&gt;Cell(50,50,$data_noticia);</p>
+<p>//	$pdf-&gt;SetFont(&#8217;Arial&#8217;,'B&#8217;,8);<br />
+//	$pdf-&gt;SetXY(5,95);<br />
+	$pdf-&gt;Output();</p>
+<p>	?&gt;</p>
+<p>      Nenhuma notíca encontrada</p>
+<p>&nbsp;<br />
+&nbsp;</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+
+	<dt class=" none">
+		<small class="date">
+			<span class="date_day">31</span>
+			<span class="date_month">03</span>
+			<span class="date_year">2009</span>
+		</small>
+	</dt>
+
+	<dd class="comment odd alt thread-odd thread-alt depth-1 commentlist_item" id="comment-363">			
+
+		<div class="comment" id="div-comment-363">
+			<strong class="comment-author vcard author" style="height:32px;line-height:32px;">
+			<img alt='' src='http://0.gravatar.com/avatar/23956c127e4b0184e4ba30a5b2a6a1e4?s=32&amp;d=identicon' class='avatar avatar-32' height='32' width='32' />			
+			<span class="fn">Bruno Buger</span></strong> <span class="comment-meta commentmetadata"><small>(17:59:55)</small> : </span>
+						
+			<br style="display:none;"/>
+		
+			<div class="comment_text">				
+			<p>Ola estou querendo fazer um programa em php que preenche um contrato em branco que ja tenho e que está em PDF(contrato.pdf), so que nao estou conseguindo colocar no fundo da tela, nem editar o contrato.php escrevendo em cima..<br />
+voce sabe como poderia fazer essa manipulaçao??<br />
+obrigado</p>
+			</div>
+			<div class="reply">
+							</div>
+		</div>
+	</dd>
+	</dl>
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+
+
+
+<div id="respond">
+<h3>Deixe um comentário</h3>
+<div id="cancel-comment-reply"><small><a rel="nofollow" id="cancel-comment-reply-link" href="/2007/11/22/php-gerando-arquivos-pdf-fpdf/#respond" style="display:none;">Clique aqui para cancelar a resposta.</a></small></div>
+
+
+<form action="http://nodesign.wordpress.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p>
+	<input type="text" name="author" id="author" value="" size="22" tabindex="1" />
+	<label for="author">Nome (obrigatório)</label>
+</p>
+<p>
+	<input type="text" name="email" id="email" value="" size="22" tabindex="2" />
+	<label for="email">Correio (não será publicado) (obrigatório)</label>
+</p>
+<p>
+	<input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+	<label for="url">Site</label>
+</p>
+
+
+<p>
+<textarea name="comment" id="comment" cols="60" rows="10" tabindex="4"></textarea>
+</p>
+<p>
+<input name="submit" type="submit" id="submit" tabindex="5" value="Enviar comentário" />
+<input type='hidden' name='comment_post_ID' value='62' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+
+
+<input type="hidden" name="genseq" value="1247852681" />
+<p><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" />
+		<label for="subscribe" id="subscribe-label">Notificar-me os comentários mais recentes via e-mail.</label></p>
+</form>
+
+</div>
+						
+			
+	<!-- nothing found -->
+			
+	</div>
+	
+	<hr style="display:none"/>
+	
+	<!-- sidebar -->
+		
+	<div id="sidebar">
+		<div>
+		<div id="categories-1" class="widget widget_categories"><h2 class="title">a</h2><select name='cat' id='cat' class='postform' >
+	<option value='-1'>Selecionar categoria</option>
+	<option class="level-0" value="141">Ajax&nbsp;&nbsp;(6)</option>
+	<option class="level-0" value="3768">Apache&nbsp;&nbsp;(2)</option>
+	<option class="level-0" value="2664876">Expressões Regulares&nbsp;&nbsp;(3)</option>
+	<option class="level-0" value="456">Flash&nbsp;&nbsp;(1)</option>
+	<option class="level-0" value="330166">GD&nbsp;&nbsp;(1)</option>
+	<option class="level-0" value="1017">Java&nbsp;&nbsp;(4)</option>
+	<option class="level-0" value="1078878">JavaFX&nbsp;&nbsp;(1)</option>
+	<option class="level-0" value="457">JavaScript&nbsp;&nbsp;(7)</option>
+	<option class="level-0" value="610">Linux&nbsp;&nbsp;(3)</option>
+	<option class="level-0" value="470500">MooTools&nbsp;&nbsp;(1)</option>
+	<option class="level-0" value="4419">MySQL&nbsp;&nbsp;(3)</option>
+	<option class="level-0" value="458">PHP&nbsp;&nbsp;(14)</option>
+	<option class="level-0" value="7991">Prototype&nbsp;&nbsp;(3)</option>
+	<option class="level-0" value="3601">Ruby on Rails&nbsp;&nbsp;(2)</option>
+	<option class="level-0" value="86885">Script.aculo.us&nbsp;&nbsp;(2)</option>
+	<option class="level-0" value="758">Tecnologia&nbsp;&nbsp;(1)</option>
+	<option class="level-0" value="7572">WebServices&nbsp;&nbsp;(2)</option>
+	<option class="level-0" value="6852">XML&nbsp;&nbsp;(1)</option>
+</select>
+
+<script type='text/javascript'>
+/* <![CDATA[ */
+	var dropdown = document.getElementById("cat");
+	function onCatChange() {
+		if ( dropdown.options[dropdown.selectedIndex].value > 0 ) {
+			location.href = "http://nodesign.wordpress.com/?cat="+dropdown.options[dropdown.selectedIndex].value;
+		}
+	}
+	dropdown.onchange = onCatChange;
+/* ]]> */
+</script>
+
+</div><div id="wp_tag_cloud" class="widget wp_widget_tag_cloud"><h2 class="title">Nuvem de tags</h2><a href='http://nodesign.wordpress.com/tag/ajax/' class='tag-link-141' title='3 topics' rel="tag" style='font-size: 12.666666666667pt;'>Ajax</a>
+<a href='http://nodesign.wordpress.com/tag/annotations/' class='tag-link-297168' title='1 tópico' rel="tag" style='font-size: 8pt;'>Annotations</a>
+<a href='http://nodesign.wordpress.com/tag/apache-2/' class='tag-link-2505842' title='2 topics' rel="tag" style='font-size: 10.333333333333pt;'>Apache 2</a>
+<a href='http://nodesign.wordpress.com/tag/data/' class='tag-link-22379' title='2 topics' rel="tag" style='font-size: 10.333333333333pt;'>Data</a>
+<a href='http://nodesign.wordpress.com/tag/data-e-hora/' class='tag-link-1419373' title='1 tópico' rel="tag" style='font-size: 8pt;'>Data e Hora</a>
+<a href='http://nodesign.wordpress.com/tag/date/' class='tag-link-54013' title='4 topics' rel="tag" style='font-size: 15pt;'>Date</a>
+<a href='http://nodesign.wordpress.com/tag/datetime/' class='tag-link-553645' title='1 tópico' rel="tag" style='font-size: 8pt;'>DateTime</a>
+<a href='http://nodesign.wordpress.com/tag/debian/' class='tag-link-428' title='2 topics' rel="tag" style='font-size: 10.333333333333pt;'>Debian</a>
+<a href='http://nodesign.wordpress.com/tag/dinheiro/' class='tag-link-173483' title='1 tópico' rel="tag" style='font-size: 8pt;'>dinheiro</a>
+<a href='http://nodesign.wordpress.com/tag/extenso/' class='tag-link-2567456' title='1 tópico' rel="tag" style='font-size: 8pt;'>Extenso</a>
+<a href='http://nodesign.wordpress.com/tag/formatacao/' class='tag-link-1186543' title='1 tópico' rel="tag" style='font-size: 8pt;'>formatacao</a>
+<a href='http://nodesign.wordpress.com/tag/formatando/' class='tag-link-2635566' title='1 tópico' rel="tag" style='font-size: 8pt;'>formatando</a>
+<a href='http://nodesign.wordpress.com/tag/get/' class='tag-link-289454' title='2 topics' rel="tag" style='font-size: 10.333333333333pt;'>GET</a>
+<a href='http://nodesign.wordpress.com/tag/hibernate/' class='tag-link-17907' title='1 tópico' rel="tag" style='font-size: 8pt;'>Hibernate</a>
+<a href='http://nodesign.wordpress.com/tag/htaccess/' class='tag-link-202719' title='1 tópico' rel="tag" style='font-size: 8pt;'>htaccess</a>
+<a href='http://nodesign.wordpress.com/tag/http/' class='tag-link-10518' title='1 tópico' rel="tag" style='font-size: 8pt;'>HTTP</a>
+<a href='http://nodesign.wordpress.com/tag/input/' class='tag-link-105671' title='3 topics' rel="tag" style='font-size: 12.666666666667pt;'>input</a>
+<a href='http://nodesign.wordpress.com/tag/java/' class='tag-link-1017' title='3 topics' rel="tag" style='font-size: 12.666666666667pt;'>Java</a>
+<a href='http://nodesign.wordpress.com/tag/javascript/' class='tag-link-457' title='5 topics' rel="tag" style='font-size: 17.333333333333pt;'>JavaScript</a>
+<a href='http://nodesign.wordpress.com/tag/mascara/' class='tag-link-274567' title='1 tópico' rel="tag" style='font-size: 8pt;'>mascara</a>
+<a href='http://nodesign.wordpress.com/tag/mod_proxy/' class='tag-link-2197685' title='1 tópico' rel="tag" style='font-size: 8pt;'>mod_proxy</a>
+<a href='http://nodesign.wordpress.com/tag/mod_rewrite/' class='tag-link-562824' title='1 tópico' rel="tag" style='font-size: 8pt;'>mod_rewrite</a>
+<a href='http://nodesign.wordpress.com/tag/moeda/' class='tag-link-606482' title='1 tópico' rel="tag" style='font-size: 8pt;'>moeda</a>
+<a href='http://nodesign.wordpress.com/tag/mysql/' class='tag-link-4419' title='3 topics' rel="tag" style='font-size: 12.666666666667pt;'>MySQL</a>
+<a href='http://nodesign.wordpress.com/tag/padding/' class='tag-link-1143006' title='1 tópico' rel="tag" style='font-size: 8pt;'>Padding</a>
+<a href='http://nodesign.wordpress.com/tag/persistencia/' class='tag-link-870436' title='1 tópico' rel="tag" style='font-size: 8pt;'>Persistencia</a>
+<a href='http://nodesign.wordpress.com/tag/php/' class='tag-link-458' title='7 topics' rel="tag" style='font-size: 22pt;'>PHP</a>
+<a href='http://nodesign.wordpress.com/tag/post/' class='tag-link-1187' title='2 topics' rel="tag" style='font-size: 10.333333333333pt;'>POST</a>
+<a href='http://nodesign.wordpress.com/tag/prototype/' class='tag-link-7991' title='3 topics' rel="tag" style='font-size: 12.666666666667pt;'>Prototype</a>
+<a href='http://nodesign.wordpress.com/tag/requisicao/' class='tag-link-2635635' title='2 topics' rel="tag" style='font-size: 10.333333333333pt;'>requisicao</a>
+<a href='http://nodesign.wordpress.com/tag/script-aculo-us/' class='tag-link-3040920' title='2 topics' rel="tag" style='font-size: 10.333333333333pt;'>script aculo us</a>
+<a href='http://nodesign.wordpress.com/tag/script-moeda/' class='tag-link-2635567' title='1 tópico' rel="tag" style='font-size: 8pt;'>script moeda</a>
+<a href='http://nodesign.wordpress.com/tag/script-money/' class='tag-link-2635594' title='1 tópico' rel="tag" style='font-size: 8pt;'>script money</a>
+<a href='http://nodesign.wordpress.com/tag/semana/' class='tag-link-85338' title='1 tópico' rel="tag" style='font-size: 8pt;'>Semana</a>
+<a href='http://nodesign.wordpress.com/tag/strftime/' class='tag-link-2567453' title='1 tópico' rel="tag" style='font-size: 8pt;'>strftime</a>
+<a href='http://nodesign.wordpress.com/tag/strtotime/' class='tag-link-2567454' title='1 tópico' rel="tag" style='font-size: 8pt;'>strtotime</a>
+<a href='http://nodesign.wordpress.com/tag/str_pad/' class='tag-link-2514622' title='1 tópico' rel="tag" style='font-size: 8pt;'>str_pad</a>
+<a href='http://nodesign.wordpress.com/tag/url-amigavel/' class='tag-link-2545202' title='1 tópico' rel="tag" style='font-size: 8pt;'>url amigável</a>
+<a href='http://nodesign.wordpress.com/tag/vhost/' class='tag-link-2505843' title='1 tópico' rel="tag" style='font-size: 8pt;'>vhost</a>
+<a href='http://nodesign.wordpress.com/tag/virtual-host/' class='tag-link-476484' title='1 tópico' rel="tag" style='font-size: 8pt;'>Virtual Host</a>
+<a href='http://nodesign.wordpress.com/tag/xml/' class='tag-link-6852' title='3 topics' rel="tag" style='font-size: 12.666666666667pt;'>XML</a>
+<a href='http://nodesign.wordpress.com/tag/xmlhttprequest/' class='tag-link-298463' title='2 topics' rel="tag" style='font-size: 10.333333333333pt;'>XMLHTTPRequest</a>
+<a href='http://nodesign.wordpress.com/tag/y-m-d/' class='tag-link-2567455' title='1 tópico' rel="tag" style='font-size: 8pt;'>Y-m-d</a>
+<a href='http://nodesign.wordpress.com/tag/zero-padding/' class='tag-link-2514621' title='1 tópico' rel="tag" style='font-size: 8pt;'>Zero Padding</a>
+<a href='http://nodesign.wordpress.com/tag/zeros-a-esquerda/' class='tag-link-2514620' title='1 tópico' rel="tag" style='font-size: 8pt;'>Zeros a Esquerda</a></div><div id="linkcat-2200" class="widget snap_preview widget_links"><h2 class="title">Links</h2>
+	<ul class='snap_preview xoxo blogroll'>
+<li><a href="http://blog.zuntto.com">Zuntto.com</a></li>
+
+	</ul>
+</div>
+		</div>
+	</div>
+
+	<br style="clear:both" /><!-- without this little <br /> NS6 and IE5PC do not stretch the frame div down to encopass the content DIVs -->
+</div>
+				
+<!-- footer -->
+
+<hr style="display:none"/>
+
+<div id="footer">
+	<small class="footer_content">
+	<a rel="generator" href="http://wordpress.com/">Blog no WordPress.com</a> &bull; Freshy theme by <a href="http://www.jide.fr/">Jide</a>.	</small>
+	
+</div>
+
+</div> <!--- end of the <div id="page"> (from header.php) -->
+
+<script type="text/javascript" src="http://cache.amefin.com/analytics.js"></script>
+<script type="text/javascript">_amefin.setZoneId(20).track()</script>
+<script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+<script type="text/javascript">_qoptions = { labels:"adt.0,language.pt-br,posttag.fpdf,posttag.html-pdf,posttag.nota-fiscal,posttag.pdf,posttag.php" };_qacct="p-18-mFEk4J448M";quantserve();</script>
+<noscript><p><img src="http://pixel.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=adt.0%2Clanguage.pt-br%2Cposttag.fpdf%2Cposttag.html-pdf%2Cposttag.nota-fiscal%2Cposttag.pdf%2Cposttag.php" style="display: none" height="1" width="1" alt="" /></p></noscript>
+<script src="http://s.stats.wordpress.com/w.js?19" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'347253','v':'wpcom','user_id':'0','post':'62','subd':'nodesign'});
+ex_go({'crypt':'RDZ8LFkxbXFKfnxTck9jcUpRRT9GU1NZcVJdYiVJViVSLjB1SFpFYWJkNmlLWFk/XXpdLDB1ZHJ3QnlyM0tDaEVsZjhxM1hvflQrRzQ/bTJ6XTVvc1JFT21iVUNOZE9vMzIuaGlub05TXVFnb0lXUWYxN1VyWl9kVGpuOTRdU3UvQUE/V2d8cEE9bDc/anQ4Jlg/aDNfM2FBNE5tN35UMVhbU1EvaVJWJmJfcn5nJj0/ZktEMUJSNl04dVhsZGx5SkJyX3ROLQ=='});
+addLoadEvent(function(){linktracker_init('347253',62);});
+</script>
+</body>
+</html>
+
+		
+

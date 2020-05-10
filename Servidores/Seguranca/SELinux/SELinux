@@ -1,0 +1,201 @@
+SELinux
+
+SELinux é uma poderosa ferramenta que controla que ferramentas podem fazer o que no sistema. Ele faz isso controlando processos, arquivos, diretorios, dispositivos, portas, etc, rotulando cada um.
+Um exemplo: o apache recebe o rótulo httpd_t, que por default apenas ler os arquivos. Para poder ler e escrever em arquivos recebe o rótulo
+httpd_sys_content_thttpd_sys_content_rw_t
+
+SELinux oferece confinamento para uma aplicação se ela for hackeada ou se estiver rodando como root. O processo hackeado não poderá causar danos ao sistema mas somente agir como um processo comum do SELinux.
+
+
+Inicialmente desenvolvido pela agência NSA dos EUA para proteger sistemas de computadores de maliciosas intrusões.
+
+Um computador com o SELinux bem configurado reduz bastante os riscos de segurança.
+
+Com SELinux você pode definir o que um usuário ou processo podem fazer. Ele confina qualquer processo para seu próprio domínio.
+
+Lista de pacotes do SELinux:
+
+policycoreutils (provides utilities for managing SELinux) 
+policycoreutils-python (provides utilities for managing SELinux) 
+selinux-policy (provides SELinux reference policy) 
+selinux-policy-targeted (provides SELinux targeted policy) 
+libselinux-utils (provides some tools for managing SELinux) 
+setroubleshoot-server (provides tools for deciphering audit log messages) 
+setools (provides tools for audit log monitoring, querying policy, and file context management) 
+setools-console (provides tools for audit log monitoring, querying policy, and file context management) 
+mcstrans (tools to translate different levels to easy-to-understand format) 
+
+
+Mudando a porta padrão do apache para 88
+semanage port -a -t http_port_t -p tcp 88
+
+Pesquisando pacotes selinux instalados:
+
+rpm -qa | grep selinux
+
+Após a listagem dos que estão instalados instalar os demais:
+
+yum install -y policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
+
+Estando desinstalado após instalar estes pacotes acima e reiniciar ele inicia enforcing.
+
+
+getsebool -a | less
+getsebool -a | grep off
+getsebool -a | grep on
+
+semanage login -l | grep ribafs
+
+semanage user -l | grep staff_u
+
+newrole -r sysadm_r
+
+semanage login -a -s staff_u -r s0 ribafs
+
+Por default SELinux permite o ssh somente na porta 22. Bamos mudar:
+semanage port -a -t ssh_port_t -p tcp 65522
+
+Deletar uma porta
+semanage port --delete -t http_port_t -p tcp 8899-8902
+ou
+semanage port -d -t http_port_t -p tcp 22
+
+Checar
+semanage port -l | grep ssh
+
+systemctl restart sshd.service
+
+Permitir a porta nova no firewalld
+firewall-cmd --permanent --zone=public --add-port=65522/tcp
+firewall-cmd --reload
+
+Checar se escuta a porta do ssh
+ss -tnlp|grep ssh
+
+ssh -p 65522 ribafs@ip
+
+O SELinux pode ser configurado de 3 modos:
+
+- Enforcing
+- Permissive
+- Disabled
+
+Enforcing
+No enforcing modo ele força sua política no sistema linux e garante que qualquer tentativa de acesso não autorizado por usuários ou processos seja negada.
+
+Permissive
+É um modo semi-habilitado. Não aplica sua política, de forma que nenhum acesso será negado mas mesmo assim tudo é registrado nos logs.
+
+Esta é uma forma de testar o SELinux antes de mudar para enforcing.
+
+Checar o modo atual do SELinux:
+getenforce
+
+Disabled
+Estado em que o SELinux está desabilitado.
+
+Verificar o estado do SELinux
+sestatus
+
+Para habilitar o SELinux edite o script
+nano /etc/selinux/config
+
+E mude o estado para o desejado.
+
+SELINUX=enforcing
+
+Basta mudar a linha
+SELINUX=enforcing
+
+Para um dos 3 estados:
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing.
+#     disabled - No SELinux policy is loaded.
+
+Após alterar reinicie o sistema:
+reboot
+
+ou em
+/etc/sysconfig/selinux
+
+Monitorando os logs
+cat /var/log/messages | grep "SELinux"
+
+Usuários
+
+O SELinux traz um conjunto de usuários. Toda conta de usuário do Linux é mapeada para uma conta de usuário ou mais no SELinux.
+
+Sujeito
+Em termos de SELinux um processo é chamado de sujeito.
+
+Regrar/Roles
+Uma role é como um gatway que se situa entre um usuário e um processo. Uma role define que usuário pode acessar que processo. Roles não são como grupos mas como filtros. Que usuários têm acesso para qual role.
+
+Um sujeito é um processo e pode potencialmente afetar um objeto.
+
+Um objeto em SELinux é qualquer coisa que pode continuar. Pode ser um arquivo, um diretório, uma porta, um socket tcp, o cursor ou até o servidor X. As ações que um sujeito pode executar em um objeto são as permissões do sujeito.
+
+Domínios são para Sujeitos
+Um domínio é o contexto em que um sujeito (processo) SELinux pode rodar. Ele diz ao processo o que ele pode e o que não pode fazer. O domínio deve definir que arquivos, diretórios, links, dispositivos ou portas são acessíveis para o sujeito.
+
+Tipos são para Objetos
+Um tipo é o contexto para o contexto de um arquivo que estipula os usos do arquivo. Um contexto de um arquivo é chamado de tipo na linguagem do SELinux.
+
+Política do SELinux
+Define acesso de usuários para roles, acesso de roles para domínios e acesso de domínios para tipos.
+Primeiro o usuário tem que ser autorizado para entrar numa role e então a role tem que ser autorizada para acessar o domínio. O domínio então é restringido para acessar somente certos tipos de arquivos.
+
+A política em si é um conjunto de regras/roles que diz tal e qual usuário pode assumir tal e qual regras/role e estas roles/regras devem ser autorizadas para acessar somente tais e quais domínios.
+
+Um processo rodando com um domínio particular pode executar somente certas operações em certos tipos de objetos é chamado Type Enforcement (TE).
+
+Por default SELinux deve restringir somente certos processos no sistema que não são destinados a rodar em domínios não confinados.
+
+Listar módulos carregados na memória
+semodule -l | less
+
+Diretório onde os módulos são gravados:
+ls -l /etc/selinux/targeted/modules/active/modules/
+
+Políticas
+ls -l /etc/selinux/targeted/policy/
+
+Listando módulos de forma boleana:
+semanage boolean -l | less
+
+Vendo estado de um módulo
+getsebool ftpd_anon_write
+
+Mudando o estado de off para on
+setsebool ftpd_anon_write on
+
+Para off
+setsebool ftpd_anon_write off
+
+Ver mapas de usuários
+semanage login -l
+
+Mostrar contextos
+id -Z
+
+Adicionar usuário ao SELinux
+semanage login -a -s s_user_u nomeuser
+
+
+Comandos para resolver problemas
+
+chcon ­R ­t httpd_sys_content_t /var/www/html
+
+semanage fcontext ­a ­t httpd_sys_content_t '/var/www/html(/.*)?
+
+restorecon ­R /var/www/html
+
+matchpathcon /var/www/html
+
+Referências 
+https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-1-basic-concepts
+https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-2-files-and-processes
+https://www.digitalocean.com/community/tutorials/an-introduction-to-selinux-on-centos-7-part-3-users
+https://fedorapeople.org/~dwalsh/SELinux/Presentations/selinux_four_things.pdf
+https://www.drupalwatchdog.com/volume-2/issue-2/using-apache-and-selinux-together
+

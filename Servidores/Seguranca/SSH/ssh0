@@ -1,0 +1,84 @@
+Reforçando a segurança do SSH
+
+Acessar o servidor como root ou sudo su
+
+adduser ribafs
+adduser ribafs admin
+
+== SUDO
+
+nano /etc/sudoers
+
+Adicione a linha a seguir abaixo da linha do root
+nomeuser ALL=(ALL) NOPASSWD:ALL
+
+su - ribafs
+mkdir .ssh
+chmod 700 .ssh
+cd .ssh
+ssh-keygen -b 1024 -f id_nomeuser -t dsa (Enter 2 vezes)
+cat ../.ssh/id_nomeuser*.pub > ../.ssh/authorized_keys
+chmod 600 ../.ssh/*
+exit	
+
+
+== Configuração do SSH
+
+Escolha uma porta acima de 50000
+
+nano /etc/ssh/sshd_config
+
+Port 55522
+LoginGraceTime 30
+PasswordAuthentication yes
+# A linha abaixo deve vir assim somente se associamos uma chave ssh na criação do servidor, caso contrário use: no
+PermitRootLogin without-password
+
+Adicionar ao final:
+AllowUsers nomeuser root
+
+service ssh restart
+
+
+== Gerar chaves do SSH no desktop para enviar para o Servidor
+
+Estando no desktop acesse o terminal em seu diretório home
+
+Execute e tecle Enter duas vezes
+
+ssh-keygen -t rsa -b 4096
+
+Mostrar a chave
+ssh-keygen -t rsa
+
+Copiar a chave
+
+cat ~/.ssh/id_rsa.pub
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3uROa076+UUxs0bAZ1zdUABXbzSjKdKBwhoWohroM9z3KkVugeoc93go/X2Ce5yQ1KlUXFVwfIx2ZjZGQbeTMrwHuhcYBN0E3vpIZkKYHIu9yFDtZJk5AuZwXkoRJMzfyyOLCUe/Se7hBpwZ2uC7XVc/EDeKb4thvSO18mSPSwlQi5oSRMSuDxWBlMWaRJPjYPxe7iIyxdzfTjVRoHJ5GIpf1uqWr2HwojB44xFDo+Otx1HyZ9gFKZ06gl9kpb9XGc5yR8SwWMTSWpzvoS/amPfLNz6T51OIr6M6Upd4EBkrXDMf0h+tLzI0S02OR486fCLotbLn3OyhFJHFqXjy/ ribafs@ribaln
+
+Copiar de ssh-rsa até ribafs@ribaln
+
+ssh-copy-id -p 65522 ribafs@ip_servidor
+
+Ele solicitará a senha na primeira vez mas após este comando acesse o servidor sem senha usando
+
+ssh -p 55522 ribafs@ip_servidor
+
+Também conecta com scp sem senha.
+
+
+Sugestão
+
+Criar um script para conectar ao servidor
+
+sudo nano /usr/local/bin/server
+
+ssh -p 65522 ribafs@128.199.63.251
+
+sudo chmod +x /usr/local/bin/server
+
+Agora basta executar
+server
+
+

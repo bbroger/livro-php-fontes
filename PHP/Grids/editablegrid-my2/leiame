@@ -1,0 +1,10 @@
+Nesta versão estarei usando a tabela clientes
+CREATE TABLE `clientes` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nascimento` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cpf` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html class="js placeholder canvas"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Examples | Bootbox.js — alert, confirm and flexible dialogs for the Bootstrap framework</title>
+
+    <script id="twitter-wjs" src="Bootbox.jsexemplos_arquivos/widgets.js"></script><script type="text/javascript" async="" src="Bootbox.jsexemplos_arquivos/ga.js"></script><script src="Bootbox.jsexemplos_arquivos/modernizr-custom.js"></script>
+
+    <style class="anchorjs"></style><link rel="stylesheet" type="text/css" href="Bootbox.jsexemplos_arquivos/bootstrap.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="Bootbox.jsexemplos_arquivos/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="Bootbox.jsexemplos_arquivos/animate.css">
+    <link rel="stylesheet" type="text/css" href="Bootbox.jsexemplos_arquivos/google.css">
+
+    <link rel="stylesheet" href="Bootbox.jsexemplos_arquivos/main.css">
+
+    <script src="Bootbox.jsexemplos_arquivos/scroll-fix.js"></script>
+    <script>
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-20517424-8']);
+        _gaq.push(['_trackPageview']);
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- Universal Analytics; remove the above script and uncomment this after upgrading -->
+    <!--<script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-20517424-8', 'auto');
+        ga('send', 'pageview');
+    </script>-->
+
+</head>
+<body class="bb-js" onload="load()" cz-shortcut-listen="true" style="">
+    <div class="bb-header bb-header-fixed-navbar">
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-bb-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="fa fa-navicon"></span>
+                    </button>
+                    <a id="top" class="navbar-brand navbar-brand-active" href="http://bootboxjs.com/">Bootbox.js</a>
+                </div>
+                <div class="collapse navbar-collapse navbar-bb-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="http://bootboxjs.com/getting-started.html">Getting Started</a>
+                        </li>
+                        <li class="dropdown active">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Examples <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#bb-alert-dialog">Alert</a>
+                                </li>
+                                <li>
+                                    <a href="#bb-confirm-dialog">Confirm</a>
+                                </li>
+                                <li>
+                                    <a href="#bb-prompt-dialog">Prompt</a>
+                                </li>
+                                <li>
+                                    <a href="#bb-custom-dialog">Custom Dialog</a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <a href="http://bootboxjs.com/examples.html">View all</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Documentation <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="http://bootboxjs.com/documentation.html#bb-alert-dialog">Alert</a>
+                                </li>
+                                <li>
+                                    <a href="http://bootboxjs.com/documentation.html#bb-confirm-dialog">Confirm</a>
+                                </li>
+                                <li>
+                                    <a href="http://bootboxjs.com/documentation.html#bb-prompt-dialog">Prompt</a>
+                                </li>
+                                <li>
+                                    <a href="http://bootboxjs.com/documentation.html#bb-custom-dialog">Custom Dialog</a>
+                                </li>
+                                <li>
+                                    <a href="http://bootboxjs.com/documentation.html#bb-options">Options</a>
+                                </li>
+                                <li>
+                                    <a href="http://bootboxjs.com/documentation.html#bb-public-functions">Public Functions</a>
+                                </li>
+                                <li>
+                                    <a href="http://bootboxjs.com/documentation.html#bb-notes">Notes</a>
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <a href="http://bootboxjs.com/documentation.html">View all</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="http://paynedigital.com/bootbox">Writeup</a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/makeusabrew/bootbox">
+                                <i class="fa fa-github"></i>
+                                Github
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="content" class="bb-docs-header" tabindex="-1">
+            <div class="container text-center">
+                <div class="bb-masthead">
+                    <h1>
+                        Examples
+                    </h1>
+                    <p class="lead">
+                        Currently viewing examples for version 4.x.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            <div class="docs-container">
+                <section class="intro">
+                    <p>
+                        The examples below attempt to demonstrate the 
+myriad ways in which you can use Bootbox.js. Where functionality amongst
+ the dialogs is nearly identical,
+                        the example will indicate to which functions the
+ example applies.
+                    </p>
+                </section>
+
+                <section id="bb-alert-dialog" class="bb-section">
+                    <div class="bb-section-header">
+                        <div class="pull-right">
+                            <a href="http://bootboxjs.com/documentation.html#bb-alert-dialog" class="btn btn-link">Documentation</a>
+                            |
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#bb-alert-examples" aria-expanded="false" aria-controls="bb-alert-examples">
+                                Show / Hide
+                            </button>
+                        </div>
+                        <h2 class="page-header">
+                            Alert
+                        </h2>
+                    </div>
+                    <div id="bb-alert-examples" class="collapse in">
+                        <div>
+                            <ul class="bb-examples-list">
+                                <li>
+                                    <p class="bb-example" id="basic-usage">Basic usage<a class="anchorjs-link " href="#basic-usage" aria-label="Anchor link for: basic usage" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-default">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">alert</span><span class="pun">(</span><span class="str">"This is the default alert!"</span><span class="pun">);</span></code></pre>
+                                </li>
+                                <li>
+                                    <p class="bb-example" id="basic-usage-with-callback">Basic usage, with callback<a class="anchorjs-link " href="#basic-usage-with-callback" aria-label="Anchor link for: basic usage with callback" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-callback">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">alert</span><span class="pun">(</span><span class="str">"This is an alert with a callback!"</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(){</span><span class="pln"> console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">'This was logged in the callback!'</span><span class="pun">);</span><span class="pln"> </span><span class="pun">});</span></code></pre>
+                                </li>
+                                <li>
+                                    <p class="bb-example" id="basic-usage-using-options-object">Basic usage, using options object<a class="anchorjs-link " href="#basic-usage-using-options-object" aria-label="Anchor link for: basic usage using options object" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-options">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">alert</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    message</span><span class="pun">:</span><span class="pln"> </span><span class="str">"This is an alert with a callback!"</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    callback</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L3"><code><span class="pln">        console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">'This was logged in the callback!'</span><span class="pun">);</span></code></li><li class="L4"><code><span class="pln">    </span><span class="pun">}</span></code></li><li class="L5"><code><span class="pun">})</span></code></li></ol></pre>
+                                </li>
+                                <li>
+                                    <p class="bb-example" id="also-applies-to-confirm-prompt-custom
+
+small-dialog">
+                                        <span class="pull-right">
+                                            Also applies to: <b>Confirm</b>, <b>Prompt</b>, <b>Custom</b>
+                                        </span>
+                                        Small dialog
+                                    <a class="anchorjs-link " href="#also-applies-to-confirm-prompt-custom
+
+small-dialog" aria-label="Anchor link for: also applies to confirm prompt custom
+
+small dialog" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-small">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">alert</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    message</span><span class="pun">:</span><span class="pln"> </span><span class="str">"This is the small alert!"</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    size</span><span class="pun">:</span><span class="pln"> </span><span class="str">'small'</span></code></li><li class="L3"><code><span class="pun">});</span></code></li></ol></pre>
+                                </li>
+                                <li>
+                                    <p class="bb-example" id="also-applies-to-confirm-prompt-custom
+
+large-dialog">
+                                        <span class="pull-right">
+                                            Also applies to: <b>Confirm</b>, <b>Prompt</b>, <b>Custom</b>
+                                        </span>
+                                        Large dialog
+                                    <a class="anchorjs-link " href="#also-applies-to-confirm-prompt-custom
+
+large-dialog" aria-label="Anchor link for: also applies to confirm prompt custom
+
+large dialog" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-large">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">alert</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    message</span><span class="pun">:</span><span class="pln"> </span><span class="str">"This is the large alert!"</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    size</span><span class="pun">:</span><span class="pln"> </span><span class="str">'large'</span></code></li><li class="L3"><code><span class="pun">});</span></code></li></ol></pre>
+                                </li>
+                                <li>
+                                    <p class="bb-example" id="also-applies-to-confirm-prompt-custom
+
+custom-css-class">
+                                        <span class="pull-right">
+                                            Also applies to: <b>Confirm</b>, <b>Prompt</b>, <b>Custom</b>
+                                        </span>
+                                        Custom CSS class
+                                    <a class="anchorjs-link " href="#also-applies-to-confirm-prompt-custom
+
+custom-css-class" aria-label="Anchor link for: also applies to confirm prompt custom
+
+custom css class" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-custom-class">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">alert</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    message</span><span class="pun">:</span><span class="pln"> </span><span class="str">"This is an alert with an additional class!"</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    className</span><span class="pun">:</span><span class="pln"> </span><span class="str">'bb-alternate-modal'</span></code></li><li class="L3"><code><span class="pun">});</span></code></li></ol></pre>
+                                </li>
+                                <li>
+                                    <p class="bb-example" id="also-applies-to-confirm-prompt-custom
+
+dismiss-with-overlay-cl">
+                                        <span class="pull-right">
+                                            Also applies to: <b>Confirm</b>, <b>Prompt</b>, <b>Custom</b>
+                                        </span>
+                                        Dismiss with overlay click
+                                    <a class="anchorjs-link " href="#also-applies-to-confirm-prompt-custom
+
+dismiss-with-overlay-cl" aria-label="Anchor link for: also applies to confirm prompt custom
+
+dismiss with overlay cl" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="alert-overlay-click">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">alert</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    message</span><span class="pun">:</span><span class="pln"> </span><span class="str">"This alert can be dismissed by clicking on the background!"</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    backdrop</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span></code></li><li class="L3"><code><span class="pun">});</span></code></li></ol></pre>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section id="bb-confirm-dialog" class="bb-section">
+                    <div class="bb-section-header">
+                        <div class="pull-right">
+                            <a href="http://bootboxjs.com/documentation.html#bb-confirm-dialog" class="btn btn-link">Documentation</a>
+                            |
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#bb-confirm-examples" aria-expanded="false" aria-controls="bb-confirm-examples">
+                                Show / Hide
+                            </button>
+                        </div>
+                        <h2 class="page-header">Confirm</h2>
+                    </div>
+                    <div id="bb-confirm-examples" class="collapse in">
+                        <div>
+                            <ul class="bb-examples-list">
+                                <li>
+                                    <p class="bb-example" id="basic-usage-1">Basic usage<a class="anchorjs-link " href="#basic-usage-1" aria-label="Anchor link for: basic usage 1" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="confirm-default">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">confirm</span><span class="pun">(</span><span class="str">"This is the default confirm!"</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">result</span><span class="pun">){</span><span class="pln"> console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">'This was logged in the callback: '</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> result</span><span class="pun">);</span><span class="pln"> </span><span class="pun">});</span></code></pre>
+                                </li>
+                                <li>
+                                    <p class="bb-example" id="also-applies-to-alert-prompt-custom
+
+with-alternate-button-tex">
+                                        <span class="pull-right">
+                                            Also applies to: <b>Alert</b>, <b>Prompt</b>, <b>Custom</b>
+                                        </span>
+                                        With alternate button text and color
+                                    <a class="anchorjs-link " href="#also-applies-to-alert-prompt-custom
+
+with-alternate-button-tex" aria-label="Anchor link for: also applies to alert prompt custom
+
+with alternate button tex" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="confirm-options">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">confirm</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    message</span><span class="pun">:</span><span class="pln"> </span><span class="str">"This is a confirm with custom button text and color! Do you like it?"</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    buttons</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L3"><code><span class="pln">        confirm</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L4"><code><span class="pln">            label</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Yes'</span><span class="pun">,</span></code></li><li class="L5"><code><span class="pln">            className</span><span class="pun">:</span><span class="pln"> </span><span class="str">'btn-success'</span></code></li><li class="L6"><code><span class="pln">        </span><span class="pun">},</span></code></li><li class="L7"><code><span class="pln">        cancel</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L8"><code><span class="pln">            label</span><span class="pun">:</span><span class="pln"> </span><span class="str">'No'</span><span class="pun">,</span></code></li><li class="L9"><code><span class="pln">            className</span><span class="pun">:</span><span class="pln"> </span><span class="str">'btn-danger'</span></code></li><li class="L0"><code><span class="pln">        </span><span class="pun">}</span></code></li><li class="L1"><code><span class="pln">    </span><span class="pun">},</span></code></li><li class="L2"><code><span class="pln">    callback</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">result</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L3"><code><span class="pln">        console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">'This was logged in the callback: '</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> result</span><span class="pun">);</span></code></li><li class="L4"><code><span class="pln">    </span><span class="pun">}</span></code></li><li class="L5"><code><span class="pun">});</span></code></li></ol></pre>
+                                </li>
+                                <li>
+                                    <p class="bb-example" id="also-applies-to-alert-prompt-custom
+
+with-icon-and-button-text">
+                                        <span class="pull-right">
+                                            Also applies to: <b>Alert</b>, <b>Prompt</b>, <b>Custom</b>
+                                        </span>
+                                        With icon and button text
+                                    <a class="anchorjs-link " href="#also-applies-to-alert-prompt-custom
+
+with-icon-and-button-text" aria-label="Anchor link for: also applies to alert prompt custom
+
+with icon and button text" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="confirm-button-text">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">confirm</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    title</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Destroy planet?"</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    message</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Do you want to activate the Deathstar now? This cannot be undone."</span><span class="pun">,</span></code></li><li class="L3"><code><span class="pln">    buttons</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L4"><code><span class="pln">        cancel</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L5"><code><span class="pln">            label</span><span class="pun">:</span><span class="pln"> </span><span class="str">'&lt;i class="fa fa-times"&gt;&lt;/i&gt; Cancel'</span></code></li><li class="L6"><code><span class="pln">        </span><span class="pun">},</span></code></li><li class="L7"><code><span class="pln">        confirm</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L8"><code><span class="pln">            label</span><span class="pun">:</span><span class="pln"> </span><span class="str">'&lt;i class="fa fa-check"&gt;&lt;/i&gt; Confirm'</span></code></li><li class="L9"><code><span class="pln">        </span><span class="pun">}</span></code></li><li class="L0"><code><span class="pln">    </span><span class="pun">},</span></code></li><li class="L1"><code><span class="pln">    callback</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">result</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L2"><code><span class="pln">        console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="str">'This was logged in the callback: '</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> result</span><span class="pun">);</span></code></li><li class="L3"><code><span class="pln">    </span><span class="pun">}</span></code></li><li class="L4"><code><span class="pun">});</span></code></li></ol></pre>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section id="bb-prompt-dialog" class="bb-section">
+                    <div class="bb-section-header">
+                        <div class="pull-right">
+                            <a href="http://bootboxjs.com/documentation.html#bb-prompt-dialog" class="btn btn-link">Documentation</a>
+                            |
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#bb-prompt-examples" aria-expanded="false" aria-controls="bb-prompt-examples">
+                                Show / Hide
+                            </button>
+                        </div>
+                        <h2 class="page-header">Prompt</h2>
+                    </div>
+                    <div id="bb-prompt-examples" class="collapse in">
+                        <div>
+                            <p>
+                                <b>Please note:</b> prompt requires the <code>title</code> option (when using the options object) and disallows the <code>message</code> option.
+                            </p>
+                            <ul class="bb-examples-list">
+                                <li>
+                                    <p class="bb-example" id="basic-usage-2">Basic usage<a class="anchorjs-link " href="#basic-usage-2" aria-label="Anchor link for: basic usage 2" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-default">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">prompt</span><span class="pun">(</span><span class="str">"This is the default prompt!"</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">result</span><span class="pun">){</span><span class="pln"> console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">result</span><span class="pun">);</span><span class="pln"> </span><span class="pun">});</span></code></pre>
+                                </li>
+                                <li>
+                                    <p class="bb-example" id="prompt-with-checkbox">Prompt with checkbox<a class="anchorjs-link " href="#prompt-with-checkbox" aria-label="Anchor link for: prompt with checkbox" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-checkbox">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">prompt</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    title</span><span class="pun">:</span><span class="pln"> </span><span class="str">"This is a prompt with a set of checkbox inputs!"</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    inputType</span><span class="pun">:</span><span class="pln"> </span><span class="str">'checkbox'</span><span class="pun">,</span></code></li><li class="L3"><code><span class="pln">    inputOptions</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span></code></li><li class="L4"><code><span class="pln">        </span><span class="pun">{</span></code></li><li class="L5"><code><span class="pln">            text</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Choice One'</span><span class="pun">,</span></code></li><li class="L6"><code><span class="pln">            value</span><span class="pun">:</span><span class="pln"> </span><span class="str">'1'</span><span class="pun">,</span></code></li><li class="L7"><code><span class="pln">        </span><span class="pun">},</span></code></li><li class="L8"><code><span class="pln">        </span><span class="pun">{</span></code></li><li class="L9"><code><span class="pln">            text</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Choice Two'</span><span class="pun">,</span></code></li><li class="L0"><code><span class="pln">            value</span><span class="pun">:</span><span class="pln"> </span><span class="str">'2'</span><span class="pun">,</span></code></li><li class="L1"><code><span class="pln">        </span><span class="pun">},</span></code></li><li class="L2"><code><span class="pln">        </span><span class="pun">{</span></code></li><li class="L3"><code><span class="pln">            text</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Choice Three'</span><span class="pun">,</span></code></li><li class="L4"><code><span class="pln">            value</span><span class="pun">:</span><span class="pln"> </span><span class="str">'3'</span><span class="pun">,</span></code></li><li class="L5"><code><span class="pln">        </span><span class="pun">}</span></code></li><li class="L6"><code><span class="pln">    </span><span class="pun">],</span></code></li><li class="L7"><code><span class="pln">    callback</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">result</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L8"><code><span class="pln">        console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">result</span><span class="pun">);</span></code></li><li class="L9"><code><span class="pln">    </span><span class="pun">}</span></code></li><li class="L0"><code><span class="pun">});</span></code></li></ol></pre>
+                                </li>
+                                <li>
+                                    <p class="bb-example" id="requires-browser-support-http-caniuse-com-feat-input-datetime
+
+">
+                                        <span class="pull-right text-danger">
+                                            Requires browser support: <a href="http://caniuse.com/#feat=input-datetime">http://caniuse.com/#feat=input-datetime</a>
+                                        </span>
+                                        Prompt with date
+                                    <a class="anchorjs-link " href="#requires-browser-support-http-caniuse-com-feat-input-datetime
+
+" aria-label="Anchor link for: requires browser support http caniuse com feat input datetime
+
+" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-date">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">prompt</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    title</span><span class="pun">:</span><span class="pln"> </span><span class="str">"This is a prompt with a date input!"</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    inputType</span><span class="pun">:</span><span class="pln"> </span><span class="str">'date'</span><span class="pun">,</span></code></li><li class="L3"><code><span class="pln">    callback</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">result</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L4"><code><span class="pln">        console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">result</span><span class="pun">);</span></code></li><li class="L5"><code><span class="pln">    </span><span class="pun">}</span></code></li><li class="L6"><code><span class="pun">});</span></code></li></ol></pre>
+                                </li>
+                                <li>
+                                    <p class="bb-example" id="requires-browser-support-http-caniuse-com-feat-email
+
+prompt-w">
+                                        <span class="pull-right text-danger">
+                                            Requires browser support: <a href="http://caniuse.com/#feat=email">http://caniuse.com/#feat=email</a>
+                                        </span>
+                                        Prompt with email
+                                    <a class="anchorjs-link " href="#requires-browser-support-http-caniuse-com-feat-email
+
+prompt-w" aria-label="Anchor link for: requires browser support http caniuse com feat email
+
+prompt w" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-email">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">prompt</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    title</span><span class="pun">:</span><span class="pln"> </span><span class="str">"This is a prompt with an email input!"</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    inputType</span><span class="pun">:</span><span class="pln"> </span><span class="str">'email'</span><span class="pun">,</span></code></li><li class="L3"><code><span class="pln">    callback</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">result</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L4"><code><span class="pln">        console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">result</span><span class="pun">);</span></code></li><li class="L5"><code><span class="pln">    </span><span class="pun">}</span></code></li><li class="L6"><code><span class="pun">});</span></code></li></ol></pre>
+                                </li>
+                                <li>
+                                    <p class="bb-example" id="requires-browser-support-http-caniuse-com-feat-input-number
+
+p">
+                                        <span class="pull-right text-danger">
+                                            Requires browser support: <a href="http://caniuse.com/#feat=input-number">http://caniuse.com/#feat=input-number</a>
+                                        </span>
+                                        Prompt with number
+                                    <a class="anchorjs-link " href="#requires-browser-support-http-caniuse-com-feat-input-number
+
+p" aria-label="Anchor link for: requires browser support http caniuse com feat input number
+
+p" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-number">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">prompt</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    title</span><span class="pun">:</span><span class="pln"> </span><span class="str">"This is a prompt with a number input!"</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    inputType</span><span class="pun">:</span><span class="pln"> </span><span class="str">'number'</span><span class="pun">,</span></code></li><li class="L3"><code><span class="pln">    callback</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">result</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L4"><code><span class="pln">        console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">result</span><span class="pun">);</span></code></li><li class="L5"><code><span class="pln">    </span><span class="pun">}</span></code></li><li class="L6"><code><span class="pun">});</span></code></li></ol></pre>
+                                </li>
+                                <li>
+                                    <p class="bb-example" id="prompt-with-password">Prompt with password<a class="anchorjs-link " href="#prompt-with-password" aria-label="Anchor link for: prompt with password" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-password">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">prompt</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    title</span><span class="pun">:</span><span class="pln"> </span><span class="str">"This is a prompt with a password input!"</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    inputType</span><span class="pun">:</span><span class="pln"> </span><span class="str">'password'</span><span class="pun">,</span></code></li><li class="L3"><code><span class="pln">    callback</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">result</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L4"><code><span class="pln">        console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">result</span><span class="pun">);</span></code></li><li class="L5"><code><span class="pln">    </span><span class="pun">}</span></code></li><li class="L6"><code><span class="pun">});</span></code></li></ol></pre>
+                                </li>
+                                <li>
+                                    <p class="bb-example" id="prompt-with-select">Prompt with select<a class="anchorjs-link " href="#prompt-with-select" aria-label="Anchor link for: prompt with select" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-select">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">prompt</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    title</span><span class="pun">:</span><span class="pln"> </span><span class="str">"This is a prompt with select!"</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    inputType</span><span class="pun">:</span><span class="pln"> </span><span class="str">'select'</span><span class="pun">,</span></code></li><li class="L3"><code><span class="pln">    inputOptions</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span></code></li><li class="L4"><code><span class="pln">        </span><span class="pun">{</span></code></li><li class="L5"><code><span class="pln">            text</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Choose one...'</span><span class="pun">,</span></code></li><li class="L6"><code><span class="pln">            value</span><span class="pun">:</span><span class="pln"> </span><span class="str">''</span><span class="pun">,</span></code></li><li class="L7"><code><span class="pln">        </span><span class="pun">},</span></code></li><li class="L8"><code><span class="pln">        </span><span class="pun">{</span></code></li><li class="L9"><code><span class="pln">            text</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Choice One'</span><span class="pun">,</span></code></li><li class="L0"><code><span class="pln">            value</span><span class="pun">:</span><span class="pln"> </span><span class="str">'1'</span><span class="pun">,</span></code></li><li class="L1"><code><span class="pln">        </span><span class="pun">},</span></code></li><li class="L2"><code><span class="pln">        </span><span class="pun">{</span></code></li><li class="L3"><code><span class="pln">            text</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Choice Two'</span><span class="pun">,</span></code></li><li class="L4"><code><span class="pln">            value</span><span class="pun">:</span><span class="pln"> </span><span class="str">'2'</span><span class="pun">,</span></code></li><li class="L5"><code><span class="pln">        </span><span class="pun">},</span></code></li><li class="L6"><code><span class="pln">        </span><span class="pun">{</span></code></li><li class="L7"><code><span class="pln">            text</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Choice Three'</span><span class="pun">,</span></code></li><li class="L8"><code><span class="pln">            value</span><span class="pun">:</span><span class="pln"> </span><span class="str">'3'</span><span class="pun">,</span></code></li><li class="L9"><code><span class="pln">        </span><span class="pun">}</span></code></li><li class="L0"><code><span class="pln">    </span><span class="pun">],</span></code></li><li class="L1"><code><span class="pln">    callback</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">result</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L2"><code><span class="pln">        console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">result</span><span class="pun">);</span></code></li><li class="L3"><code><span class="pln">    </span><span class="pun">}</span></code></li><li class="L4"><code><span class="pun">});</span></code></li></ol></pre>
+                                </li>
+                                <li>
+                                    <p class="bb-example" id="prompt-with-textarea">Prompt with textarea<a class="anchorjs-link " href="#prompt-with-textarea" aria-label="Anchor link for: prompt with textarea" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-textarea">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">prompt</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    title</span><span class="pun">:</span><span class="pln"> </span><span class="str">"This is a prompt with a textarea!"</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    inputType</span><span class="pun">:</span><span class="pln"> </span><span class="str">'textarea'</span><span class="pun">,</span></code></li><li class="L3"><code><span class="pln">    callback</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">result</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L4"><code><span class="pln">        console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">result</span><span class="pun">);</span></code></li><li class="L5"><code><span class="pln">    </span><span class="pun">}</span></code></li><li class="L6"><code><span class="pun">});</span></code></li></ol></pre>
+                                </li>
+                                <li>
+                                    <p class="bb-example" id="requires-browser-support-http-caniuse-com-feat-input-datetime
+
+-1">
+                                        <span class="pull-right text-danger">
+                                            Requires browser support: <a href="http://caniuse.com/#feat=input-datetime">http://caniuse.com/#feat=input-datetime</a>
+                                        </span>
+                                        Prompt with time
+                                    <a class="anchorjs-link " href="#requires-browser-support-http-caniuse-com-feat-input-datetime
+
+-1" aria-label="Anchor link for: requires browser support http caniuse com feat input datetime
+
+ 1" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="prompt-time">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="pln">bootbox</span><span class="pun">.</span><span class="pln">prompt</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    title</span><span class="pun">:</span><span class="pln"> </span><span class="str">"This is a prompt with a time input!"</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    inputType</span><span class="pun">:</span><span class="pln"> </span><span class="str">'time'</span><span class="pun">,</span></code></li><li class="L3"><code><span class="pln">    callback</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pln"> </span><span class="pun">(</span><span class="pln">result</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L4"><code><span class="pln">        console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">result</span><span class="pun">);</span></code></li><li class="L5"><code><span class="pln">    </span><span class="pun">}</span></code></li><li class="L6"><code><span class="pun">});</span></code></li></ol></pre>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section id="bb-custom-dialog" class="bb-section">
+                    <div class="bb-section-header">
+                        <div class="pull-right">
+                            <a href="http://bootboxjs.com/documentation.html#bb-custom-dialog" class="btn btn-link">Documentation</a>
+                            |
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#bb-custom-examples" aria-expanded="false" aria-controls="bb-custom-examples">
+                                Show / Hide
+                            </button>
+                        </div>
+                        <h2 class="page-header">Custom Dialogs</h2>
+                    </div>
+                    <div id="bb-custom-examples" class="collapse in">
+                        <div>
+                            <p>
+                                <b>Please note:</b> Custom dialogs accept only one argument: an options object. The only <b>required</b> property of the options object is <code>message</code>.
+                            </p>
+                            <ul class="bb-examples-list">
+                                <li>
+                                    <p class="bb-example" id="custom-dialog-as-loading-overlay">Custom dialog as "loading" overlay<a class="anchorjs-link " href="#custom-dialog-as-loading-overlay" aria-label="Anchor link for: custom dialog as loading overlay" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="custom-dialog-as-overlay">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="kwd">var</span><span class="pln"> dialog </span><span class="pun">=</span><span class="pln"> bootbox</span><span class="pun">.</span><span class="pln">dialog</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    message</span><span class="pun">:</span><span class="pln"> </span><span class="str">'&lt;p class="text-center"&gt;Please wait while we do something...&lt;/p&gt;'</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    closeButton</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span></code></li><li class="L3"><code><span class="pun">});</span></code></li><li class="L4"><code><span class="com">// do something in the background</span></code></li><li class="L5"><code><span class="pln">dialog</span><span class="pun">.</span><span class="pln">modal</span><span class="pun">(</span><span class="str">'hide'</span><span class="pun">);</span></code></li></ol></pre>
+                                </li>
+                                <li id="custom-dialog-init">
+                                    <p class="bb-example" id="also-applies-to-alert-confirm-prompt
+
+custom-dialog-using-init">
+                                        <span class="pull-right">
+                                            Also applies to: <b>Alert</b>, <b>Confirm</b>, <b>Prompt</b>
+                                        </span>
+                                        Custom dialog, using init
+                                    <a class="anchorjs-link " href="#also-applies-to-alert-confirm-prompt
+
+custom-dialog-using-init" aria-label="Anchor link for: also applies to alert confirm prompt
+
+custom dialog using init" data-anchorjs-icon="" style="font-family: anchorjs-icons; font-style: normal; font-variant: normal; font-weight: normal; line-height: 1; padding-left: 0.375em;"></a></p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="custom-dialog-init">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="kwd">var</span><span class="pln"> dialog </span><span class="pun">=</span><span class="pln"> bootbox</span><span class="pun">.</span><span class="pln">dialog</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">    title</span><span class="pun">:</span><span class="pln"> </span><span class="str">'A custom dialog with init'</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">    message</span><span class="pun">:</span><span class="pln"> </span><span class="str">'&lt;p&gt;&lt;i class="fa fa-spin fa-spinner"&gt;&lt;/i&gt; Loading...&lt;/p&gt;'</span></code></li><li class="L3"><code><span class="pun">});</span></code></li><li class="L4"><code><span class="pln">dialog</span><span class="pun">.</span><span class="pln">init</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(){</span></code></li><li class="L5"><code><span class="pln">    setTimeout</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(){</span></code></li><li class="L6"><code><span class="pln">        dialog</span><span class="pun">.</span><span class="pln">find</span><span class="pun">(</span><span class="str">'.bootbox-body'</span><span class="pun">).</span><span class="pln">html</span><span class="pun">(</span><span class="str">'I was loaded after the dialog was shown!'</span><span class="pun">);</span></code></li><li class="L7"><code><span class="pln">    </span><span class="pun">},</span><span class="pln"> </span><span class="lit">3000</span><span class="pun">);</span></code></li><li class="L8"><code><span class="pun">});</span></code></li></ol></pre>
+                                </li>
+                                <li id="custom-dialog-with-buttons">
+                                    <p>Custom dialog, with buttons and button callbacks</p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary example-button" data-bb-example-key="custom-dialog-with-buttons">Run example</button>
+                                    </p>
+                                    <pre class="prettyprint linenums"><ol class="linenums"><li class="L0"><code><span class="kwd">var</span><span class="pln"> dialog </span><span class="pun">=</span><span class="pln"> bootbox</span><span class="pun">.</span><span class="pln">dialog</span><span class="pun">({</span></code></li><li class="L1"><code><span class="pln">title</span><span class="pun">:</span><span class="pln"> </span><span class="str">'A custom dialog with buttons and callbacks'</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">message</span><span class="pun">:</span><span class="pln"> </span><span class="str">"&lt;p&gt;This dialog has buttons. Each button has it's own callback function.&lt;/p&gt;"</span><span class="pun">,</span></code></li><li class="L3"><code><span class="pln">buttons</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L4"><code><span class="pln">    cancel</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L5"><code><span class="pln">        label</span><span class="pun">:</span><span class="pln"> </span><span class="str">"I'm a custom cancel button!"</span><span class="pun">,</span></code></li><li class="L6"><code><span class="pln">        className</span><span class="pun">:</span><span class="pln"> </span><span class="str">'btn-danger'</span><span class="pun">,</span></code></li><li class="L7"><code><span class="pln">        callback</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(){</span></code></li><li class="L8"><code><span class="pln">            </span><span class="typ">Example</span><span class="pun">.</span><span class="pln">show</span><span class="pun">(</span><span class="str">'Custom cancel clicked'</span><span class="pun">);</span></code></li><li class="L9"><code><span class="pln">        </span><span class="pun">}</span></code></li><li class="L0"><code><span class="pln">    </span><span class="pun">},</span></code></li><li class="L1"><code><span class="pln">    noclose</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L2"><code><span class="pln">        label</span><span class="pun">:</span><span class="pln"> </span><span class="str">"I'm a custom button, but I don't close the modal!"</span><span class="pun">,</span></code></li><li class="L3"><code><span class="pln">        className</span><span class="pun">:</span><span class="pln"> </span><span class="str">'btn-warning'</span><span class="pun">,</span></code></li><li class="L4"><code><span class="pln">        callback</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(){</span></code></li><li class="L5"><code><span class="pln">            </span><span class="typ">Example</span><span class="pun">.</span><span class="pln">show</span><span class="pun">(</span><span class="str">'Custom button clicked'</span><span class="pun">);</span></code></li><li class="L6"><code><span class="pln">            </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span></code></li><li class="L7"><code><span class="pln">        </span><span class="pun">}</span></code></li><li class="L8"><code><span class="pln">    </span><span class="pun">},</span></code></li><li class="L9"><code><span class="pln">    ok</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span></code></li><li class="L0"><code><span class="pln">        label</span><span class="pun">:</span><span class="pln"> </span><span class="str">"I'm a custom OK button!"</span><span class="pun">,</span></code></li><li class="L1"><code><span class="pln">        className</span><span class="pun">:</span><span class="pln"> </span><span class="str">'btn-info'</span><span class="pun">,</span></code></li><li class="L2"><code><span class="pln">        callback</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(){</span></code></li><li class="L3"><code><span class="pln">            </span><span class="typ">Example</span><span class="pun">.</span><span class="pln">show</span><span class="pun">(</span><span class="str">'Custom OK clicked'</span><span class="pun">);</span></code></li><li class="L4"><code><span class="pln">        </span><span class="pun">}</span></code></li><li class="L5"><code><span class="pln">    </span><span class="pun">}</span></code></li><li class="L6"><code><span class="pun">}</span></code></li><li class="L7"><code><span class="pun">});</span></code></li></ol></pre>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer">
+        <div class="container">
+            <div class="pull-right">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bootboxjs.com" data-via="makeusabrew" data-related="makeusabrew" data-size="large">Tweet</a>
+                <a href="https://twitter.com/makeusabrew" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @makeusabrew</a>
+                <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+            </div>
+            © 2011-2018 <a href="http://twitter.com/makeusabrew">Nick Payne</a>.
+        </div>
+    </footer>
+
+    <div class="bb-alert alert alert-info" style="display: none;">
+        <span>This was logged in the callback: null</span>
+    </div>
+
+    <script src="Bootbox.jsexemplos_arquivos/jquery-1.js"></script>
+    <script src="Bootbox.jsexemplos_arquivos/bootstrap.js"></script>
+    <script src="Bootbox.jsexemplos_arquivos/anchor.js"></script>
+    <script src="Bootbox.jsexemplos_arquivos/bootbox.js"></script>
+
+    <script src="Bootbox.jsexemplos_arquivos/prettify.js"></script>
+    <script src="Bootbox.jsexemplos_arquivos/jquery.js"></script>
+    <script src="Bootbox.jsexemplos_arquivos/example.js"></script>
+    <script src="Bootbox.jsexemplos_arquivos/demos.js"></script>
+
+
+<a id="scroll-up-btn" href="#top" style="position: fixed; z-index: 2147483647;"><i class="fa fa-4x fa-arrow-circle-up"></i></a></body></html>

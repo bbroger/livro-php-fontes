@@ -1,0 +1,60 @@
+https://www.vivaolinux.com.br/artigo/IPTABLES-Conceitos-e-aplicacao
+https://www.hostinger.com.br/tutoriais/tutorial-iptables/
+
+O Kernel do Linux traz uma inovação no que diz respeito a ferramenta de firewall padrão do sistema.
+
+iptables - Sistema de controle de filtros para protocolos ipv4. É com ele que montamos as regras do firewall; 
+
+iptables-save - Salva as regras em um arquivo especificado como argumento do comando. Normalmente não utilizamos este aplicativo e sim um shell script (por exemplo rc.firewall), inicializado pelo sistema; 
+
+iptables-restore - Restaura regras salvas pelo utilitário iptables-save. 
+
+Regras 
+As regras são como filtros aplicados ao iptables para que o mesmo implemente o que chamamos de filtro de pacote de acordo com o endereço IP/porta de origem/destino, interface de origem/destino, etc. As regras são armazenadas dentro dos chamados chains e processadas na ordem que são inseridas. Estas mesmas regras são armazenadas no kernel, o que significa que quando o sistema é reinicializado as mesmas são perdidas. 
+
+A sintaxe de uma regra é a seguinte: 
+
+iptables comando parâmetros extensões 
+
+Algo similar a isto na prática: 
+
+# iptables -A INPUT p- tcp -s 10.0.0.1 -j DROP 
+
+Uma regra é uma linha do arquivo de configuração
+
+Comandos principais
+
+Basicamente o IPTABLES tem as seguintes regras: 
+
+ACCEPT: significa que o pacote seguirá adiante.
+DROP: significa que o pacote não seguirá adiante.
+RETURN: significa que voltaremos as regras do pacote anterior.
+INPUT: esse canal envia ao servidor, pacotes de entrada que podem sem bloqueados ou liberados via portas, protocolos ou endereços de IP.
+Forward: esse canal é usado para filtrar pacotes que chegam ao servidor mas que precisam ser mandados adiante.
+Output: esse canal é usado para filtrar pacotes que irão a outro servidor.
+
+Comandos básicos do iptables: 
+-A - Este comando acrescenta uma regra às existentes no sistema, ou seja, permite colocar/atualizar regras já existentes na estrutura do firewall. 
+-I - Este comando insere uma nova regra dentro das existentes no firewall. 
+-D - Este comando exclui uma regra específica no firewall. 
+-P - Este comando define a regra padrão do firewall. 
+-L - Este comando lista todas as regras existentes no firewall. 
+-F - Este comando zera todas as regras do firewall (o chamado flush). Se este comando for executado todas as regras do firewall são excluídas. 
+-h - Invoca o help, ajuda do comando. 
+-R - Este comando substitui uma regra no firewall. 
+-C - Checa as regras básicas do firewall. 
+-Z - Zera uma regra específica. 
+-N - Cria uma nova regra com um nome específico. 
+-X - Exclui uma regra específica por seu nome. 
+
+Para listar as regras atuais:
+iptables -L
+
+Listar com números de linhas
+iptables -L --line-numbers
+
+Para apagar todas as regras
+iptables -F
+/sbin/iptables-save
+
+

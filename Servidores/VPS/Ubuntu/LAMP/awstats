@@ -1,0 +1,160 @@
+https://ubuntu-tutorials.com/2008/01/16/configuring-awstats-on-ubuntu-server/
+
+sdo su
+
+apt install awstats
+
+Autoconfiguração
+
+perl /usr/share/doc/awstats/examples/awstats_configure.pl
+
+cp /etc/awstats/awstats.conf /etc/awstats/awstats.domain.tld.conf
+
+nano /etc/awstats
+
+LogFile="/path/to/your/domain/access.log" 
+LogFormat=1 (this will give you more detailed stats) 
+SiteDomain="domain.tld" 
+HostAliases="www.domain.tld localhost 127.0.0.1" 
+
+Gerar os logs
+
+/usr/lib/cgi-bin/awstats.pl -config=domain.tld -update
+
+Configurar apache para exibir awstats
+
+nano /etc/apache2/conf.d/awstats
+
+contendo
+
+Alias /awstatsclasses "/usr/share/awstats/lib/"
+Alias /awstats-icon/ "/usr/share/awstats/icon/"
+Alias /awstatscss "/usr/share/doc/awstats/examples/css"
+ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+ScriptAlias /awstats/ /usr/lib/cgi-bin/
+Options ExecCGI -MultiViews +SymLinksIfOwnerMatch
+
+/etc/init.d/apache2 restart
+
+http://domain.tld/awstats/awstats.pl
+
+Para adicionar ao cront
+
+*/10 * * * * root /usr/lib/cgi-bin/awstats.pl -config=domain.tld -update >/dev/null
+
+
+==================
+Instalação do Awstats
+
+http://blogging.dragon.org.uk/installing-awstats-on-ubuntu-14-04-lts/
+
+sudo apt-get install awstats
+
+sudo a2enmod cgi
+
+Ver o nome do domínio
+cat /etc/hosts
+
+sudo cp /etc/awstats/awstats.conf /etc/awstats/awstats.localdomain.conf
+
+sudo nano /etc/awstats/awstats.localdomain.conf
+
+Ajustas os campos:
+# Change to Apache log file, by default it's /var/log/apache2/access.log
+LogFile="/var/log/apache2/access.log"
+ 
+# Change to the website domain name
+SiteDomain="localdomain"
+HostAliases="localdomain localhost 127.0.0.1"
+ 
+# When this parameter is set to 1, AWStats adds a button on report page to allow to "update" statistics from a web browser
+AllowToUpdateStatsFromBrowser=1
+
+
+Gerar o estado inicial baseado no /var/log/apache2/access.log:
+
+sudo /usr/lib/cgi-bin/awstats.pl -config=localdomain -update
+
+Gerar html com as estatísticas manualmente
+sudo perl /usr/lib/cgi-bin/awstats.pl -config=localdomain -output -staticlinks > /home/ribafs/awstats.localdomain.html
+
+
+Dizer ao Apache2 onde o awstats está
+
+cd /etc/apache2/sites-available
+
+nano 000-default.conf
+
+Adicione ao início:
+
+	Alias /awstatsclasses "/usr/share/awstats/lib/"
+	Alias /awstats-icon/ "/usr/share/awstats/icon/"
+	Alias /awstatscss "/usr/share/doc/awstats/examples/css"
+	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+	ScriptAlias /awstats/ /usr/lib/cgi-bin/
+	Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+
+Configurar o Apache:
+
+sudo cp -r /usr/lib/cgi-bin /var/www/html/
+sudo  chown www-data:www-data /var/www/html/cgi-bin/
+sudo chmod -R 755 /var/www/html/cgi-bin/
+
+sudo service apache2 reload
+
+Para cada domínio adicional efetuar os mesmos passos.
+
+Ver as estatísticas em:
+
+http://localhost/cgi-bin/awstats.pl?config=localdomain
+ou
+http://localhost/cgi-bin/awstats.pl
+
+
+Setar no crontab
+
+sudo nano /etc/crontab
+
+Adicionar:
+*/10 * * * * root /usr/lib/cgi-bin/awstats.pl -config=localdomain -update
+
+Parar usuários não autorizados
+
+sudo nano /etc/awstats/awstats.localdomain.conf
+
+Adicionar:
+AllowAccessFromWebToFollowingIPAddresses="127.0.0.1 10.40.10.133-10.40.10.155"
+
+Adicionar usuário
+
+htpasswd -c /etc/apache2/auth_users ribafs
+
+<Directory /usr/lib/cgi-bin/>
+  AuthName "Enter Your User Name and Password"
+  AuthType Basic
+  AuthUserFile /etc/apache2/auth_users
+  Require valid-user
+</Directory>
+
+sudo service apache2 restart
+
+Bloquear acesso pelo IP:
+
+<Directory /usr/lib/cgi-bin/>
+  Order Deny,Allow
+  Deny from all
+  # this ALLOWS the range 10.40.0.0 - 10.40.0.255 
+  Allow from 10.40.0.0/16
+</Directory>
+
+Logar dados
+
+sudo rm /var/lib/awstats/*
+ 
+sudo mv /etc/cron.d/awstats /root
+
+sudo nice /usr/lib/cgi-bin/awstats.pl -update -config="localdomain" -LogFile="/usr/share/awstats/tools/logresolvemerge.pl /var/log/apache2/access.log* |"
+
+sudo mv /root/awstats  /etc/cron.d
+
+

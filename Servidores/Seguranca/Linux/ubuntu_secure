@@ -1,0 +1,42 @@
+Reforçando a Segurança para Servidores Ubuntu
+
+SSH
+Use chaves do ssh para logar sem senha e copie para o servidor
+
+Firewall
+
+Ative o ufw e permita somente as portas necessárias
+
+ufw enable
+
+ufw allow 55522
+ufw allow 80
+ufw allow 442
+
+ufw status verbose
+
+MySQL
+
+mysql_secure_installation
+
+Apache
+
+Otimize a configuração do Apache
+
+Crie um certificado SSL para áreas sensíveis como o administrator e para servidor de e-mail
+
+Instale os módulos security e evasive
+
+Instale boas ferramentas como:
+denyhosts
+fail2ban
+rkhunter
+tiger
+lynis
+bastille
+
+Instale e habilite o apparmor
+
+Cuidado com usuários, dê permissão de sudo somente se necessário
+
+

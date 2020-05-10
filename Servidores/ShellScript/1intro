@@ -1,0 +1,10 @@
+Linux Shells
+Shell Description
+ash A simple, lightweight shell that runs in low-memory environments but has full compat-
+ibility with the bash shell
+korn A programming shell compatible with the Bourne shell but supporting advanced pro-
+gramming features like associative arrays and l oating-point arithmetic
+tcsh A shell that incorporates elements from the C programming language into shell scripts
+zsh An advanced shell that incorporates features from bash, tcsh, and korn, providing
+advanced programming features, shared history i les, and themed prompts
+

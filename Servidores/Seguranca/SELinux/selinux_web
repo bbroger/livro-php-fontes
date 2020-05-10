@@ -1,0 +1,129 @@
+SELinux em Servidores web
+
+O SELinux pode ser muito trabalhoso em servidores web quando não instalado no diretório padrão. Ele pode não permitir ao Apache acessar seu conteúdo ou arquivos de log.
+
+Ao invés de desabilitar o SELinux você deve criar uma política customizada que aplique o tipo de contexto apropriado para seus diretórios e arquivos.
+
+Por default os arquivos apenas podem ser lidos e não alterados.
+Por default os diretórios tem permissão apenas de leitura.
+
+Estou considerando que Apache e MySQL já estão instalados e configurados
+
+Estrutura de diretórios do documentRoot:
+/var/www/html
+	sites
+		site1
+		site2
+		...
+
+site1
+	/administrator
+	/administrator/logs
+	/tmp
+	/images
+	configuration.php
+
+Cada site deve ficar segregado em seu diretório
+Todos os arquivos devem ser read only a não ser que explícita permissão para o contrário
+
+Criar nossa própria política. Garantir que semanage está instalado:
+
+- Abrir o terminal como root
+- Instalar o pacote policycoreutils-python que contém o semanage
+yum ynstall -y policycoreutils-python
+- Para ajudar a resolver problemas instalar o pacote
+yum install -y setroubleshooting
+
+Tipos de Contextos do Apache
+
+httpd_sys_content_t 	Diretórios e arquivos read-only usados pelo Apache
+
+httpd_sys_rw_content_t 	Arquivos e diretórios que podem ser lidos e alterados pelo Apache. 
+						Atribuir este para diretórios onde arquivos podem ser criados ou modificados
+						pelo site ou atribuir este para arquivos e diretórios para permitir que o
+						site modifique.
+
+httpd_log_t 			Usado pelo Apache para gerar e anexar para os arquivos de logs do site 
+
+httpd_cache_t 			Atribuir para um diretório usado pelo Apache para caching, se você estiver 
+						usando o mod_cache.
+
+Para uma lista completa de contextos execute:
+
+man httpd_selinux
+
+Para visualizar as políticas existentes conexto
+
+semanage fcontext -l
+
+
+Criando políticas
+
+1) Criar uma política para atribuir o contexto httpd_sys_content_t context para o diretório
+/var/www/html
+
+semanage fcontext -a -t http_sys_content_t "/var/www/html(/.*)?"
+
+2) Criar uma política para atribuir ao contexto httpd_log_t para o diretório de logs de cada site. Neste caso será para o site1
+
+semanage fcontext -a -t httpd_log_t "/var/www/html/site1/administrator/logs(/.*)?"
+
+3) Criar uma política para atribuir ao contexto httpd_cache_t para os diretórios tmp de cada site. Agora para o site1
+
+semanage fcontext -a -t httpd_cache_t "/var/www/html/site1/tmp(/.*)?"
+
+
+Permitindo acesso de leitura e escrita
+
+O Apache agora tem permissão para acessar o diretório do site1 mas sem acesso read write para nada.
+
+O seguinte deve atribuir ao Apache contexto de leitura e escrita, para que possa escrever ou modificar os arquivos.
+
+/tmp e /images - Permitir envio de imagems para o /images e instalação de extensões através do /tmp
+
+configuration.php - Este arquivo é alterado sempre que se altera alguma configuração do Joomla
+
+Criar uma política para atribuir ao contexto httpd_sys_rw_content_t context para os diretórios /tmp e /images recursivamente
+
+semanage fcontext -a httpd_sys_rw_content_t "/var/www/html/site1/tmp(/.*)?"
+
+semanage fcontext -a httpd_sys_rw_content_t "/var/www/html/site1/images(/.*)?"
+
+Criar uma política apra atribuir ao contexto httpd_sys_rw_content_t context para que o Joomla possa alterar o arquivo configuration:
+
+semanage fcontext -a httpd_sys_rw_content_t "/var/www/html/site1/configuration.php"
+
+Aplicando as políticas do SELinux
+
+As políticas foram criadas e estão prontas para serem aplicadas para seus respectivos diretórios.
+Nós devemos usar o comando restorecon para aplicar então, se por alguma razão eles forem removidos ou corrompidos.
+ 
+1) Aplicar as políticas do SELinux
+restorecon -Rv /var/www/html
+
+2) A estrutura de diretórios deve ter o seguinte contexto
+
+/var/www/html (httpd_sys_content_t)
+			/sites (httpd_sys_content_t)
+					/site1 (httpd_sys_content_t)
+							/ (httpd_sys_content_t)
+							/administrator (httpd_sys_content_t)
+											/logs (httpd_log_t)
+							/tmp httpd_sys_rw_content_t) e (httpd_cache_t)
+							/images httpd_sys_rw_content_t)
+							/index.php (httpd_sys_content_t)
+							/configuration.php httpd_sys_rw_content_t)
+
+3) Para verificar o tipo de contexto:
+ls -lZ /var/www/html
+
+4) A saída deve mostrar o tipo de contexto
+
+O SELinux é uma camada crucial da segurança do servidor que nunca deve ser desabilitado. Ele oferece proteção além do que o firewall e outras ferramentas podem oferecer.
+
+Referências
+
+Shane Rainville em
+http://www.serverlab.ca/tutorials/linux/web-servers-linux/configuring-selinux-policies-for-apache-web-servers/
+
+

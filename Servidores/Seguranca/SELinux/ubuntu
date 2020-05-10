@@ -1,0 +1,23 @@
+Installing SELinux
+Ubuntu
+
+Starting with Hardy Heron SELinux has been integrated into Ubuntu and can be installed via apt.
+
+    Install the selinux package:
+
+     # apt-get install selinux 
+
+    Change the SELinux mode in /etc/selinux/config (optional):
+        Enforcing
+
+         # sudo sed -i 's/SELINUX=.*/SELINUX=enforcing/' /etc/selinux/config 
+
+        Permissive
+
+         # sudo sed -i 's/SELINUX=.*/SELINUX=permissive/' /etc/selinux/config 
+
+    Reboot
+
+During shutdown all of the files on the system will be labeled. This may take some time depending on how many files you have and disk speed. 
+
+

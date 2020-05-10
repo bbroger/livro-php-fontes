@@ -1,0 +1,299 @@
+Criar na pasta Modelos
+
+com_alo
+mod_alo
+plg_alo
+tpl_alo
+
+O objetivo ainda não é ensiar a criar extensões funcionais para o Joomla.
+Apenas mostrar algumas regras básicas, como os nomes dos diretórios, dos arquivos principais e do instalador (XML).
+
+Suponto que temos um Joomla 3 instalado na pasta joomla.
+
+== Componentes
+Regras para nomes de componentes:
+- O nome do diretório precisa começar com com_
+- O nome do arquivo principal e do xml, não devem conter o com_. Exemplo:
+Diretório - com_clientes
+Arquivo de entrada - clientes.php
+XML - clientes.xml
+
+Estes são os dois únicos arquivos obrigatórios em um componente para Joomla.
+
+Criação de um componente básico, o mais básico possível, para o Joomla 3:
+
+Para ficar ainda mais fácil vamos criar ele dentro da estrutura de um site em Joomla.
+
+- Acessar a pasta joomla/administrator/components
+- Criar um diretório com_alo
+- Dentro criar o arquivo alo.xml, contendo:
+
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="component" method="upgrade">
+     <name>Alo</name>
+     <author>Ribamar FS</author>
+	<creationDate>Outubro 2017</creationDate>
+     <version>1.0.0</version>
+     <description>
+		Pequeno componente olá mundo.
+	 </description>
+
+     <administration>
+         <menu>Alô</menu>
+
+         <files folder="admin">
+              <filename component="alo">alo.php</filename>         
+         </files>
+    </administration>
+</extension>
+
+- Criar um arquivo alo.php, contendo apenas:
+
+<h1>Alô mundo do Joomla - admin </h1>
+
+- Agora acesse o administrator do site:
+
+Extensões - Gerenciar - Descobrir
+Veja que ele já aparece.
+Selecione e clique em Instalar
+
+Execute
+Componentes - Alô
+
+Veja que ele mostra a mensagem.
+Nosso alô mundo funcionou.
+
+Agora vamos criar um semelhante para a parte do frontend/site:
+
+- Acessar a pasta joomla/components
+- Criar um diretório com_alo
+- Dentro criar o arquivo alo.xml, contendo:
+
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="component" method="upgrade">
+     <name>Alo</name>
+     <author>Ribamar FS</author>
+	 <creationDate>Outubro 2017</creationDate>
+     <version>1.0</version>
+     <description>
+		Pequeno componente alô mundo para o site.
+	 </description>
+
+     <files folder="site">
+          <filename component="alo">alo.php</filename>
+     </files>
+     <administration>
+     </administration>
+</extension>
+
+- Criar um arquivo alo.php, contendo apenas:
+<h1>Alô mundo do Joomla - site </h1>
+
+Acesse o administrator do site e:
+Extensões - Gerenciar - Descobrir
+Veja que ele já aparece.
+Selecione e clique em Instalar
+
+- Agora acesse o site e digite:
+http://localhost/joomla/index.php?option=com_alo
+
+Veja que ele mostra a mensagem abaixo na região dos componentes.
+Nosso alô mundo funcionou.
+
+
+== Módulos
+Regras básicas para nomes de módulos do Joomla 3:
+
+Diretório - começar com mod_
+Arquivo de entrada - começar com mod_
+Arquivo xml - começar com mod_. Exemplo:
+
+Diretório - mod_clientes
+Arquivo de entrada - mod_clientes.php
+Arquivo xml - mod_clientes.xml
+
+Criação de um módulo alô mundo para o Joomla 3:
+
+- Acessar a pasta joomla/modules
+- Criar a pasta mod_alo e dentro dela criar o arquivo:
+- mod_alo.xml contendo:
+
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.0" client="site" method="upgrade">
+	<name>mod_alo</name>
+	<author>Ribamar FS</author>
+	<creationDate>Outubro 2017</creationDate>
+	<copyright>Copyright (C) 2017 Ribamar FS</copyright>
+	<license>GNU General Public License version 2 or later</license>
+	<authorEmail>ribafs@gmx.com</authorEmail>
+	<authorUrl>http://ribafs.org</authorUrl>
+	<version>1.0</version>
+	<description>Simple Module alô mundo/</description>
+	<files>
+		<filename module="mod_alo">mod_alo.php</filename>
+	</files>
+</extension>
+
+- Criar o arquivo alo.php contendo:
+<h1>Alô mundo do Joomla - site</h1>
+
+Vá no administrator do site e:
+Extensões - Gerenciar - Descobrir
+Selecione e clique em Instalar
+
+Executando:
+Acesse o administrator:
+Extensões - Módulos
+Novo - mod_alo
+Título - Alô Mundo
+Posição - position-7 (seu tempalte pode ser outra posição)
+Salve e acesse o site:
+http://localhost/joomla
+
+Veja que nosso pequeno módulo aparece na posição escolhida.
+
+
+== Plugin:
+
+Regras básicas para nomes de plugins no Joomla 3:
+
+- Primeiro escolher um dos grupos, que no Joomla 3.8.1 são:
+ajax
+authentication
+captcha
+content
+editors
+editors-xtd
+extension
+fields
+finder
+installer
+jforms
+quickicon
+sampledata
+search
+system
+twofactorauth
+user
+
+O plugin trabalha com exentos, que são código disparado por alguns dos eventos do Joomla, como AfterTitle, onBeforeRender, etc. Veja a lista:
+https://docs.joomla.org/Plugin/Events
+
+- O diretório precisa ser grupo/nome
+- O nome do arquivo de entrada - nome.php
+- O arquivo xml - nome.xml
+
+Exemplo:
+
+Diretório - content/alo
+Arquivo de entrada - alo.php
+Arquivo xml - alo.xml
+
+Os plugins, diferente das demais extensões, existem em grupos. São vários os grupos, veja:
+
+- Acesse a pasta joomla/plugins/content
+- Crie o diretório alo
+- Dentro de alo crie o arquivo alo.xml contendo:
+
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="search" method="upgrade">
+	<name>plg_content_alo</name>
+	<author>Ribamar FS</author>
+	<creationDate>Outubro 2017</creationDate>
+	<copyright>Copyright (C) 2017 - Ribamar FS. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>ola@ribafs.org</authorEmail>
+	<authorUrl>http://ribafs.org</authorUrl>
+	<version>1.0</version>
+	<description>Plugin simples, tipo alô mundo</description>
+	<files>
+		<filename plugin="alo">alo.php</filename>
+	</files>
+</extension>
+
+- Crie também o arquivo alo.php contendo:
+
+<?php
+// no direct access
+defined('_JEXEC') or die;
+
+class plgContentAlo extends JPlugin{
+
+    public function onContentAfterTitle($context, &$article, &$params, $limitstart){
+            return '<h1>Olá mundo do Joomla - plugin</h1>';
+    }
+}
+
+Com isso ele irá imprimir a frase abaixo de todos os artigos do site, tanto para os existentes quanto para os novos.
+
+Descobrir e instalar
+
+Habilitar o Plugin
+Extensões - Plugins. Habilitar o plugin:
+plg_content_alo
+
+Agora vá ao site e observe alguns artigos. Veja que eles receberam a frase abaixo do título.
+
+
+== Templates
+
+Regras básicas para nomes de templates:
+
+- Diretório pode receber o nome simples ou usar um prefixo como tpl_
+- Arquivo de entrada - index.php
+- Arquivo xml - tempalteDetails.xml
+
+Exemplo:
+
+Diretório - joomla/templates/tpl_basico
+Arquivo de entrada - index.php
+Arquivo xml - tempalteDetails.xml
+
+- Criar a pasta tpl_alo em joomla/templates
+- Denro de tpl_alo criar:
+- templateDetails.xml contendo:
+
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="template" client="site" method="upgrade">
+  <name>tpl_alo</name>
+  <version>1.0</version>
+  <creationDate>Outubro de 2017</creationDate>
+  <author>Ribamar FS</author>
+  <authorEmail>ola@ribafs.org</authorEmail>
+  <copyright>Copyright (C) 2017 Ribamar FS</copyright>
+  <description>Template simples, do tipo alô mundo</description>
+  <files>
+    <filename>index.php</filename>
+  </files>
+</extension>
+
+- Agora crie o arquivo index.php, contendo:
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<jdoc:include type="head" />
+</head>
+
+<body>
+	<div>
+		<jdoc:include type="modules" name="position-1" style="xhtml" />
+	</div>
+</body>
+</html>
+
+Descobrir e Instalar
+
+Tornar o template default e atribuir todos os itens de menu para ele.
+
+Extensões Temas
+Clicar na extrelinha à direita de tpl_alo para torná-lo o default
+Clique no link tpl_alo
+Atribuir Menu - selecionar todos
+Salvar
+
+Acessar o site e ver o resultado.
+Apenas a frase que pedimos para mostrar.
+
+    

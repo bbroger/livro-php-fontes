@@ -1,0 +1,57 @@
+Configurando o SELinux
+
+
+Mantenha por enquanto ele desabilitado ou em permissive mode.
+
+yum update -y
+
+yum install -y policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
+
+Altere o SELinux para permisseive mode e reinicie o servidor.
+
+nano /etc/selinux/config
+
+SELINUX=permissive
+
+ou assim:
+setenforce 0
+
+reboot
+
+Configurar corretamente o contexto para o diretório web 
+
+semanage fcontext -a -t httpd_sys_content_t "/var/www/html(/.*)?" 
+restorecon -Rv /var/www/html
+
+Permitir ssh em outra porta
+semanage port -a -t ssh_port_t -p tcp 9922
+
+Permitir que apache envie e-mail
+setsebool -P httpd_can_sendmail 1
+
+Permitir que apache leia e escreva em certo diretório
+setsebool -P httpd_unified 1
+
+Monitorar problemas
+
+sestatus
+
+Limpar logs e reinicie
+> /var/log/audit/audit.log
+reboot
+
+Checar por problemas
+sealert -a /var/log/audit/audit.log
+
+Permitir que apache conecte via ssh
+setsebool httpd_can_network_connect=1
+
+
+Mudar para enforcing e reiniciar
+
+nano /etc/sysconfig/selinux
+SELINUX=enforced
+
+reboot
+
+

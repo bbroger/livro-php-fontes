@@ -1,0 +1,18 @@
+<!-- Original em:
+http://www.mattkruse.com/javascript/calendarpopup/source.html
+-->
+	<SCRIPT LANGUAGE="JavaScript" SRC="CalendarPopup.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" SRC="PopupWindow.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" SRC="date.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" SRC="AnchorPosition.js"></SCRIPT>	
+	<SCRIPT LANGUAGE="JavaScript">
+	var cal = new CalendarPopup();
+	</SCRIPT>
+
+<BODY>
+<FORM NAME="example">
+<INPUT TYPE="text" NAME="date1" VALUE="" SIZE=25>
+<A HREF="#"
+   onClick="cal.select(document.forms['example'].date1,'anchor1','dd/MM/yyyy'); return false;"
+   NAME="anchor1" ID="anchor1"><IMG src="calendar.gif" alt="Calendário"></A>
+</FORM>

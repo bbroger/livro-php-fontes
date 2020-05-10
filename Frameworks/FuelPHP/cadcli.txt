@@ -1,0 +1,96 @@
+Aplicativo criado com o Framework FuelPHP
+
+Cadastro de clientes e vendedores com login de acesso
+A criação de todo o aplicativo com os dois CRUDs e o login será feita inteiramente com o oil via terminal, sem digitarmos uma única linha de código
+
+Site oficial
+https://fuelphp.com/
+
+## Instalação
+O Fuel conta com 3 métodos de instalação. Veja https://fuelphp.com/docs/installation/instructions.html
+
+Instalarei usando a ferramenta oil
+
+mkdir /var/www/html/cadcli
+oil create cadcli
+
+Ajustar permissões
+oil refine install
+
+## Configurações
+
+Banco de dados
+Ajustar os dados em
+fuel/app/config/development/db.php
+
+Habilitando o ORM e Auth
+
+Em app/config/config.php, logo no início
+
+return array(
+
+    'always_load' => array(
+        'packages' => array(
+            'orm', 'auth',
+         ),
+     ),
+
+Mudar para driver Ormauth
+
+Copiar packages/auth/config/auth.php para app/config/
+
+Assim:
+return array(
+    'driver'                 => 'Ormauth', // Alterar aqui
+    'verify_multiple_logins' => false,
+    'salt'                   => 'put_your_salt_here',
+    'iterations'             => 10000,
+);
+
+Ajustar o router
+
+Alterar de
+welcome/index
+
+Para
+admin/login
+
+
+## Criação do aplicativo
+
+Scaffold admin para criar o CRUD cliente
+oil g admin cliente nome:string[50] email:string[50] idade:int -s
+
+Scaffold para criar o CRUD vendedor
+oil g admin vendedor nome:string[50] email:string[50] -s
+
+Gerar a migração para o banco de dados dos migrations criados acima
+oil refine migrate
+
+Gerar a estrutura de login e autenticação, inclusive com usuário e senha defaults
+oil refine migrate --packages=auth
+
+Acessemos
+http://localhost/admin/public
+
+Teremmos no admin um painel de controle com menu:
+My Site Dashboard Cliente Vendedor
+
+Entre com o usuário default
+login - admin
+senha - admin
+
+Se clicar em Cliente terá acesso ao CRUD. Clique no botão Add new Cliente e insira um registro e terá acesso às demais funcionalidades.
+
+De forma semelhante ao clicar no menu em Vendedor.
+
+Para traduzir os termos precisamos editar alguns arquivos:
+- fuel/app/views/admin/dashboard.php (boa parte do texto da tela inicial)
+- fuel/app/views/admin/template.php (My Site, Dashboard, Logout e outros)
+- fuel/app/classes/controller/admin.php (Dashboard no action_index e outros)
+
+Boa diversão. Ops, boa programação! :)
+
+Boas dicas em
+https://github.com/fuelphp-br/
+

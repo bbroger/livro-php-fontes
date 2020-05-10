@@ -1,0 +1,21 @@
+Nomes E-mails e Telefones
+
+Ribamar FS - ribafs@ribafs.net - 3288.5103
+Eliane - COB - - 3288 5163
+Lourenço - 32723171 - jose.lourenco@superig.com.br
+Júnior - cjunior@dnocs.gov.br -
+Júnia - 32885194
+
+
+IP Freyja (Página DNOCS) - 10.40.100.13:807
+IP Apoena (Intranet) - 10.40.100.11:807
+
+Júnior (Rede) - 5223
+
+Otávio - cpanel medgon - user = medgon  senha = m20g06b
+
+Minhas partições
+/dev/sda1   *           1        2550    20482843+  83  Linux - raiz
+/dev/sda2            2551        8924    51199155   83  Linux - /home
+/dev/sda3            8925        9051     1020127+  82  Linux swap / Solaris
+/dev/sda4            9052        9726     5421937+  83  Linux - reserva

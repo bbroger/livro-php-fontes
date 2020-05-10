@@ -1,0 +1,23 @@
+{
+    "name": "ribafs/mvc_zero",
+    "description": "MVC DO ZERO",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ribamar FS",
+            "email": "ribafs@gmail.com"
+        }
+    ],
+	"minimum-stability": "stable",
+    "require": {
+
+    },
+    "autoload":
+    {
+        "psr-4":
+        {
+            "Mvc\\" : "app/"
+        }
+    }
+}

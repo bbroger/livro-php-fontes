@@ -1,0 +1,66 @@
+
+
+htpasswd -c /etc/apache2/.htpasswd ribafs
+
+Alterar a configuração do site default
+
+sudo nano /etc/apache2/sites-enabled/000-default.conf
+
+
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        <Directory "/var/www/html/portal/administrator">
+                AuthType Basic
+                AuthName "Acesso Restrito"
+                AuthUserFile /etc/apache2/.htpasswd
+                Require valid-user
+        </Directory>
+</VirtualHost>
+
+
+service apache2 restart
+
+Caso use SSL também deve adicionar 
+
+        <Directory "/var/www/html/portal/administrator">
+                AuthType Basic
+                AuthName "Acesso Restrito"
+                AuthUserFile /etc/apache2/.htpasswd
+                Require valid-user
+        </Directory>
+
+
+Ao seu script de configuração
+
+Para dar suporte aos .htaccess:
+
+sudo nano /etc/apache2/apache2.conf
+
+<Directory /var/www/>
+      Options Indexes FollowSymLinks
+      AllowOverride All
+      Require all granted
+</Directory>
+
+Salve e feche
+
+Add .htaccess file to protect folder:
+
+nano /var/www/html/.htaccess
+
+# Add the following
+AuthType Basic
+AuthName "Restricted Content"
+AuthUserFile /etc/apache2/.htpasswd
+Require valid-user
+
+service apache2 restart
+
+https://askubuntu.com/questions/879409/how-to-create-protect-folder-in-ubuntu-server-16-04#879435
+https://www.digitalocean.com/community/tutorials/how-to-set-up-password-authentication-with-apache-on-ubuntu-14-04
+
+

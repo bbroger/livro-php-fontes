@@ -1,0 +1,308 @@
+<HTML>
+<HEAD>
+	<TITLE>Piter Punk's Articles - dialog</TITLE>
+</HEAD>
+<BODY>
+<center>
+<TABLE width=750 border=0 cellpadding=2 cellspacing=0 valign=middle>
+<TR>
+	<TD colspan=3 bgcolor=#000080>
+	<CENTER><B><FONT SIZE=+3 COLOR=#ffffff>
+	Piter Punk's HomePage - Artigos
+	</FONT></b></center>
+	</TD>
+</TR>
+<tr>
+	<td width=10 bgcolor=#000080>
+	&nbsp;
+	</td>
+	<td width=730 bgcolor=#FFFFFF>
+	<TABLE>
+		<tr><td>
+	<a href="../english/dialog_en.html">
+	<img src="../Pix/englishflag.gif" alt="English version" align=right>
+	</a>
+		<br>	
+<center>
+<font size=+3><b>
+Usando o dialog<br>
+</b></font>
+<br>
+<font size=-1>
+Piter PUNK<br>
+<br>
+<p>Muitas vezes, depois de fazer um programa em shell, você percebe que 
+seria interessante produzir uma interface melhor com o seu usuário,
+usando menus, caixas de texto, etc... É nessa hora que surge o <b>dialog</b>!
+</font>
+</center>
+
+<h2>1. Introdução</h2>
+
+<p>O dialog é um programa simples de usar que oferece a você vários
+recursos de "gráficos" para incrementar os seus 
+shell scripts. Neste artigo iremos "mostrar" um pouco do dialog, mas ele
+não se resume apenas ao que escrevemos aqui. Ele possui muitas outras opções 
+e funcionalidades, que poderão ser melhor exploradas
+após uma boa olhada no manual.
+
+<h2>2. Começando</h2>
+
+<p>A estrutura de um comando no dialog é bem simples:
+<pre>
+	dialog --tipo-de-caixa "Texto da caixa" <tamanho>
+</pre>
+<p>Dependendo do tipo-de-caixa, são necessárias várias outras opções.
+Vamos brincar com uma --msgbox, onde você pode colocar informações
+do seu programa antes de executá-lo...
+<pre>
+	dialog --msgbox "\
+	Este é um programa muito bem feito \
+	e especial, e depois de clicar em \
+	OK você entrará no maravilhoso mundo \
+	do meu programa wonder-ultra-plus" 0 0
+</pre>
+<p>Irá aparecer uma caixa centralizada contendo o texto que você digitou
+e um botão de OK. O "0 0" do fim diz para o dialog autodimensionar
+a janela, mas você pode força-lo a usar o tamanho que quiser trocando
+os números, o primeiro é a altura e o segundo a largura da caixa.
+
+<h2>3. Incrementando</h2>
+
+<p>Vamos agora melhorar um pouco mais a aparência da nossa caixa de
+mensagens, vamos colocar um título na caixa:
+<pre>
+	dialog --title "Apresentação" --msgbox "\ 
+	Este é um programa muito bem feito \
+	e especial, e depois de clicar em \
+	OK você entrará no maravilhoso mundo \
+	do meu programa wonder-ultra-plus" 0 0
+</pre>
+<p>Já ficou melhor não é? Agora, para ficar com um visual ainda mais
+profissional vamos colocar um título no fundo, com o nome do nosso
+programa:
+<pre>
+	dialog --backtitle "MeuPrograma 0.1" --title "Apresentação" ...
+</pre>
+<p>Onde estão os ... é para colocar o resto do texto dos exemplos anteriores.
+Ah! Estas opções --backtitle e --title funcionam em todas as outras caixas
+do dialog.
+
+<h2>4. Outras caixas</h2>
+
+<p>Agora que já estamos craques em desenhar caixas de mensagem e em um
+design legal, vamos dar uma verificada nas outras caixas que o dialog
+nos oferece:
+
+<h3>4.1. Sim/Não</h3>
+
+<p>Para perguntas simples, nada como a caixa --yesno, onde
+você coloca uma mensagem e o usuário responde com "sim"
+ou "não". Por exemplo:
+<pre>
+	dialog --yesno "Você deseja apagar tudo?" 0 0
+</pre>
+<p>Um detalhe bem interessante, é saber o que o seu usuário
+respondeu, no caso do -yesno, ele devolve "0" para sim
+(sucesso) e "1" para não (fracasso). O nosso programinha
+ficaria assim:
+<pre>
+	dialog --yesno "Você deseja apagar tudo?" 0 0
+	if [ $? = 0 ]; then
+		dialog --infobox "Apagando tudo..." 0 0
+	else
+		dialog --infobox "A vida continua..." 0 0
+	fi
+</pre>
+<p>Com isso aprendemos a pegar os resultados do --yesno e de
+quebra aprendemos a usar uma --infobox -;)
+
+<h3>4.2. Menu</h3>
+<p>Este tipo de caixa vai apresentar um menu (!!!). Ele é
+um pouco mais complicado que os outros que vimos até
+agora, tem muito mais parâmetros:
+<pre>
+	dialog --menu "Selecione uma opção do menu" 0 0 3 \
+	1 "Opção 1" \
+	2 "Opção 2" \
+	3 "Opção 3"
+</pre>
+<p>A primeira alteração visível, é que o tamanho possui 3
+argumentos ao invés de dois, os dois primeiros são altura
+e largura, e o último é o tamanho da "lista" de opções.
+
+<p>Se você colocar o tamanho da lista menor que a quantidade
+de opções, você poderá "rolar" pelas opções (irá aparecer
+um indicador "v(+)" ou "^(+)" indicando que existem mais
+opções abaixo ou acima
+
+<p>Outra alteração são as próprias opções! Você pode colocar
+um "atalho" e depois o texto da opção.
+
+<p>Para pegar a saída do "OK" e do "Cancel", use o mesmo processo
+que utilizamos para pegar a saída do --yesno, "0" para OK e
+"1" para "Cancel"
+
+<p>E, para pegar a opção selecionada, existem duas opções:
+<ul>
+	<li>usar um arquivo temporário com a opção e depois ler do arquivo 
+	o que o usuário escolheu
+	<li>Passar a saída diretamente para uma variável
+</ul>
+<p>Para fazer o primeiro, é bem simples... apenas coloque no final
+do comando dialog um 2>/tmp/arquivotemporario, como abaixo:
+<pre>
+	dialog --menu "Selecione uma opção do menu" 0 0 3 \
+	...
+	3 "Opção 3" 2>/tmp/arquivotemporario
+</pre>
+<p>Este método é fácil mas é um pouco desagradável depender
+de um arquivo externo. É preferível utilizar a segunda opção:
+<pre>
+	OPCAO=`dialog --stdout --menu "Selecione uma opção...\
+	...
+	3 "Opção 3"`
+</pre>
+<p>Logo depois de executar o dialog, a saída dele estará na
+variável OPCAO, bem mais prático.
+
+<h3>4.3. Radiolist</h3>
+
+<p>Podemos dizer que este é um "modelo" diferente de Menu,
+serão apresentadas várias opções para você selecionar,
+e apenas uma delas pode estar selecionada:
+<pre>
+	dialog --radiolist "Selecione uma opção do menu" 0 0 3 \
+	1 "Opção 1" ON \
+	2 "Opção 2" OFF \
+	3 "Opção 3" OFF
+</pre>
+<p>Lembre que apenas uma das opções pode estar ativa, repare
+que também já deixamos uma opção selecionada "por default"
+
+<p>Para pegar a opção selecionada, basta utilizar os métodos
+que vimos na caixa de Menu.
+
+<h3>4.4. Checklist</h3>
+
+<p>Esta é uma parente da Radiolist, a grande diferença é
+que podemos selecionar mais de uma opção:
+<pre>
+	dialog --checklist "O que pretende apagar?" 0 40 3 \
+	usuarios "Todos os usuários" ON \
+	programas "Todos os programas" ON \
+	tudo "Tudo mesmo..." OFF
+</pre>
+<p>A saída desta caixa é o nome das várias opções selecionadas,
+cada uma delas entre aspas. Isso atrapalha um pouco para 
+trabalhar com essas opções. Uma boa idéia é utilizar o
+--separate-output isso fará com que a saída seja dada uma
+opção por linha.
+
+<h3>4.5. InputBox</h3>
+
+<p>Este é o tipo de caixa que você vai escolher quando for
+pedir para o seu usuário escrever algo. Para coletar
+o que o seu usuário digitou, utilize os métodos que já
+vimos em outros exemplos:
+<pre>
+	dialog --inputbox "Escreva aqui alguma bobagem" 0 0
+</pre>
+
+<h3>4.6. Mais Caixas</h3>
+
+<p>Mostrei apenas as Caixas que acho mais úteis, mas existem várias outras
+à mais se você quiser:
+<center>
+<table width=80% border=0 cellspacing=0 cellpadding=5>
+	<tr>
+		<td>--calendar</td>	
+		<td>Mostra um calendário para você selecionar a data</td>
+	</tr><tr>
+		<td>--fselect</td>
+		<td>Uma caixa de seleção de arquivos</td>
+	</tr><tr>
+		<td>--gauge</td>
+		<td>caixa para ver o andamento (em porcentagem) de algo</td>
+	</tr><tr>
+		<td>--textbox</td>
+		<td>Mostra o conteúdo de um arquivo texto</td>
+	</tr><tr>
+		<td>--timebox</td>
+		<td>Para você selecionar as horas</td>
+	</tr><tr>
+		<td>--inputmenu</td>
+		<td>Igual ao menu, mas você pode alterar as opções, muito bom 
+			para corrigir algumas entradas</td>
+	</tr>	
+</table>
+</center>
+<p>E além destas ainda existem outras, dê aquela olhadinha na saída do
+comando dialog sem argumentos e na manpage dele. 
+<h2>5. Conclusão</h2>
+
+<p>O dialog é uma ferramenta poderosa para o desenho de interfaces com o
+usuário e ainda tem uma vantagem adicional, existem vários clones dele
+para o modo gráfico, como o Xdialog ou o gdialog e normalmente eles seguem
+a mesma sintaxe do dialog. Seus scripts agora com janelinhas, quem diria -;)
+
+<p>Talvez o único "contra" do dialog seja as suas linhas de comando enormes,
+mas sabendo usar corretamente o \ para quebrá-las em pedacinhos ele se
+torna perfeitamente gerenciável.
+
+<p>Qualquer dúvida, crítica ou sugestão sobre este artigo: 
+<a href="mailto:piterpk@terra.com.br">piterpk@terra.com.br</a>
+		</td></tr></table>
+		<hr>
+                <center>
+                <table width="100%" align="center" valign="middle">
+                <tr>
+                        <td width="15%">
+                                <a href="../links.html">
+<img src="../pix/web.gif" border="0" alt="Links"></a>
+                        </td>
+                        <td width="14%">
+                                <a href="../index.html">
+<img src="../pix/home.gif" border="0" alt="Principal"></a>
+                        </td>
+                        <td width="14%">
+                                <a href="../docs.html">
+<img src="../pix/docs.gif" border="0" alt="Artigos"></a>
+                        </td>
+                        <td width="14%">
+                                <a href="../piterpunk.html">
+<img src="../pix/who.gif" border="0" alt="Piter Punk"></a>
+                        </td>
+                        <td width="14%">
+                                <a href="../dicas.html">
+<img src="../pix/tips.gif" border="0" alt="Dicas"></a>
+                        </td>
+                        <td width="14%">
+                                <a href="../programas.html">
+<img src="../pix/progs.gif" border="0" alt="Programas"></a>
+                        </td>
+                </tr>
+                </table>
+                </center>
+	</td>
+	<td width=10 bgcolor=#000080>
+	&nbsp;
+	</td>
+</tr>
+<TR>
+	<TD colspan=3 bgcolor=#000080 align=center>
+<table><tr><td width=50%>
+	<FONT SIZE=-1 COLOR=#ffffff>
+	Powered by Slackware Linux - Written in VIm (the best one!) 
+	</FONT>
+</td><td width=50% align=right>
+	<FONT SIZE=-1 COLOR=#ffffff>
+	Last Update: 30 Oct 2004 &nbsp;&nbsp; 
+	</FONT>
+</td></tr></table>
+	</TD>
+</TR>
+</TABLE>
+</center>
+</BODY>
+</HTML>

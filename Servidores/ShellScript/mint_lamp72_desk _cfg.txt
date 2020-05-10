@@ -1,0 +1,34 @@
+Configuração do php e apache
+
+sudo nano /etc/php/7.2/apache2/php.ini
+
+Configurar php
+display_errors = On
+
+
+
+Configurar apache
+
+sudo nano /etc/apache2/apache2.conf
+
+ServerName localhost
+
+Trocando None por All
+
+<Directory />
+    Options Indexes FollowSymLinks Includes ExecCGI
+    AllowOverride All
+    Order deny,allow
+    Allow from all
+</Directory>
+
+sudo systemctl restart apache2
+
+Instalar adminer.php
+http://adminer.org
+
+Criar script para permissões
+
+
+
+

@@ -1,0 +1,53 @@
+How To Use SFTP to Securely Transfer Files with a Remote Server
+https://www.digitalocean.com/community/tutorials/how-to-use-sftp-to-securely-transfer-files-with-a-remote-server
+
+SFTP é um ftp seguro, uusando o SSH.
+
+Conexão com servidor remoto
+
+SSh
+ssh usuario@ip_ou_dominio
+
+SFTP
+sftp usuario@ip_ou_dominio
+
+Conectando para uma porta customizada, não padrão
+
+sftp -oPort=55522 usuario@ip_ou_dominio
+
+Copiar para fora
+scp -P 25522 arquivo.zip user@ip_ou_dominio:/home/ribafs
+
+Copiar para cá
+scp -P 25522 user@ip_ou_dominio:/home/user/arquivo.zip /home/ribafs
+
+Ao conectar via sftp os comandos para o servidor local, seu desktop, começam com l:
+
+Local   Remoto
+lls     ls
+lpwd    pwd
+lcd     cd
+
+Recebendo arquivos no desktop
+get arquivo_remoto
+
+Recebendo com outro nome
+get arquivo_remoto arquivo2
+
+Receber uma cópia recursiva
+get -r someDirectory
+
+Mantendo as permissões
+get -Pr someDirectory
+
+Enviar arquivos do desktop para o remoto
+
+put localFile
+
+put -r localDirectory
+
+df -h
+
+ldf -h
+
+

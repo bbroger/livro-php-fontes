@@ -1,0 +1,161 @@
+Iptables Tutorial
+
+ACCEPT: significa que o pacote seguirá adiante.
+DROP: significa que o pacote não seguirá adiante.
+RETURN: significa que voltaremos as regras do pacote anterior.
+INPUT: esse canal envia ao servidor, pacotes de entrada que podem sem bloqueados ou liberados via portas, protocolos ou endereços de IP.
+Forward: esse canal é usado para filtrar pacotes que chegam ao servidor mas que precisam ser mandados adiante.
+Output: esse canal é usado para filtrar pacotes que irão a outro servidor.
+
+iptables -A -i <interface> -p <protocol (tcp/udp) > -s <source> --dport <port no.> -j <target>
+
+Habilitar a placa local - lo
+iptables -A INPUT -i lo -j ACCEPT
+
+Habilitando HTTP, SSL e SSH
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+Se precisar instalar
+apt-get install iptables
+
+Mostrar regras atuais
+iptables -L
+ou
+iptables -L --line-numbers
+
+Regra para aceitar o trafego da interface loopback
+
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+
+Permitir conexões de entrada
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+Permitir conexões de saída
+iptables -A OUTPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+Combate aos script-kiddies
+iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
+
+Rejeitar ataques syn-flood
+iptables -A INPUT -p tcp ! --syn -m state --state NEW -j DROP
+
+Recusar pacotes SYN, ACK
+iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
+
+De dentro para fora
+iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
+
+Bloquear um IP
+iptables -A INPUT -s 15.15.15.51 -j DROP
+
+Rejeitar um IP
+iptables -A INPUT -p tcp --dport 65522 -j ACCEPT
+iptables -A INPUT -s 15.15.15.51 -j REJECT
+
+Bloquear conexões de um IP para uma placa de rede
+iptables -A INPUT -i eth0 -s 15.15.15.51 -j DROP
+
+Permitir todas as entradas via SSH
+iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 22 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+Permitir SSH de um específico IP
+iptables -A INPUT -p tcp -s 177.130.209.185/32 --dport 65522 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+
+iptables -A INPUT -p tcp -s 15.15.15.0/24 --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 22 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+Permitir saída de SSH
+iptables -A OUTPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p tcp --sport 22 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+Permitir todas as entradas de HTTP
+iptables -A INPUT -p tcp --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 80 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+Permitir HTTPS
+iptables -A INPUT -p tcp --dport 443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 443 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+Permitir HTTP e HTTPS
+iptables -A INPUT -p tcp -m multiport --dports 80,443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp -m multiport --dports 80,443 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+Permitir MySQL de um IP específico
+iptables -A INPUT -p tcp -s 15.15.15.0/24 --dport 3306 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 3306 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+Deuma rede
+iptables -A INPUT -i eth1 -p tcp --dport 3306 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -o eth1 -p tcp --sport 3306 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+PostgreSQL
+iptables -A INPUT -p tcp -s 15.15.15.0/24 --dport 5432 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 5432 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+Após adicionar todas as entradas, fechar com:
+iptables -P OUTPUT ACCEPT
+iptables -P INPUT DROP
+
+Ver se tá tudo ok
+iptables -L -n
+
+Salvar as regras
+iptables-save > /etc/iptables/rules.v4
+
+Restore
+# Overwrite the current rules
+iptables-restore < /etc/iptables/rules.v4
+# Add the new rules keeping the current ones
+iptables-restore -n < /etc/iptables/rules.v4
+
+Limpar todas as regras atuais
+iptables -F
+
+service iptables restart
+
+
+Remover uma regra
+
+Listar as regras com números de linha
+iptables -L INPUT --line-numbers
+
+Exemplo:
+    1    ACCEPT     udp  --  anywhere  anywhere             udp dpt:domain 
+    2    ACCEPT     tcp  --  anywhere  anywhere             tcp dpt:domain 
+    3    ACCEPT     udp  --  anywhere  anywhere             udp dpt:bootps 
+    4    ACCEPT     tcp  --  anywhere  anywhere             tcp dpt:bootps
+
+Agora remover a linha pelo número. Exemplo, remover a linha 2:
+iptables -D INPUT 2
+
+Outra forma
+
+Listar todas as regras com
+iptables -S | grep 443
+
+Então
+Se a regra a ser removida for esta
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT
+
+Remova com (trocando o -A por iptables -D):
+iptables -D INPUT -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT
+
+
+Não podemos ter uma regra liberando o acesso para a porta 22
+E em seguida outra regra liberando somente para certo IP
+Não funcionará, pois a primeira será executada e todos serão liberados e nem chegarão à segunda regra.
+
+Testar que postas estão abertas ou fechadas
+nc -z -w5 -v SERVER_IP PORT
+
+Listagem de portas por conexão
+sudo netstat -tulpn
+
+
+
+Referências
+https://www.digitalocean.com/community/tutorials/how-to-set-up-a-basic-iptables-firewall-on-centos-6

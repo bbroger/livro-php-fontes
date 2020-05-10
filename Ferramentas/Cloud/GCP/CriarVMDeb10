@@ -1,0 +1,95 @@
+Criar uma nova máquina virtual/VM tipo Lynux/Debian 10
+
+https://cloud.google.com/
+Clicar no ícone do menu no canto esquerdo superior
+Compute Engine - Instâncias de VMs
+
+Tipo de máquina - f1-micro
+(somente regiões dos EUA, exceto Norte da Virgínia)
+Disco de inicialização - Alterar - Debian 10
+	Disco permanente padrão 10GB
+	Selecionar
+Identidade e acesso à API
+Conta de serviço - Compute engine default service account
+Os aplicativos em execução na VM usam a conta de serviço para chamar as APIs do Google Cloud. Selecione a conta de serviço que você quer usar e o nível de acesso à API que deseja permitir. 
+
+Escopos de acesso - Permitir acesso padrão
+Firewall - Permitir tráfego HTTP
+
+Automatização
+Script de inicialização (Opcional)
+Você pode especificar um script de inicialização a ser executado quando sua instância for inicializada ou reiniciada. Os scripts de inicialização podem ser usados para instalar softwares e atualizações, bem como para assegurar que os serviços sejam executados na máquina virtual.
+
+Preempção - Desativar
+
+No nível gratuito:
+Cloud Shell
+
+Gerencie a infraestrutura e os aplicativos na linha de comando em qualquer navegador
+
+    Acesso gratuito ao Cloud Shell, incluindo 5 GB de armazenamento em disco permanente
+
+PREÇOS DO CLOUD SHELL
+
+O Cloud Shell é gratuito para clientes do Cloud Platform.
+
+Na manutenção do host
+Quando o Compute Engine executa a manutenção periódica da infraestrutura, ele pode migrar suas instâncias de VM para outro hardware, sem período de inatividade.
+Migrar instância da VM
+
+Reinicialização automática
+O Compute Engine pode reiniciar instâncias de VMs automaticamente se elas forem encerradas por ações não iniciadas pelo usuário (por exemplo, evento de manutenção, falha de hardware, falha de software etc.)
+Ativada
+
+Criar Swapfile com 1 GB
+
+
+
+Logo após ser criada
+
+ribafs@ribafsl:~$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+udev            284M     0  284M   0% /dev
+tmpfs            59M  1.8M   57M   4% /run
+/dev/sda1       9.7G  1.1G  8.2G  12% /
+tmpfs           292M     0  292M   0% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           292M     0  292M   0% /sys/fs/cgroup
+/dev/sda15      124M  7.9M  116M   7% /boot/efi
+tmpfs            59M     0   59M   0% /run/user/1000
+
+ribafs@ribafsl:~$ free -m
+              total        used        free      shared  buff/cache   available
+Mem:            583         119         384           1          79         378
+Swap:             0           0           0
+
+
+Depois de todo o LAMP instalado
+
+ribafs@ribafsl:~$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+udev            284M     0  284M   0% /dev
+tmpfs            59M  348K   58M   1% /run
+/dev/sda1       9.7G  3.4G  5.9G  37% /
+tmpfs           292M  8.0K  292M   1% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           292M     0  292M   0% /sys/fs/cgroup
+/dev/sda15      124M  7.9M  116M   7% /boot/efi
+tmpfs            59M     0   59M   0% /run/user/1000
+
+Com swap
+
+ribafs@tutdeb10:~$ free -m
+              total        used        free      shared  buff/cache   available
+Mem:            583         177          84          15         321         285
+Swap:          1023         115         908
+
+ribafs@tutdeb10:~$ sudo nano /usr/local/bin/m
+ribafs@tutdeb10:~$ sudo chmod +x /usr/local/bin/m
+ribafs@tutdeb10:~$ sudo m
+vm.drop_caches = 3
+ribafs@tutdeb10:~$ free -m
+              total        used        free      shared  buff/cache   available
+Mem:            583         178         309          15          95         306
+Swap:          1023         115         908
+ribafs@tutdeb10:~$ 

@@ -1,0 +1,36 @@
+E criar um usuário para acesso remoto e plenos poderes, já que o root deve estar restrito aos acessos locais (pelo mysql_secure_installation)
+
+EVITAR A CRIAÇÃO DESTE USUÁRIO
+mysql -u root -p
+GRANT ALL PRIVILEGES ON *.* TO admin@"%"
+IDENTIFIED BY 'senha' WITH GRANT OPTION;
+
+Criar usuário para o site em Joomla com poderes apenas no localhost
+banco - portal
+usuário - portal
+mysql -u root -p
+create database portal;
+
+GRANT ALL PRIVILEGES ON portal.* TO portal@localhost
+IDENTIFIED BY 'senha' WITH GRANT OPTION;
+
+Supondo o IP do servidor web seja 192.168.0.102 então que o servidor de bancos de dados seja acessado somente pelo servidor web
+mysql -u root -p
+create database portal;
+GRANT ALL PRIVILEGES ON portal.* TO portal@192.168.0.102 IDENTIFIED BY 'senha' WITH GRANT OPTION;
+\q
+/etc/init.d/mysql restart
+
+Privilégios:
+*.* - Privilégio grobal. Todos os bancos (*) e todas as tabelas
+de todos os bancos (.*)
+db.* - Todas as tabelas do banco db
+db.tb - Somente a tabela tb do banco db
+
+Acesso com o uso do coringa (%):
+Exemplos:
+... TO remoto@"%.mysqlbrasil.com.br"
+... TO remoto@"200.236.13.%"
+... TO " "@"%mysqlbrasil.com.br"
+
+

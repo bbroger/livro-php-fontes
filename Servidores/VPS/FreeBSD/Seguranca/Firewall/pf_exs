@@ -1,0 +1,123 @@
+Firewall PF - Package Filter
+Colaboração: Ali Faiez Taha 
+
+  ext_if  = "rl0"
+  ext_addr = "A.B.C.D/32"
+  int_if  = "vr0"
+  int_ip  = "192.168.0.1/32"
+  int_net = "192.168.0.0/24"
+  portas_tcp = "{ 25, 80, 443, 8000, 50000 }"
+  portas_udp = "{ 50000 }"
+  popimap = "{ 110, 995, 143, 993 }"
+  
+  # Tabela contendo todos endereços IP atribuidos ao firewall
+  table < private > const { 127/8, 192.168/16, 172.16/12, 10/8 }
+  table < firewall > const { self }
+  table < intranet > const { 192.168.0.0/24 }
+  table < permitidos > const { A.B.C.D/32, E.F.G.H/32 } 
+  table < rdesktop > const {A.B.C.D/32, E.F.G.H/32 } 
+  table < scanners > persist file "/etc/scanners"
+  
+  # Regras para limites
+  set limit { states 10000, frags 5000 }
+  set optimization normal
+  set block-policy drop
+  set require-order yes
+  set loginterface $ext_if
+  set loginterface $int_if
+  
+  # Faz scrub em pacotes que chegam
+  scrub all
+  
+  # Redireciona as conexões na porta 3189 para o IP 192.168.0.2
+  nat on $ext_if from $int_net to any -> ($ext_if)
+  rdr on $ext_if inet proto tcp from < rdesktop > to $ext_addr port 3389 -> 192.168.0.2 port 3389 
+  
+  # Define o política padrao - Libera tudo
+  pass in all
+  pass out all
+  
+  # Libera RDESKTOP para IPs permitidos
+  pass in on $ext_if inet proto tcp from < rdesktop > to < permitidos > port 3389 
+  
+  # Bloqueio de "OS Fingerprinting" do nmap (opção -O), que tenta
+  # descobrir o sistema operacional do host.
+  # Bloqueia os pacotes TCP que tem flags que podem levar a
+  # identificacao do SO.
+  block in log quick proto tcp flags FUP/WEUAPRSF
+  block in log quick proto tcp flags WEUAPRSF/WEUAPRSF
+  block in log quick proto tcp flags SRAFU/WEUAPRSF
+  block in log quick proto tcp flags /WEUAPRSF
+  block in log quick proto tcp flags SR/SR
+  block in log quick proto tcp flags SF/SF
+  
+  # Aceita tráfego em qualquer direção na interface de loopback 
+  pass quick on lo0 all
+  pass out quick on lo0 all
+  
+  # RFC1918
+  block drop in  quick on $ext_if from < private > to any
+  block drop out quick on $ext_if from any to < private >
+  
+  # Início regras extras 
+  # Bloqueia todos os pacotes de entrada mas permite o SSH.
+  # Permite passar todos os pacotes de saída e faz os logs dos pacotes bloqueados.
+  # Permite uma taxa de conexão 1/10, ou seja: 10 conexões por minutoi, e máximo de 10 conexões.
+  
+  block in log on $ext_if all
+  
+  pass in on $ext_if inet proto tcp from < rdesktop > to any port 3389 
+  
+  pass  in on $ext_if proto tcp from any to $ext_if port 22 \
+          flags S/SA  (max-src-conn 10, max-src-conn-rate 1/10, \
+          overload < scanners >  flush global)
+  
+  # Bloqueia o acesso dos proibidos por excesso de tentativas de SSH
+  block drop in log on $ext_if proto tcp from < scanners > to $ext_if port 22
+  pass in on $ext_if proto tcp from any to $ext_if port $portas_tcp flags S/SA 
+  pass in on $ext_if proto udp from any to $ext_if port $portas_udp 
+  
+  # traceroute
+  pass  in on $ext_if inet proto udp from any to any port 33433 >< 33626 
+  pass  in  on $ext_if inet proto icmp all icmp-type echoreq
+  #
+  #regras de saída
+  #
+  pass  out on $ext_if proto { tcp, udp, icmp } all 
+  
+  # Regras para segurar E-Mail interno só para o servidor.
+  block out log on $int_if proto tcp from $int_net to any port 25
+  pass out on $int_if proto tcp from $int_net to $int_ip port 25 
+  block in log on $int_if proto tcp from any to any port smtp
+  block out log on $int_if proto { tcp, udp } from $int_net to any port $popimap  
+  
+  # Fim das regras extras 
+  
+  # Ativa proteção contra SPOOF na interface interna
+  antispoof quick for $int_if inet
+  
+  # Permite conexões ssh vindas apenas da rede interna, e se for 
+  # de um computador confiável, 192.168.0.2. usa "block return" de 
+  # forma que um TCP RST é enviado para derrubar conexões bloqueadas.
+  # usa "quick" para que esta regra não seja invalidada por alguma 
+  # regra "pass" abaixo.
+  block return in quick on $int_if proto tcp from ! 192.168.0.2  to $int_if port ssh flags S/SA
+  
+  # Permite apenas os IPs permitidos a fazer conexão SSH
+  pass in log on $ext_if proto tcp from < permitidos > to ! < firewall > \
+     port ssh flags S/SA synproxy state
+  
+  # Limita em 10 conexões SSH simultaneas, vindas dos IPs autorizados
+  pass in quick on $ext_if inet proto tcp from < permitidos > to $ext_addr \
+     port 22 flags S/SA (max-src-states 10)
+  pass in quick on $ext_if inet proto { tcp, udp } from < permitidos > to $ext_if \
+     port 80 flags S/SA  
+  
+  # Permit incoming ICMP echo requests to this host
+  pass in quick log-all on $ext_if inet proto icmp all icmp-type 8 code 0 
+  
+  # Libera NETBIOS apenas para a Intranet
+  pass in log proto { tcp, udp } from < intranet > to < intranet > port { 137, 138, 139 }
+  
+  ### Bloqueia acesso externo para portas 137,138 e 139
+  block out log proto { tcp, udp } from < intranet > to $ext_if  port { 137, 138, 139 }

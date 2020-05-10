@@ -1,0 +1,140 @@
+https://www.tecmint.com/apache-security-tips/
+
+13 dicas de segurança e reforço do servidor web Apache
+
+Ocultar a a versão do Apache e do sistema operacional nos erros
+
+nano /etc/httpd/conf/httpd.conf (RHEL/CentOS/Fedora)
+nano /etc/apache2/apache2.conf (Debian/Ubuntu)
+
+
+Segurança no Apache/Nginx
+
+Header unset Server
+ServerSignature Off
+ServerTokens Prod
+TraceEnable Off
+Options all -Indexes
+Header always unset X-Powered-By
+
+service httpd restart (RHEL/CentOS/Fedora)
+service apache2 restart (Debian/Ubuntu)
+
+
+Desabilitar listagem de diretórios
+
+nano httpd.conf ou apache2.conf
+
+<Directory /var/www/html>
+Options -Indexes
+</Directory>
+
+
+Mantenha o Apache atualizado
+
+yum update httpd
+apt-get install apache2
+
+
+Desabilitar módulos desnecessários
+
+# grep LoadModule /etc/httpd/conf/httpd.conf
+# have to place corresponding `LoadModule' lines at this location so the
+# LoadModule foo_module modules/mod_foo.so
+LoadModule auth_basic_module modules/mod_auth_basic.so
+LoadModule auth_digest_module modules/mod_auth_digest.so
+LoadModule authn_file_module modules/mod_authn_file.so
+LoadModule authn_alias_module modules/mod_authn_alias.so
+LoadModule authn_anon_module modules/mod_authn_anon.so
+LoadModule authn_dbm_module modules/mod_authn_dbm.so
+LoadModule authn_default_module modules/mod_authn_default.so
+LoadModule authz_host_module modules/mod_authz_host.so
+LoadModule authz_user_module modules/mod_authz_user.so
+LoadModule authz_owner_module modules/mod_authz_owner.so
+LoadModule authz_groupfile_module modules/mod_authz_groupfile.so
+LoadModule authz_dbm_module modules/mod_authz_dbm.so
+LoadModule authz_default_module modules/mod_authz_default.so
+LoadModule ldap_module modules/mod_ldap.so
+LoadModule authnz_ldap_module modules/mod_authnz_ldap.so
+LoadModule include_module modules/mod_include.so
+LoadModule log_config_module modules/mod_log_config.so
+LoadModule logio_module modules/mod_logio.so
+LoadModule env_module modules/mod_env.so
+LoadModule ext_filter_module modules/mod_ext_filter.so
+
+ls /etc/apache2/mods-available/
+
+
+Rodar o Apache com um usuário e grupo diferentes
+
+groupadd http-web
+useradd -d /var/www/ -g http-web -s /bin/nologin http-web
+
+
+Usar allow e deny para controlar o acesso do document_root
+
+<Directory />
+Options None
+Order deny,allow
+Deny from all
+</Directory>
+
+1. Options None – Esta opção impede que usuários habilitem qualquer característica
+2. Order deny, allow – Esta é a ordem em que as diretivas "Negar" e "Permitir" serão processadas. Aqui, "negará" primeiro e "permitirá" depois. 
+3. Deny from all – Isto deve negar pedidos de qualquer usuário para acessar o diretório raiz, ninguém poderá acessar este diretório. 
+
+
+Usar os módulos security e evasive para reforçar a segurança do apache
+
+
+Desabilitar para que Apache não siga links simbólicos
+
+Options -FollowSymLinks
+
+CAso algum user ou aplicativo precise de link simbólico adicione para ele um .htaccess:
+
+# Enable symbolic links
+Options +FollowSymLinks
+
+
+Desligue includes server side e Execução de CGI
+
+Options -Includes
+Options -ExecCGI
+
+Para fazer isso apenas para certp diretório
+
+<Directory "/var/www/html/web1">
+Options -Includes -ExecCGI
+</Directory>
+
+
+Limite o tamanho do request
+
+LimitRequestBody
+
+De 0 a 2147483647 (2GB)
+
+Para mudar em um diretório uploads
+
+<Directory "/var/www/html/uploads">
+LimitRequestBody 512000
+</Directory>
+
+
+Habilitar os logs do Apache
+
+<VirtualHost *:80>
+DocumentRoot /var/www/html/example.com/
+ServerName www.example.com
+DirectoryIndex index.htm index.html index.php
+ServerAlias example.com
+ErrorDocument 404 /story.php
+ErrorLog /var/log/httpd/example.com_error_log
+CustomLog /var/log/httpd/example.com_access_log combined
+</VirtualHost>
+
+
+Melhorar a segurança do Apache com SSL
+
+

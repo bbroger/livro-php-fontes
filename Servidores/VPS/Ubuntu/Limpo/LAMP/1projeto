@@ -1,0 +1,188 @@
+Servidor Criado com o Ubuntu 16.04 na DO Limpo
+
+Tamanho - US$ 5,00/mês
+Data - 08/03/2018
+Londres
+ubuntu-llamp
+
+159.65.91.82
+
+O objetivo deste servidor é de instalar o LAMP para abrigar um site com Joomla.
+
+== Conectar pelo desktop com ssh
+
+Após trocar a senha na console (poderia ter feito no terminal do desktop) conectei pelo desktop
+
+ssh root@159.65.91.82
+
+UFW está inativo
+ufw status
+
+
+== Configurando o UFW
+
+Como o ufw está limpo
+
+ufw enable
+
+ufw allow 65522
+ufw logging on
+ufw allow http
+ufw allow https
+
+ufw status verbose
+
+
+== Criar diretório para backup dos scripts
+
+mkdir /root/backup
+
+
+== Adicionar usuário
+
+adduser ribafs
+
+
+== Adicionar usuário ao SUDO
+
+cp /etc/sudoers /root/backup
+
+nano /etc/sudoers
+
+Adicione
+
+ribafs	ALL=(ALL)	NOPASSWD:ALL
+
+
+== Adicionar usuário ao ssh e reforçar a segurança do mesmo
+
+cp /etc/ssh/sshd_config /root/backup
+
+nano /etc/ssh/sshd_config
+
+Alterar/descomentar:
+
+Port 55522
+LoginGraceTime 30
+PermitRootLogin no
+
+Adicionar ao final
+AllowUsers ribafs
+
+service ssh restart
+
+
+== Atualizar Ubuntu
+
+apt update -y
+apt upgrade -y
+reboot
+
+
+== Conectar via desktop com ribafs
+
+ssh -p 55522 ribafs@159.65.91.82
+
+Passar para root
+sudo su
+
+
+== Instalar pacotes básicos
+
+apt install unzip mc aptitude
+
+
+== Adicionar partição de swap com 2GB
+
+dd if=/dev/zero of=/swapfile bs=1M count=2048
+mkswap /swapfile
+chmod 600 /swapfile
+swapon /swapfile
+
+nano /etc/fstab
+Adicionar ao final
+
+/swapfile	swap	swap	defaults	0	0
+
+Testar
+free -m
+
+
+== Exportar a chave do ssh do desktop para o servidor
+
+Acessar o servidor como ribafs e execute:
+
+su - ribafs
+mkdir .ssh
+chmod 700 .ssh
+cd .ssh
+ssh-keygen -b 1024 -f id_ribafs -t dsa (Enter 2 vezes)
+cat ../.ssh/id_ribafs*.pub > ../.ssh/authorized_keys
+chmod 600 ../.ssh/*
+exit
+
+Acessar o desktop
+
+ssh-copy-id ribafs@159.65.91.82 -p 55522
+
+Entrar a senha do servidor
+
+Agora pode fazer login sem senha usando
+
+ssh -p 55522 ribafs@159.65.91.82
+
+
+== Criar script para limpar o cache da RAM
+
+nano /usr/local/bin/m
+
+sysctl -w vm.drop_caches=3
+swapoff -a
+swapon -a
+
+chmod +x /usr/local/bin/m
+
+Executar com root
+
+Observe os valores
+free -m
+
+Execute
+m
+
+Execute novamente e compare com os valores anteriores
+free -m
+
+
+== Criar um script para configurar as permissões do /var/www/html
+
+nano /usr/local/bin/perms
+
+#!/bin/sh
+clear;
+echo "Aguarde enquanto configuro as permissões do /var/www/html/$1";
+echo "";
+chown -R www-data:www-data /var/www/html/$1;
+find /var/www/html/$1 -type d -exec chmod 755 {} \;
+find /var/www/html/$1 -type f -exec chmod 654 {} \;
+echo "";
+echo "Concluído!";
+	
+chmod +x /usr/local/bin/perms
+
+Executar somente após instalar o Apache
+
+Executando no diretório /var/www/html/portal
+perms portal
+
+Executando no diretório /var/www/html
+perms
+
+Executo sempre que faço alguma alteração como root no /var/www/html
+
+
+== Agora vou instalar os componentes do LAMP, aliás, do AMP, pois o L já se foi, que é o Ubuntu
+
+Usarei o arquivo 2lamp
+
+

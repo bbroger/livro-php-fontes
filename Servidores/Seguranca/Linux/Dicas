@@ -1,0 +1,71 @@
+Don't Do This
+
+<a href="http://example.com" target="_blank">Click here</a>
+
+This lets example.com take control of the current web page.
+Do This Instead
+
+<a href="https://example.com" target="_blank" rel="noopener noreferrer">Click here</a>
+
+DON'T DO THIS:
+
+/* Insecure code: */
+$query = $pdo->query("SELECT * FROM users WHERE username = '" . $_GET['username'] . "'");
+
+Do this instead:
+
+/* Secure against SQL injection: */
+$results = $easydb->row("SELECT * FROM users WHERE username = ?", $_GET['username']);
+
+
+echo htmlentities($string, ENT_QUOTES | ENT_HTML5, 'UTF-8'); 
+is a safe and effective way to stop all XSS attacks on a UTF-8 encoded web page, but doesn't allow any HTML.
+
+The main mitigation against XXE attacks is as follows:
+libxml_disable_entity_loader(true);
+
+
+Bastante atenção 
+- ao usar o PDO, sempre use prepare
+- com upload de arquivos. Caso não vá usar, desabilite com file_uploads=Off. Se for usar, controle o tamanho máximo: upload_max_filesize=1M
+- com certas funções que executam arquivos com php. Evite seu uso no php.ini:
+disable_functions =exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,parse_ini_file,show_source
+- desabilite execução remota do php:
+allow_url_fopen=Off
+allow_url_include=Off
+- Limitando o tamanho do post: post_max_size=1K
+- Limitando o consumo de recursos:
+# set in seconds
+max_execution_time =  30
+max_input_time = 30
+memory_limit = 40M
+- Limite o acesso ao sistema de arquivos:
+open_basedir="/var/www/html/"
+- Session_path
+session.save_path="/var/lib/php/session" ; 
+Set the temporary directory used for storing files when doing file upload 
+upload_tmp_dir="/var/lib/php/session";
+- Mantenha o php, o aplicativo e o SO atualizados
+- Limite o acesso aos arquivos e diretórios:
+chown -R www-data:www-data /var/www/html/
+- Proteja os arquivos de configuração:
+# chattr +i /etc/php.ini
+# chattr +i /etc/php.d/*
+# chattr +i /etc/my.ini
+# chattr +i /etc/httpd/conf/httpd.conf
+# chattr +i /etc/
+Também é possível proteger diretórios e arquivos em /var/www/html:
+# chattr +i /var/www/html/file1.php
+# chattr +i /var/www/html/
+- Use pacotes que reforçam a segurança e especialmente um firewall
+- Monitore logs:
+# tail -f /var/log/httpd/error_log
+# grep 'login.php' /var/log/httpd/error_log
+# egrep -i "denied|error|warn" /var/log/httpd/error_log
+Monitore os logs do PHP:
+# tail -f /var/log/httpd/php_scripts_error.log
+# grep "...etc/passwd" /var/log/httpd/php_scripts_error.log
+- Se puder separe os servidores: banco em um e arquivos em outro
+https://www.cyberciti.biz/tips/php-security-best-practices-tutorial.html
+
+

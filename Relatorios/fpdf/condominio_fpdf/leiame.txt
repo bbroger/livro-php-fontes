@@ -1,0 +1,9 @@
+Aplicação de Exemplo
+Pequeno Controle de Administração de Condomínio para emissão de recibos.
+Os recibos são emitidos através de relatório gerado via fpdf.
+
+Crie o banco condominio e importe para o mesmo o script includes/condominio.sql
+
+
+===========================================================
+Colaboração de Ribamar FS - ribafs.net - ribafs[ ]gmail.com

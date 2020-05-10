@@ -1,0 +1,58 @@
+Changing the default SSH port on CentOS 7
+
+To change the default SSH port, the first thing you want to do is backup the current SSH configuration on your system. To do that, run the commands below.
+
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+
+This creates a new named sshd_config.bak with the current settings of the sshd_config file. If something goes wrong, you can then restore the file from the backup.
+
+Next, run the commands below to open the default SSH configuration file
+
+sudo vi /etc/ssh/sshd_config
+
+When the file opens, make the below change and save the file. Un-comment or remove the (#) before the line the reads Port and change the port number you want to use.
+
+# If you want to change the port on a SELinux system, you have to tell
+# SELinux about this change.
+# semanage port -a -t ssh_port_t -p tcp #PORTNUMBER
+#
+Port 2244
+#AddressFamily any
+#ListenAddress 0.0.0.0
+#ListenAddress ::
+
+Save the file.
+
+After saving, don’t exit until you’ve completed these steps.
+
+By default, SELinux only allows port 22 for SSH. What you need to do is enable the newly created port through SELinux. To do that, run the commands below
+
+sudo semanage port -a -t ssh_port_t -p tcp 2244
+
+If you run the commands above and get an error that semanage command not found, run the commands below to install it.
+
+sudo yum -y install policycoreutils-python
+
+Then go and run the semange commend again to allow the new port through SELinux.
+
+After that, run the commands below to allow the new port through the firewall.
+
+sudo firewall-cmd --permanent --zone=public --add-port=2244/tcp
+
+Reload the firewall configurations
+
+sudo firewall-cmd --reload
+
+Restart SSH by  running the commands below.
+
+sudo systemctl restart sshd.service
+
+Verify that SSH is now running on the new port by running the commands below.
+
+ss -tnlp | grep ssh
+LISTEN          0                128                              *:2244 *:*                                     users:((“sshd”,10783,3))
+LISTEN          0               128                              :::2244 :::*                                     users:((“sshd”,10783,4))
+
+Exit and try signing in using the new port number.
+
+ssh root@192.168.0.1 -p 2244

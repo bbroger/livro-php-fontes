@@ -1,0 +1,17 @@
+Para adicionar a lib fpdh, adicionar:
+
+sudo apt-get install php-fpdf
+
+Adicionar cakephp:
+
+sudo apt-get install cakephp
+
+Adicionar a pear-html-common
+
+sudo apt-get install php-html
+
+Adicionar xdebug
+
+sudo apt-get install php5-xdebug
+
+

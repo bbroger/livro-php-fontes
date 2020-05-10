@@ -1,0 +1,7 @@
+Não armazene em texto claro
+
+$pass = sha1($_POST['pass']);
+
+if($passDb == $pass){
+    echo "User autenticado";
+}

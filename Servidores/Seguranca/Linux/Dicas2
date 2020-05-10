@@ -1,0 +1,27 @@
+Don't Do This
+
+<a href="http://example.com" target="_blank">Click here</a>
+
+This lets example.com take control of the current web page.
+Do This Instead
+
+<a href="https://example.com" target="_blank" rel="noopener noreferrer">Click here</a>
+
+DON'T DO THIS:
+
+/* Insecure code: */
+$query = $pdo->query("SELECT * FROM users WHERE username = '" . $_GET['username'] . "'");
+
+Do this instead:
+
+/* Secure against SQL injection: */
+$results = $easydb->row("SELECT * FROM users WHERE username = ?", $_GET['username']);
+
+
+echo htmlentities($string, ENT_QUOTES | ENT_HTML5, 'UTF-8'); 
+is a safe and effective way to stop all XSS attacks on a UTF-8 encoded web page, but doesn't allow any HTML.
+
+The main mitigation against XXE attacks is as follows:
+libxml_disable_entity_loader(true);
+
+

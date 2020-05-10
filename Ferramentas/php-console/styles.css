@@ -1,0 +1,152 @@
+body, textarea, input {
+    font: 12px monospace;
+}
+
+body {
+    background: #eee;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.console-wrapper {
+    flex: 1 1 auto;
+    display: flex;
+}
+
+.footer-wrapper {
+    flex: 0 1 auto;
+}
+
+input {
+    width: 80%;
+    margin: 10px auto;
+    display: block;
+    font-size: 2em;
+}
+
+a {
+    color: #88f;
+}
+
+.expand {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.output, .input {
+    background: #fff;
+}
+
+.output-wrapper, .input-wrapper {
+    flex: 1 1 50%;
+    position: relative;
+}
+
+.output {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    padding: 0 5px;
+}
+
+.input-wrapper {
+    border-right: 4px solid #EEE;
+}
+
+.input-wrapper form {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    flex: 1 1 auto;
+    display: flex;
+}
+
+.statusbar {
+    padding: 3px 5px;
+    background: #E8E8E8;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.statusbar .copy {
+    margin-left: 50px;
+    display: none;
+}
+#clippy {
+    position: relative;
+    top: 2px;
+    left: 0;
+}
+
+/* ace-editor requires to define styles by id (specificity) */
+.editor#editor {
+    width: 100%;
+    position: relative;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-right-radius: 5px;
+    flex: 1 1 auto;
+}
+#editor .ace_gutter {
+    -webkit-border-top-left-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    border-top-left-radius: 5px;
+}
+
+.output img.loader {
+    margin-bottom: -4px;
+}
+
+.help {
+    width: 33%;
+    float: left;
+    white-space: pre;
+}
+
+.footer {
+    width: 100%;
+    clear: left;
+    text-align: center;
+    color: #aaa;
+}
+.footer a {
+    color: #aaa;
+}
+
+.control-char {
+    background: #000;
+    color: #fff;
+    margin-left: 2px;
+    margin-right: 2px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    padding: 1px 2px;
+}
+
+.statusbar .runtime-info {
+    text-align: right;
+    float: right;
+    clear: right;
+    width: 350px;
+}

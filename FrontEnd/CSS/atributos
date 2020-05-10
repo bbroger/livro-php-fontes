@@ -1,0 +1,148 @@
+Use seletores de atributo. Um seletor de atributo casa com elementos baseado na presença de atributos. Existem quatro tipos destes seletores:
+
+[att] - Casa com elementos que tenham um atributo qualquer e independente do valor do atributo. 
+
+[att=val] - Casa com elementos que tenham um atributo cujo valor seja exatamente "val". 
+
+[att~=val] - Casa com elementos que tenham um atributo cujo valor do atributo é uma lista de valores separados por um espaço em branco e contenha o valor "val". O valor “val” não pode conter espaços. 
+
+[att|=val] - Casa com elementos que tenham um atributo cujo valor do atributo é uma lista de valores separados por um hífen começando com “val”. A finalidade primeira deste seletor é a de casar subcódigosde linguagem especificados no atributo lang (xml:lang no XHTML), por exemplo: “en”, “en-us”, “en-gb”, etc. 
+
+O seletor a seguir casa com qualquer elemento p que tenha o atributo title independente do valor do atributo:
+p[title] { color:#f00; }
+
+O seletor a seguir casa com qualquer elemento div que tenha o atributo class com valor igual a error:
+div[class=error] { color:#f00; }
+
+Pode-se usar múltiplos seletores em um mesmo seletor. Com isto é possível casar um elemento baseado em diferentes atributos nele contido. A regra a seguir será aplicada aos elementos blockquote que tenham o atributo class com valor exatamente igual a “quote” e também tenham especificado o atributo cite (independente do seu valor):
+
+blockquote[class=quote][cite] { color:#f00; }
+
+a[href^="https:"] {
+   /* style properties exclusive to secure pages */
+}
+
+[href$=".gz"]:before {
+   content: 'E004'; /* unicode for the zip folder icon */
+}
+
+input:not([type])
+{
+    background:red;
+}
+
+input[type="text"]
+{
+    background:red !important;
+}
+
+input[type="text"]
+input[type="button"]
+input[type="password"]
+input[type="number"]
+input[type="email"]
+
+input[type=text]:invalid, input[type=tel]:invalid {
+  border: 2px dashed #ff0000;
+}
+
+input[type=text]:focus {
+  width: 250px;
+}
+
+a[target="_blank"] {
+  background-color: yellow;
+}
+
+[class|="top"] {
+  background: yellow;
+}
+
+[class^="top"] {
+  background: yellow;
+}
+
+[class$="test"] {
+  background: yellow;
+}
+
+Seleciona elemento cujo valor do atributo termina com um valor específico.
+
+[class*="te"] {
+  background: yellow;
+}
+
+Seleciona elemento cujo valor do atributo contém um valore specífico.
+
+Todos os que não estão na lista
+input:not([type=button]):not([type=password]):not([type=submit])...
+
+Estilizando forms sem classes ou ids, com os próprios elementos/inputs do form
+
+input[type="text"] {
+  width: 150px;
+  display: block;
+  margin-bottom: 10px;
+  background-color: yellow;
+}
+
+input[type="button"] {
+  width: 120px;
+  margin-left: 35px;
+  display: block;
+}
+
+forms
+
+    input[type=text] - will only select text fields
+    input[type=password] - will only select password fields
+    input[type=number] - will only select number fields
+    etc..
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=text] {
+  border: 2px solid red;
+  border-radius: 4px;
+}
+
+input[type=text]:focus {
+  background-color: lightblue;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
+
+select {
+  width: 100%;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+/* Tip: use width: 100% for full-width buttons */
+

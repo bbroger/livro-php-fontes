@@ -1,0 +1,71 @@
+Todos os exemplos mostram uma combo com o valor do campo name da tabela customers
+
+    <?php
+    // Testado e OK
+    $pdo = new PDO('mysql:host=localhost;dbname=testes', 'root', 'root');
+    $sql = "SELECT name FROM customers";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if ($stmt->rowCount() > 0) { ?>
+      <select name="nome">
+        <?php foreach ($results as $row) { ?>
+          <option value="<?php echo $row['name']; ?>"><?php echo $row['name']; ?></option>
+        <?php } ?>
+      </select>
+    <?php } ?>
+
+------------
+
+<?php
+$pdo = new PDO('mysql:host=localhost;dbname=testes', 'root', 'root');
+
+$smt = $pdo->prepare('select name From customers');
+$smt->execute();
+$data = $smt->fetchAll();
+?>
+
+<select name="name" id="name">
+<?php foreach ($data as $row): ?>
+    <option><?=$row["name"]?></option>
+<?php endforeach ?>
+</select>
+
+-------------
+
+<?php
+$pdo = new PDO('mysql:host=localhost;dbname=testes', 'root', 'root');
+
+$sql="SELECT name,id FROM customers order by name"; 
+
+echo "<select name=name><option value=''>Customer Name</option>"; // list box select command
+
+foreach ($pdo->query($sql) as $row){//Array or records stored in $row
+
+echo "<option value=$row[id]>$row[name]</option>"; 
+}
+echo "</select>";
+
+----------
+
+<?php
+
+//Connect to our MySQL database using the PDO extension.
+$pdo = new PDO('mysql:host=localhost;dbname=testes', 'root', 'root');
+
+$sql = "SELECT id, category FROM categories";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$cats = $stmt->fetchAll();
+?>
+
+<select>
+    <?php foreach($cats as $cat): ?>
+        <option value="<?= $cat['id']; ?>"><?= $cat['category']; ?></option>
+    <?php endforeach; ?>
+</select>
+	
+	
+https://thisinterestsme.com/populate-dropdown-list-mysql/
+
+

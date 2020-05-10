@@ -1,0 +1,118 @@
+Enviar o site para o Servidor
+
+Acessar o desktop
+
+- Copiar o arquivo zip para o /home/ribafs
+
+- Enviar o arquivo de backup criado com o Akeeba Backup para o servidor executando no terminal
+
+	scp -P 55522 portal.zip ribafs@159.65.91.82:/tmp
+
+
+== Criar o banco de dados para o site e o usuário para o mesmo
+
+Acessar o servidor
+
+mysql -uroot -p
+
+create database portal;
+
+GRANT ALL PRIVILEGES ON portal.* TO portal@localhost IDENTIFIED BY 'senhaforte' WITH GRANT OPTION; 
+\q
+
+
+== Descompactar o arquivo
+
+cd /tmp
+
+unzip portal.zip -d /var/www/html/portal
+
+Ajustar as permissões executando
+
+perms portal
+
+
+== Ajustes no php.ini
+
+nano /etc/php/7.0/apache2/php.ini
+
+Altere os dois abaixo
+
+date.timezone = America/Fortaleza
+output_buffering = Off
+
+service apache2 restart
+
+
+== Restaurando o backup do site, ou seja, instalando o site
+
+Como é o restore de um backup feito com o Akeeba Backup precisamos configurar toda a instalação em alguns passos
+
+Abrir o site em
+
+http://159.65.91.82/portal
+
+Pre-installation check and Recommended
+
+Na primeira tela ele mostra uma checagem dos requisitos e se todos foram ou não satisfeitos. Caso tenha algum que não tenha sido satisfeito faça a alteração do php.ini e reinicie o apache então volte para a página e clique em Check again. Agora, que tá tudo verde, apenas clique em Next
+
+Restoration
+
+
+Database server host name - localhost
+User name - portal
+Password - senhaforte
+Database name - portal
+
+Clique em Next
+
+Se aparecer um popup dizendo que a senha do banco contém caracteres especiais e que isso pode dar problema. Leia as recomendações. Apenas clique no OK do popup.
+
+Database Restoration
+
+Quando esta etapa finalizar clique no botão Next step do popup
+
+Finished
+
+Apenas entre com a senha do Super User em
+
+Super User settings
+
+Super User - ribafs
+E-mail - ribafs@gmail.com
+Password - senhaforte
+Password (repeat) - senhaforte
+
+Remover diretório Installation
+
+Clique no botão
+Remove the Installation directory
+
+Ready to start
+
+Clique no botão
+Visit your site's front-end
+
+Com isso o site aparece
+
+http://159.65.91.82/portal
+
+https://159.65.91.82/portal/administrator
+
+
+
+== Backup
+
+Agora faça um backup completo com o componente Akeeba e quando terminar restaure por exemplo para a pasta
+/var/www/html/portal2
+
+Crie o banco portal2, pode ser o mesmo user e senha
+
+Restaure pela web:
+
+http://159.65.91.82/portal2
+
+
+== Agora implementar a autenticação do Apache para ptoteger o diretório administrator do site com senha
+
+Usando o arquivo 5auth

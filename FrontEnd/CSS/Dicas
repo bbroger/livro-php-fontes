@@ -1,0 +1,24 @@
+Para usar duas ou mais classes de uma vez
+
+class = "box skin"
+
+
+Idealmente divida uma classe em duas ou mais. Um bom exemplo é o do BootStrap em seus botões
+
+class="btn btn-success">Success</button>
+
+A primeira classe, btn, contém mais código genérico, já a segunda btn-success traz diferencias como cor.
+Uma boa prática de nomeação é usar um prefixo para indicar de que se trata tal classe: btn-success
+
+Propriedade !important
+
+!important;
+
+.cor
+{
+    background:red !important;
+}
+
+Caso esta classe seja definida em alguma outra classe da qual esta herda, o valor que prevalecerá será o desta classe cor, por conta da propriedade !important.
+
+

@@ -1,0 +1,6 @@
+Idealmente montar as páginas assim com includes nas páginas. Cada página recebe
+
+require_once 'header.php';
+require_once 'menu.php';
+página: index.php, outra.php
+require_once 'footer.php';

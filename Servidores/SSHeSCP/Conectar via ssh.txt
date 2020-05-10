@@ -1,0 +1,12 @@
+Conectar via ssh
+
+ssh -v -C servidor -l usuario
+
+Criar uma função no .bashrc para esse comando.
+
+function server
+{
+ssh -v -C server -l usuario
+}
+
+

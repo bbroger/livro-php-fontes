@@ -1,0 +1,141 @@
+SSH
+
+ssh -p yourport yourusername@yourserver
+
+Rodando um comando no servidor remoto
+ssh yourusername@yourserver updatedb
+
+
+SCP
+scp examplefile yourusername@yourserver:/home/yourusername/
+
+scp yourusername@yourserver:/home/yourusername/examplefile .
+
+scp -p yourport yourusername@yourserver:/home/yourusername/examplefile .
+
+ou
+scp -P yourport yourusername@yourserver:/home/yourusername/examplefile .
+
+Copiar todo um diretório recursivamente
+scp -r yourusername@yourserver:/home/yourusername/ .
+
+SFTP
+
+Ajustes no /etc/ssh/sshd_config
+. . .
+
+Match User sammyfiles
+ForceCommand internal-sftp
+PasswordAuthentication yes
+ChrootDirectory /var/sftp
+PermitTunnel no
+AllowAgentForwarding no
+AllowTcpForwarding no
+X11Forwarding no
+
+
+sftp -P 10522 user@sIPouDominio
+
+Após conectar efetue os comandos desejados:
+
+ls - lista arquivos remotos
+lls - lista arquivos locais. Para comandos locais adicione o prefixo l em cada comando.
+
+Recebendo arquivos:
+
+cd backup
+get php.ini - copiará php.ini para o home ou onde estava quando conectou via sftp.
+
+Sair - quit
+
+! - abre o shell local. Para voltar exit
+
+Copiar todo um diretório recursivamente
+get -r diretorio
+
+Enviando arquivos locais para o servidor remoto:
+
+put arquivo.ext
+
+cd - change directory on the ftp server to
+
+lcd - change directory on your machine to
+
+ls - list files in the current directory on the ftp server
+
+lls - list files in the current directory on your machine
+
+pwd - print the current directory on the ftp server
+
+lpwd - print the current directory on your machine.
+
+exit - exit from the sftp program.
+Getting Files
+
+The get command in sftp allows you to download files from the sftp server.
+
+Usage: get remote-path [local-path]
+
+Where remote-path is the file on the server you want to download, and the optional local-path is the path you want to put the file on your machine. It defaults to your current directory.
+
+For example, to download a file named "foo.bar", the following command would be used:
+
+sftp>get foo.bar
+
+To download this file and save it as "readme.txt", the following command would be used:
+
+sftp>get foo.bar readme.txt
+Getting Multiple Files
+
+To download more than one file from the sftp server use the mget command.
+
+Usage: mget
+
+mget works by expanding each filename listed and running a get command on each file. The files are copied into the local working directory, which can be changed with the lcd command.
+
+For example, to download all the files in the remote working directory, the following command would be used:
+
+sftp> mget ./*
+
+To download all of the files ending with .txt the following command would be used:
+
+sftp> mget ./*.txt
+Recursive Copy with SCP
+
+If you try to copy a folder using the get or mget commands, sftp will complain that it "Cannot download non-regular file: filename". This is because the basic sftp client doesn't allow for a recursive copy. However, the program scp will allow you to do this. The scp command will not allow you to see what's on the sftp server, so the files need to be located using the sftp client.
+
+Note: scp is a separate program and must be executed from the Unix command line prompt. NOT within the SFTP client.
+
+Usage: scp copy_from copy_to
+
+For example, if you wanted to copy the file "foobar.txt" from the remote location to your own computer, use the command:
+
+scp user@sftp.cae.wisc.edu:/path/to/foobar.txt /some/local/directory
+
+Likewise, if you wanted to copy the file "foobar.txt" from your own computer to your CAE remote files, use the command:
+
+scp /path/to/foobar.txt user@sftp.cae.wisc.edu:/some/remote/directory
+
+In both examples, user is your CAE username. Enter your password when scp asks for it. scp works just like a get command in sftp.
+
+To recursively copy files or directories from your CAE account, use the -r switch.
+
+For example, to copy the entire directory "tutorial" from my CAE home directory to the home directory on your machine, the following command would be used:
+
+ComputerName:~ # scp -r user@sftp.cae.wisc.edu:~/tutorial ~/
+
+Where user is your CAE username.
+
+Podemos restringir o acesso via scp ou sftp para apenas um IP ou rede
+
+sshd: 192.168.1.1
+
+Toda uma rede
+sshd: 192.168.1.0/24
+ou
+sshd: 192.168.1.0/255.255.255.0
+
+em
+ListemAddress?
+
+

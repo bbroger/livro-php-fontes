@@ -1,0 +1,55 @@
+Configurar em diretório home do user.
+
+Para cada site crie um usuário para administra o mesmo através do sftp.
+SSH deve ser desabilitado para estes usuários.
+
+Criar usuário restrito
+
+useradd ribafs -d /var/www/html/site1
+
+Caso acuse que você já criou o diretório ignore
+
+Caso o usuário já tenha sido criado apenas altere:
+usermod -m -d /var/www/html/site1 ribafs
+
+Criar um grupo chamado sshonly
+
+groupadd sshonly
+usermod -aG sshonly ribafs
+
+nano /etc/ssh/sshd_config
+
+Mude a linha do Subsystem para esta abaixo não permitindo ssh
+Subsystem sftp internal-sftp
+
+Adicione ao final do sshd_config
+
+Match Group sshonly
+ChrootDirectory %h
+ForceCommand internal-sftp
+X11Forwarding no
+AllowTcpForwarding no
+
+systemctl restart sshd
+
+Mude o grupo do diretório we e seus subdiretórios para sshonly
+
+chgrp sshonly /var/www/html/ -R
+
+Caso queira mudar algum usuário e seu diretório:
+
+usermod -m -d /var/www/html/sitejoao/ joao
+
+cd /var/www/html/sitejoao/
+chown joao * -R
+
+Protegendo administrator do Joomla
+
+nano /var/www/html/joomla/administrator/.htaccess
+
+Order Deny,Allow
+Deny from all
+Allow from XX.XX.XX.XX
+Allow from XX.XX.XX.YY
+
+

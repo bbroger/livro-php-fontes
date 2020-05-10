@@ -1,0 +1,23 @@
+HTML
+		<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+
+CSS
+body {
+font-family : 'Lato', sans-serif;
+background : #fff;
+}
+body p {
+color : #666666;
+font-family : "Lato", sans-serif;
+font-size : 14px;
+letter-spacing : 1px;
+}
+body h1, h2, h3, h4, h5, h6 {
+color : #141414;
+font-family : "Lato", sans-serif;
+font-size : 18px;
+text-transform : capitalize;
+font-weight : 800;
+text-transform : uppercase;
+}
+

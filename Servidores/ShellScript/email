@@ -1,0 +1,80 @@
+#!/bin/bash
+MENU=/usr/local/bin/email;
+clear
+_Menu ()
+{
+        clear
+        echo " "
+        echo "        ============================================================"
+        echo "                DNOCS - ADMINISTRAÇÃO DE SERVIDORES LINUX           "
+        echo "                                                    "
+        echo "        ============== ADMINISTRAÇÃO DE E-MAILS ===================="
+        echo "                                                    "
+        echo "           1. Criar um novo e-mail                  "
+        echo "                                                    "
+        echo "           2. Trocar senha de e-mail                "
+        echo "                                                    "
+        echo "           0. Sair                                  "
+        echo "                                                    "
+        echo "        ============================================================"
+        echo "                                                    "
+        echo -n "            Digite um número e tecle ENTER: ======> "
+        read option;
+
+        case "$option" in
+                1)
+                        _criaremail;
+                ;;
+		2)
+			_trocarsenha;
+                ;;
+		0)	
+			_sair;
+		;;
+                *)
+                        clear
+                        echo -e "Escolha inválida. Tente novamente.\n Pressione ENTER para continuar.";
+                        read junk;
+                        $MENU
+                ;;
+                esac
+}
+
+_criaremail ()
+{
+        clear
+	echo ''
+	echo "Digite o login do usuário. Lembre do formato 'nome.sobrenome' "
+	read login
+	useradd $login -g users
+	echo "Entre com a senha para o usuário "$login
+	echo ""
+	passwd $login
+	touch /var/spool/mail/$login
+	chown $login:users /var/spool/mail/$login
+	clear
+	echo ''
+	echo "Usuário "$login" criado"
+	echo "Agora abra o webmin.dnocs.gov.br e faça o teste e aproveite para ajustar algumas configurações: encaminhar e-mail e antivirus e spam!"
+	echo "Tecle ENTER para continuar"
+	read n
+	$MENU;
+}
+
+_trocarsenha ()
+{
+        clear
+	echo "Entre o login do usuário, no formato: nome.sobrenome"
+	read login
+	echo "Entre com a senha para o usuário "$login
+	passwd $login
+	echo "Agora abra o webmin.dnocs.gov.br e faça o teste"
+	$MENU;
+}
+
+_sair ()
+{
+	clear;
+	exit;
+}
+_Menu;

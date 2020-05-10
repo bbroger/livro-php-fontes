@@ -1,0 +1,41 @@
+https://geekflare.com/joomla-security/
+
+Não existe segurança perfeita mas quem administra um site sempre deve fazer o melhor que puder, se informando e procurando proteger da melhor forma. Sem esquecer do backup atualizado e testado.
+
+Scannear site em busca de vulnerabilidade
+
+https://www.scanmyserver.com/
+
+1) Usar uma senha forte no administrator e mudar usuário de admin para outro
+
+Acesse o site e o use para ajduar
+https://www.serveu.net/secure-password-generator.html
+
+2) Faça backup completo (arquivos e banco) regularmente, especialmente após qualquer alteração.
+Teste também regularmente o backup feito. Quarde bem guardado.
+
+3) Mantenha o Joomla e todas as extensões sempre atualizados
+
+Antes de instalar qualquer extensão consulte a lista de extensões vulneráveis
+https://docs.joomla.org/Archived:Vulnerable_Extensions_List
+
+4)Monitore seu site
+Veja
+https://geekflare.com/monitor-website-uptime/
+
+5) Habilite SEF no site
+URLs amigáveis e outros
+
+6) Evite extensões não conhecidas e removas as não usadas
+
+7) Use exensões para melhorar a segurança
+https://geekflare.com/security-extensions-to-protect-joomla-website/
+
+8) Mantenha arquivos e pastas com permissões adequadas
+PHP files – 644
+Config Files – 644
+Other folders – 755
+
+9) Use um firewall de aplicações como o mod_security
+
+

@@ -1,0 +1,8 @@
+Para maior segurança, criar um usuário que tenha os privilégios restritos à apenas os abaixo
+
+mysql -uroot -p
+create database db_portal;
+CREATE USER 'user_portal'@'localhost' IDENTIFIED BY 'senhaforte';
+GRANT ALTER CREATE CREATE TEMPORARY TABLES DELETE DROP INDEX INSERT LOCK TABLES SELECT UPDATE ON db_portal.* TO user_portal@localhost IDENTIFIED BY 'senhaforte' WITH GRANT OPTION; 
+
+

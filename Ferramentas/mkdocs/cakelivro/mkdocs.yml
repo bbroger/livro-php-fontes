@@ -1,0 +1,16 @@
+site_name: Livro de Cake
+nav:
+    - Início: index.md
+    - Sobre: about.md
+markdown_extensions:
+    - codehilite:
+            guess_lang: False
+            use_pygments: True
+            noclasses: True
+            pygments_style: monokai
+    - toc:
+        separator: "_"
+        permalink: "#"
+        baselevel: 2
+theme: readthedocs
+

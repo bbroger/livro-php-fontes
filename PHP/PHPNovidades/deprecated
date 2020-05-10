@@ -1,0 +1,31 @@
+As each() loop is deprecated since PHP 7.2, how to update the below while(() = each()) loop without $value? 
+
+I found a way to fix it and thought to share the information. Here are also other cases about how to upgrade each() loops to foreach().
+Case 1: Missing $value
+
+reset($array);
+while (list($key, ) = each($array)) {
+
+Update to:
+
+foreach(array_keys($array) as $key) {
+
+Case 2: Missing $key
+
+reset($array);
+while (list(, $value) = each($array)) {
+
+Update to:
+
+foreach($array as $value) {
+
+Case 3: Not missing anything
+
+reset($array);
+while (list($key, $value) = each($array)) {
+
+Update to:
+
+foreach($array as $key => $value) {
+
+

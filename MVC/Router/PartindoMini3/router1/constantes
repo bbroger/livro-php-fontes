@@ -1,0 +1,9 @@
+define('DIR_BASE',     dirname( __FILE__ ).'/'); 
+define('DIR_CSS',      DIR_BASE.'css/');
+define('DIR_JS',      DIR_BASE.'js/');
+define('CURRENT_FILE', $_SERVER['PHP_SELF']);
+define('CURRENT_DIR', dirname($_SERVER['PHP_SELF']));
+define('DOC_ROOT',$_SERVER['DOCUMENT_ROOT']);//var/www/html
+define('LINK','http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+
+

@@ -1,0 +1,205 @@
+Instalar um site em Joomla na pasta /var/www/html/portal
+
+
+== Instalar algumas extensões
+
+Como o servidor LEMP criado é apenas padrão e não contém todas as extensões necessárias para um site com Joomla, então instalaremos mais algumas.
+
+apt install php-bcmath
+
+O Akeeba acusou a falta da extensão mbstring
+
+apt install php-mbstring
+
+service nginx restart
+service php7.0-fpm restart
+
+Mais acusadas pelo Akeeba no restore
+
+apt install php-zip
+
+
+== Enviar os arquivos portal.zip e portal.sql para a pasta /tmp do servidor
+
+No desktop copiar os dois arquivos para a pasta /home/ribafs
+scp -P porta portal* ribafs@IP:/tmp
+
+
+No servidor
+cd /tmp
+
+== Criar o banco e um usuário dono dele
+
+mysql -uroot -p
+create database portal;
+GRANT ALL PRIVILEGES ON portal.* TO portal@localhost IDENTIFIED BY 'senhaforte' WITH GRANT OPTION; 
+\q
+mysql -uroot -p portal < portal.sql
+
+
+== Descompactar os arquivos
+
+unzip portal.zip -d /var/www/html/portal
+perms portal
+
+Para melhorar a segurança vamos mover o configuration.php para a papsta /var/www e com nome cfg.php
+mv /var/www/html/portal/configuration.php /var/www/cfg.php
+
+Em seu lugar criemos um arquivo apenas com um require para ele
+nano /var/www/html/portal/configuration.php
+
+<?php
+require_once( dirname( __FILE__ ) . '/../../cfg.php' );
+
+
+== Mudar site disponível
+
+Quando criamos um servidor com Ubuntu 16.04 tipo LEMP no DigitalOcean
+o default site-available/site-enabled chama-se digitalocean
+
+Quero renomear para ribafs.conf
+Como fazer isso?
+
+Renomear arquivo para ribafs.conf
+mv /etc/nginx/sites-available/digitalocean /etc/nginx/sites-available/ribafs.conf
+
+Remover o link simbólico de
+rm /etc/nginx/sites-enabled/digitalocean
+
+Criar o ribafs.conf
+cd /etc/nginx/sites-enabled
+ln -s /etc/nginx/sites-available/ribafs.conf .
+
+service nginx restart
+
+
+== Testando
+
+http://IP/portal
+
+Apareceu simplesmente na tela
+Error
+
+Editei o php.ini
+nano /etc/php/7.0/fpm/php.ini
+
+E mudei o display_errors para On
+
+E
+timezone para
+timezone America/Fortaleza
+
+output_buffering = Off
+
+
+Após reiniciar o nginx
+service nginx restart/
+service php7.0-fpm restart/
+
+Continuou a mensagem
+
+Então reiniciei o php-fpm
+service php7.0-fpm restart
+
+Agora apareceu o erro
+Error: Call to undefined function Joomla\CMS\Language\simplexml_load_file(): Call to undefined function Joomla\CMS\Language\simplexml_load_file()
+
+Então instalei a extensão:
+aptitude install php7.0-simplexml
+
+service nginx restart
+service php7.0-fpm restart
+
+Agora o site apareceu.
+
+
+Mas ao clicar num dos links do site aparece o erro 404
+
+OK. Então basta adicionar uma linha ao bloco location /
+nano /etc/nginx/sites-available/digitalocean
+
+O bloco estava assim:
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+
+Como o site está na pasta portal, mudei para isso:
+
+        location / {
+		        try_files $uri $uri/ /portal/index.php?$args;
+        }
+
+service nginx restart
+
+Agora ao clicar nos links funciona.
+
+
+== Erro ao acessar o administrator
+
+Quando fui abrir o administrator ele não encontra a página.
+Percebi que havia deixado o administrator forçando SSL e como ainda não instalei o SSL não funciona.
+
+Então editei
+nano /usr/share/nginx/html/configuration.php
+
+E alterei a linha abaixo para 0
+public $force_ssl = '0';
+
+Agora acessei normalmente o administrator.
+
+
+== Redirecionar acesso ao raiz para /portal
+
+Removi index.html e info.php do raiz
+
+nano /var/www/html/index.php
+
+<?php
+header('location: portal');
+
+
+Depois de testado o site e configurado novamente para proteger o administrator com SSL
+então efetuar um backup full com o Akeeba Backup para guardar.
+
+
+== Alerta do Akeeba
+
+A Akeeba faz um alerta sobre o diretório media/com_akeeba
+
+WARNING
+
+Akeeba Backup could not determine the permissions of the media/com_akeeba directory.
+
+Please do one of the following:
+
+    Activate Joomla!'s FTP mode in Global Configuration
+    Change the permissions of the media/com_akeeba directory and all of its subdirectories to 0755 and all of its files to 0644 using your FTP client.
+
+Akeeba Backup will most likely not work at all if you do not perform these steps. Do not ask for support if you can see this message. All the information you need is already on this message.
+
+Mas não há problema aqui. O que acontece é que as permissões concedidas apra todos os 
+
+diretórios é de 775
+arquivos é de 664
+
+E ele espera 755 e 644, mas funciona sem problema.
+
+
+== Backup e Restore
+
+Agora faça um backup completo com o akeeba e quando terminar restaure por exemplo para a pasta
+/var/www/html/portal2
+
+Crie o banco portal2, pode ser o mesmo user e senha
+
+Restaure pela web:
+
+http://IP/portal2
+
+
+
+Agora vou implementar o SSL para usar no administrator usando o arquivo
+
+3ssl_nginx
+

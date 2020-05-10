@@ -1,0 +1,73 @@
+Criando um CAPTCHA em PHP
+12/04/2010
+
+Um problema comum para quem fornece um formulário de contato ou disponibiliza algum sistema de comentário em um site é o aumento de spam enviados por bots(robos) que lêem os campos do formulário e enviam as informações de spam via POST.
+
+Uma maneira muito comum de se proteger deste tipo de ataque é diferenciar se quem está enviando as informações é uma pessoa ou um bot. Isso pode ser feito criando um código que seja de fácil leitura para o usuário humano e difícil para máquinas e pedir para o usuário digitar este código junto com as outras informações do formulário.
+
+Este sistema é muito comum hoje em dia e recebe o nome de CAPTCHA(Completely Automated Public Turing Test to Tell Computers and Humans Apart ou Teste Público Totalmente Automatizado para Diferenciar Humanos de Computadores) e vamos agora apreender com fazer um simples.
+
+Começaremos criando uma imagem com um fundo um pouco bagunçado, quanto mais bagunçado melhor, isso dificulta a leitura por bots.
+
+O CAPTCHA vai funcionar da seguinte forma, vamos gerar um código baseado na hora do sistema e armazená-lo em uma sessão, após isso iremos criar uma imagem com o fundo que criamos acima e escrever o nosso código gerado sobre ele.
+
+Vamos então aos código
+	
+session_start();
+ 
+$codigoCaptcha = substr(md5( time() ) ,0,9);
+ 
+$_SESSION['captcha'] = $codigoCaptcha;
+ 
+$imagemCaptcha = imagecreatefrompng("fundocaptch.png");
+ 
+$fonteCaptcha = imageloadfont("anonymous.gdf");
+ 
+$corCaptcha = imagecolorallocate($imagemCaptcha,255,0,0);
+ 
+imagestring($imagemCaptcha,$fonteCaptcha,15,5,$codigoCaptcha,$corCaptcha);
+ 
+header("Content-type: image/png");
+ 
+imagepng($imagemCaptcha);
+ 
+imagedestroy($imagemCaptcha);
+
+Na linha 3 geramos nosso código “aleatório” começamos pegando o timestamp através da função time e aplicamos sobre ele a função md5 deste código md5 pegamos os 9 primeiros caracteres(se você quiser pode pegar mais ou menos) através da função substr.
+
+Na linha 5 salvamo nosso código na sessão para que possamos compará-lo mais tarde.
+
+Na linha 7 criamos uma imagem a partir da imagem de fundo que criamos.
+
+Na linha 9 carregamos uma fonte através da função imageloadfont que carrega define a fonte que será utilizada para escrever nosso código de captcha na imagem criada na linha 7.
+
+Na linha 11 utilizamos a função imagecolorallocate para gerar uma cor para o código que iremos inserir na imagem.
+
+Na linha 13 utilizamos a função imagestring para “desenhar” o código gerado na linha 3 na imagem criada na linha 8, utilizando a fonte definida na linha 9.
+
+Na linha 15 mudamos o cabeçalho do arquivo para ele ser um arquivo do tipo imagem no formato png, isso faz com que o navegador mostre a imagem e não o código binarios em forma de texto.
+
+Na linha 17 enviamos a imagem gerada para o navegador. Na linha 19 desalocamos o espaço utilizado pela imagem criada.
+
+Para utilizar o captcha precisamos de um formulário e dentro dele exibiremos a nossa imagem através da tag IMG e também precisaremos de um campo para o usuário inserir o código captcha.
+	
+<form action="valida.php" method="post">
+    <img src="captcha.php" alt="código captcha" />
+ 
+    <label for="captcha">Digite o código</label>
+<input id="captcha" name="captcha" type="text" />
+<input type="submit" value="Enviar" />
+</form>
+
+Agora basta compara o valor passado por POST no input captcha com o valor armazenada em sessão.
+	
+if( $_SESSION['captcha'] == $_POST['captcha']){
+        echo "<h1>Ok - Código Correto</h1>";
+    }else{
+        echo "<h1>Erro - Código digitado errado</h1>";
+    }
+
+Aqui você pode visializar o exemplo - http://www.botecodigital.info/exemplos/captcha/form.php
+
+Download do exemplo - http://www.botecodigital.info/exemplos/captcha/captcha.zip
+

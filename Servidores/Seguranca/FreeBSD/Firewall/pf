@@ -1,0 +1,180 @@
+Packt Filter do OpenBSD que o FreeBSD já vem com ele nativamente
+
+nano /etc/rc.conf
+
+pf_enable="YES"
+pf_rules="/usr/local/etc/pf.conf"
+pflog_enable="YES"
+pflog_logfile="/var/log/pflog"
+pflog_flags=""
+
+Regras
+nano /usr/local/etc/pf.conf
+# vim: set ft=pf
+# /usr/local/etc/pf.conf
+ 
+## Set your public interface ##
+ext_if="vtnet0"
+ 
+## Set your server public IP address ##
+ext_if_ip="172.xxx.yyy.zzz"
+ 
+## Set and drop these IP ranges on public interface ##
+martians = "{ 127.0.0.0/8, 192.168.0.0/16, 172.16.0.0/12, \
+              10.0.0.0/8, 169.254.0.0/16, 192.0.2.0/24, \
+              0.0.0.0/8, 240.0.0.0/4 }"
+ 
+## Set http(80)/https (443) port here ##
+webports = "{http, https}"
+ 
+## enable these services ##
+int_tcp_services = "{domain, ntp, smtp, www, https, ftp, ssh}"
+int_udp_services = "{domain, ntp}"
+ 
+## Skip loop back interface - Skip all PF processing on interface ##
+set skip on lo
+ 
+## Sets the interface for which PF should gather statistics such as bytes in/out and packets passed/blocked ##
+set loginterface $ext_if
+ 
+## Set default policy ##
+block return in log all
+block out all
+ 
+# Deal with attacks based on incorrect handling of packet fragments 
+scrub in all
+ 
+# Drop all Non-Routable Addresses 
+block drop in quick on $ext_if from $martians to any
+block drop out quick on $ext_if from any to $martians
+ 
+## Blocking spoofed packets
+antispoof quick for $ext_if
+ 
+# Open SSH port which is listening on port 22 from VPN 139.xx.yy.zz Ip only
+# I do not allow or accept ssh traffic from ALL for security reasons 
+pass in quick on $ext_if inet proto tcp from 139.xxx.yyy.zzz to $ext_if_ip port = ssh flags S/SA keep state label "USER_RULE: Allow SSH from 139.xxx.yyy.zzz"
+## Use the following rule to enable ssh for ALL users from any IP address #
+## pass in inet proto tcp to $ext_if port ssh
+### [ OR ] ###
+## pass in inet proto tcp to $ext_if port 22 
+ 
+# Allow Ping-Pong stuff. Be a good sysadmin 
+pass inet proto icmp icmp-type echoreq
+ 
+# All access to our Nginx/Apache/Lighttpd Webserver ports 
+pass proto tcp from any to $ext_if port $webports
+ 
+# Allow essential outgoing traffic 
+pass out quick on $ext_if proto tcp to any port $int_tcp_services
+pass out quick on $ext_if proto udp to any port $int_udp_services
+ 
+# Add custom rules below
+
+
+Checando as regras
+service pf check
+
+ou
+/etc/rc.d/pf check
+
+ou
+pfctl -n -f /usr/local/etc/pf.conf
+
+Serviços
+
+service pf start
+service pf stop
+service pf check
+service pf restart
+service pf status
+
+Logs
+service pflog start
+service pflog stop
+service pflog restart
+
+Informações sobre regras
+pfctl -s rules
+
+pfctl -v -s rules
+
+Números
+pfctl -vvsr show
+
+Estado
+pfctl -s state
+pfctl -s state | more
+pfctl -s state | grep 'something'
+
+Desabilitar para CLI
+pfctl -d
+
+Habilitar
+pfctl -e 
+
+Flush todas as rules/nat/tables do CLI
+pfctl -F all
+
+Flush somente as rules
+pfctl -F rules
+
+Flush somente queue
+pfctl -F queue
+
+Flush todas as estatísticas
+pfctl -F info
+
+Limpar todos os contadores do CLI
+pfctl -z clear
+
+Ver logs
+tcpdump -n -e -ttt -r /var/log/pflog
+
+Logs em tempo real
+tcpdump -n -e -ttt -i pflog0
+
+# man tcpdump
+# man pfctl
+# man pf
+https://www.openbsd.org/faq/pf/
+https://www.freebsd.org/doc/handbook/firewalls.html
+
+How To Set Up PF Firewall on FreeBSD to Protect a Web Server
+https://www.cyberciti.biz/faq/how-to-set-up-a-firewall-with-pf-on-freebsd-to-protect-a-web-server/
+
+Rotação de logs
+
+mkdir /var/log/pf
+
+nano /etc/newsyslog.conf
+
+/var/log/pf/pflog 600  365   100  @T00  JB    /var/run/pflogd.pid
+
+Alguns comandos úteis: 
+
+Desabilitar o Firewall - pfctl -d
+Habilitar o Firewall - pfctl -e
+Ativar as regras do Firewall - pfctl -f /etc/pf.conf
+Limpar as regras do Firewall - /sbin/pfctl -F rules
+Lista as tabelas existentes - pfctl -s Tables
+Lista o conteúdo de uma tabela - pfctl -t permitdos -T show
+Adicionar um IP a uma tabela - pfctl -t spammers -T add 218.70.0.0/16
+Elimina uma IP de uma tabela - pfctl -t spammers -T delete 218.70.0.0/16
+Limpa as regras de NAT e recarrega o Firewall - /sbin/pfctl -F nat && /sbin/pfctl -N /etc/pf.conf
+Limpa todas as regras de filtro e recarrega o Firewall - /sbin/pfctl -F rules && /sbin/pfctl -R /etc/pf.conf
+Mostra informações dos filtros (estatísticas e contadores) - pfctl -s info
+Mostra a lista atual de filtros de MAPs e redirecionamento e sessões ativas - /sbin/pfctl -s state
+Estatísticas de cada regra individual - /sbin/pfctl -s rules -v
+Mostra o uso da memória - pfctl -s memory
+Mostra informações gerais - pfctl -s info
+Mostra todas as informações do Firewall - pfctl -s all
+Mais detalhes do comando pfctl - man pfctl
+O arquivo /var/log/pf/pflog é um arquivo binário. Deve-se usar o tcpdump para examinar o seu conteúdo - tcpdump -i pflog0
+Leitura dos logs de atividades do PF - tcpdump -n -e -ttt -r /var/log/pf/pflog
+
+Criar uma tabela a partir de um arquivo texto que contém uma lista de endereços IP que fazem SPAM: Acrescentar ao arquivo (/etc/pf.conf) o seguinte trecho: 
+      table  persist file "/etc/spammers"
+      block in on rl0 from  to any
+
+

@@ -1,0 +1,296 @@
+Criação de um Servidor na DigitalOcean
+
+Tipo One-click-apps
+LAMP on 16.0
+1GB
+London
+lamp-ub
+
+159.65.93.252
+
+1 GB Memory / 25 GB Disk / LON1 - Ubuntu LAMP on 16.04
+
+
+Associei a uma chave SSH que havia criado no trabalho
+
+Como associei o servidor a uma chave, nãos ei porque, mas ele não permitiu o acesso do meu desktop via ssh, mostrando a mensagem:
+
+ssh root@159.65.89.220
+The authenticity of host '159.65.89.220 (159.65.89.220)' can't be established.
+ECDSA key fingerprint is SHA256:Z+EL5v6LJZ31PEBpHMPNvbWk9p813GP4CN/G9lMevSo.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '159.65.89.220' (ECDSA) to the list of known hosts.
+Permission denied (publickey).
+
+Então destrui o servidor e criei outro semelhante mas sem a chave
+
+Após criar o servidor o DO envia um e-mail com um link para LAMPs:
+https://www.digitalocean.com/community/tags/lamp-stack?utm_source=Customerio&utm_medium=Email_Internal&utm_campaign=Email_LAMPWelcome&mkt_tok=eyJpIjoiTWpReVpqWmpNV1kxWWpjNSIsInQiOiJESmRUbXVqVVhQOEdNbzVaZXNydkNNRUJlME9XSzRhTXhqMFB6UCs2RTVvb0Vja1wvVGpoMnJiVEh1M0lnbjRMK2FNZkFBbzQxZlZzS1FhXC9oakdQdHZjS3RcL2RlTVRkZUxxZ3g1dFFxOVlcL2VxY2RXYVdac2tOaDV6TjhhUzE0WnMifQ%3D%3D
+
+Um link sobre um LAMP
+https://www.digitalocean.com/community/tutorials/how-to-launch-your-site-on-a-new-ubuntu-14-04-server-with-lamp-sftp-and-dns?utm_source=Customerio&utm_medium=Email_Internal&utm_campaign=Email_LAMPWelcome&mkt_tok=eyJpIjoiTWpReVpqWmpNV1kxWWpjNSIsInQiOiJESmRUbXVqVVhQOEdNbzVaZXNydkNNRUJlME9XSzRhTXhqMFB6UCs2RTVvb0Vja1wvVGpoMnJiVEh1M0lnbjRMK2FNZkFBbzQxZlZzS1FhXC9oakdQdHZjS3RcL2RlTVRkZUxxZ3g1dFFxOVlcL2VxY2RXYVdac2tOaDV6TjhhUzE0WnMifQ%3D%3D
+
+Um link para efetuar perguntas
+https://www.digitalocean.com/community/questions/new?utm_source=Customerio&utm_medium=Email_Internal&utm_campaign=Email_LAMPWelcome&mkt_tok=eyJpIjoiTWpReVpqWmpNV1kxWWpjNSIsInQiOiJESmRUbXVqVVhQOEdNbzVaZXNydkNNRUJlME9XSzRhTXhqMFB6UCs2RTVvb0Vja1wvVGpoMnJiVEh1M0lnbjRMK2FNZkFBbzQxZlZzS1FhXC9oakdQdHZjS3RcL2RlTVRkZUxxZ3g1dFFxOVlcL2VxY2RXYVdac2tOaDV6TjhhUzE0WnMifQ%3D%3D
+
+Citando outros
+How To Create Your First DigitalOcean Droplet 
+https://www.digitalocean.com/community/tutorials/how-to-create-your-first-digitalocean-droplet
+
+Initial Server Setup with Ubuntu 14.04
+https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04
+
+How To Install Linux, Apache, MySQL, PHP (LAMP) stack on Ubuntu 14.04
+https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-14-04
+
+How To Set Up a Host Name with DigitalOcean
+https://www.digitalocean.com/community/tutorials/how-to-set-up-a-host-name-with-digitalocean
+
+An Introduction to DNS Terminology, Components, and Concepts
+https://www.digitalocean.com/community/tutorials/an-introduction-to-dns-terminology-components-and-concepts
+
+How To Use SFTP to Securely Transfer Files with a Remote Server
+https://www.digitalocean.com/community/tutorials/how-to-use-sftp-to-securely-transfer-files-with-a-remote-server
+
+How To Use Filezilla to Transfer and Manage Files Securely on your VPS
+https://www.digitalocean.com/community/tutorials/how-to-use-filezilla-to-transfer-and-manage-files-securely-on-your-vps
+
+How To Install Wordpress on Ubuntu 14.04
+https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-on-ubuntu-14-04
+
+Outros Tutriais
+https://www.digitalocean.com/community/tutorials
+https://www.vultr.com/docs/
+
+
+- Após criar o servidor/droplet
+- Abra a droplet criada
+- Clique em Access - Reset Root Password
+
+- O acesso pelo terminal do desktop é bloqueado pelo ufw
+- Acessar pela console com root e a senha recebida por e-mail
+
+
+== Veja que ele mostra avisos importantes:
+
+- Os pacotes estão todos atualizados
+
+- O site já está no ar:
+http://159.65.93.252
+
+- O arquivo em PHP:
+http://159.65.93.252/info.php
+
+- O ufw está habilitando e bloqueando todas as portas, exceto a 22, 80 e 443
+
+- Recomenda proteger o mysql com mysql_secure_installation e que a senha do mysql está no arquivo:
+/root/.digitalocean_password
+
+- Diz que o Let's Encrypt foi pré-instalado. Sugere http://do.co/le-apache
+
+- Sugere How To Install Linux, Apache, MySQL, PHP (LAMP) stack on Ubuntu 14.04
+http://do.co/lamp1404
+
+- Para remover este aviso execute:
+rm -rf /etc/update-motd.d/99-one-click
+
+
+== Parar temporariamente o UFW
+
+- Parar o ufw
+	ufw disable
+
+- Acesse pelo terminal do seu desktop
+	ssh root@IP
+
+== Testar pela web
+
+http://159.65.93.252
+
+
+== Criar diretório de backup
+mkdir /root/backup
+
+É importante se acostumar a fazer sempre backup de scripts ou do site (banco e arquivos) antes de efetuar alterações, pois perder informações é bem ruim.
+
+Ao acessar recebe-se o aviso da DigitalOcean
+
+Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-109-generic x86_64)
+
+Thank you for using DigitalOcean's LEMP Application.
+
+Your web root is located at /var/www/html and can be seen from
+    http://46.101.58.212
+
+The details of your PHP installation can be seen at
+    http://46.101.58.212/info.php
+
+The "ufw" firewall is enabled. All ports except for 22, 80, and 443 are BLOCKED
+
+You are encouraged to run mysql_secure_installation to ready your server for
+production. The passwords for MySQL have been saved to:
+    /root/.digitalocean_password
+
+Let's Encrypt has been pre-installed for you. If you have a domain name, and
+you will be using it with this 1-Click app, please see: http://do.co/le-nginx
+
+You can learn more about using this image here: http://do.co/lemp
+
+To delete this message of the day: rm -rf /etc/update-motd.d/99-one-click
+Last login: Tue Mar  6 18:32:29 2018 from 177.14.224.187
+ribafs@lempub16:~$ 
+
+Para remover esta mensagem execute:
+rm -rf /etc/update-motd.d/99-one-click
+
+
+== Criar diretório de backup para scripts
+mkdir /root/backup
+
+Copiar inicialmente todos os scripts importantes de configuração para esta pasta:
+cd /root/backup
+cp /etc/php/7.0/apache2/php.ini .
+cp /etc/apache2/apache2.conf .
+cp /etc/apache2/sites-available/000-default.conf .
+cp /etc/apache2/sites-available/default-ssl.conf .
+
+Ao final, após tudo configurado, instalado e o site instalado então efetuar novamente o backup dos scripts mas com prefixo OH
+
+cd /root/backup
+cp /etc/php/7.0/apache2/php.ini OKphp.ini
+cp /etc/apache2/apache2.conf OKapache2.conf
+cp /etc/apache2/sites-available/000-default.conf OK000-default.conf
+cp /etc/apache2/sites-available/default-ssl.conf OKdefault-ssl.conf
+
+Em caso de algum problema e se perder o controle podemos restaurar o respectivo script.
+
+
+== Instalar pacotes básicos
+
+apt install unzip mc aptitude
+
+
+== Criar um usuário comum
+adduser ribafs
+
+- Adicionar ao sudoers
+
+cp /etc/sudoers /root/backup
+nano /etc/sudoers
+
+Adicione abaixo da linha com root esta linha:
+
+ribafs	ALL=(ALL)	NOPASSWD:ALL
+
+- Adicionar o ribafs ao ssh e efetuar ajustes
+
+cp /etc/ssh/sshd_config  /root/backup
+nano /etc/ssh/sshd_config
+
+Altere as linhas:
+
+Port 55522
+LoginGraceTime 30
+PermitRootLogin no
+
+Adicione ao final:
+
+AllowUsers ribafs
+
+Reiniciar o SSH
+service ssh restart
+
+
+== Acessar pelo terminal do desktop
+
+ssh -p 55522 ribafs@159.65.93.252
+
+
+==Ajustes no UFW
+
+ufw enable
+
+ufw delete limit in 22
+ufw allow 55522
+ufw allow http
+ufw allow https
+
+ufw status verbose
+
+
+== Adicionar partição de swap com 2GB
+
+dd if=/dev/zero of=/swapfile bs=1M count=2048
+mkswap /swapfile
+chmod 600 /swapfile
+swapon /swapfile
+
+nano /etc/fstab
+/swapfile	swap	swap	defaults	0	0
+
+Testar
+free -m
+
+
+== Exportar a chave do ssh do desktop para o servidor
+
+Acessar o servidor como ribafs e execute:
+
+mkdir .ssh
+chmod 700 .ssh
+cd .ssh
+ssh-keygen -b 1024 -f id_ribafs -t dsa (Enter 2 vezes)
+cat ../.ssh/id_ribafs*.pub > ../.ssh/authorized_keys
+chmod 600 ../.ssh/*
+exit
+
+Acessar o desktop
+
+ssh-copy-id ribafs@ip -p porta
+
+
+== Criar script para limpar o cache da RAM
+
+nano /usr/local/bin/m
+
+sysctl -w vm.drop_caches=3
+swapoff -a
+swapon -a
+
+chmod +x /usr/local/bin/m
+
+Executar com root
+m
+
+Antes de rodar o "m" havia 64 MB free
+Após ficou com 709 MB.
+
+
+== Criar um script para configurar as permissões do /var/www/html
+
+nano /usr/local/bin/perms
+
+#!/bin/sh
+clear;
+echo "Aguarde enquanto configuro as permissões do /var/www/html/$1";
+echo "";
+chown -R www-data:www-data /var/www/html/$1;
+find /var/www/html/$1 -type d -exec chmod 755 {} \;
+find /var/www/html/$1 -type f -exec chmod 654 {} \;
+echo "";
+echo "Concluído!";
+	
+chmod +x /usr/local/bin/perms
+
+Executando no diretório /var/www/html/portal
+perms portal
+
+Executando no diretório /var/www/html
+perms
+
+Executo sempre que faço alguma alteração como root no /var/www/html
+
+Agora vou criar o banco e instalar um site em Joomla com o arquivo
+2joomla
+
+

@@ -1,0 +1,27 @@
+Recomendações sobre segurança
+
+- Usar senhas de no mínimo 6 caracteres. Quanto mais melhor, mas de 8 a 10 tá bom.
+- Misturar caracteres alfabéticos maiúsculas, minúsculas, números e caracteres especiais como:
+-, _, *, $, !, %
+- Não use senhas fáceis como data de nascimento, número de identidade, nomes de filhos e cônjuges.
+- Procure não usar palavras do mundo real
+- Pense num eposódio que apenas você conhece ou lembra e forme uma frase com suas iniciais
+- Crie senhas posicionais, por exemplo: primeira letra da última fila, primeira letra da primeira fila, última letra da última fila, última letra da primeira fila e assim por diante.
+- Mesmo que ilógicas as senhas devem ser, para você, de fácil memorização, pois você deve evitar anotar as senhas
+- Evite usar a mesma senha para todos os esus acessos
+- Atualize com uma certa frequeência suas senhas
+
+
+Evitar o uso do ftp para transferir/baixar arquivos para/do servidor, pois ele envia seus dados (login e senha) em texto claro.
+
+Se precisar usar o ftp use o FileZilla, que usa o sftp.
+
+https://filezilla-project.org/
+
+Instalação:
+
+Debian e derivados
+sudo apt-get install filezilla
+
+Windows 64
+https://filezilla-project.org/download.php?platform=win64

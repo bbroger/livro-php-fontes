@@ -1,0 +1,14 @@
+Sistema de Login PHP-PDO
+
+Sistema de login com PHP - PDO no mesmo arquivo temos tela inicial "index.php" e como é feita a conexão"conexao.php"
+junto eu adicionei as funções para criar um banco de dados o mesmo só precisa ser instanciado no projeto
+para melhor compreenção eu coloquei alguns pontos no campos onde deve ser feita a alteração.
+
+Obrigado.
+
+
+Login system with PHP - PDO in the same file have home screen "index.php" and how is the connection "conexao.php"
+I added together the functions to create a database it only needs to be instantiated in the project
+for better comprehension I put some points on the fields which should be made to change.
+
+Thank you.
